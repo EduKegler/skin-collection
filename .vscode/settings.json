@@ -1,0 +1,14 @@
+{
+  // Prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // use ⌘-K S to format without saving
+  "editor.formatOnSave": true,
+
+  // Disable built-in formatters
+  "html.format.enable": false,
+  "json.format.enable": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": { "plaintext": "javascript" }
+}
