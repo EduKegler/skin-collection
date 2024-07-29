@@ -58,7 +58,7 @@ async function getChampionList(language: string) {
               isCollected: isCollected.includes(skin.id.toString()),
             };
           })
-          .filter((skin) => skin.name !== "(2022)"),
+          .filter((skin) => !skin.name.includes("(2022)")),
       };
     })
   );
