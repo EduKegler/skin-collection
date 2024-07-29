@@ -22,7 +22,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
   const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
 
   return (
-    <div className="text-center">
+    <div className="text-center w-[154px]">
       <div
         className="flex-none w-[154px] h-[280px] relative group cursor-pointer"
         onClick={handleClick}
@@ -34,6 +34,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
           fill={true}
           className="rounded-lg shadow-md pb-2"
           sizes="154px"
+          unoptimized
         />
         <div
           className={clsx(

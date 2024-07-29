@@ -18,7 +18,7 @@ export const Champion = function Champion({ champion }: ChampionProps) {
           {champion.name} ({collected}/{champion.skins.length})
         </h3>
       </div>
-      <div className="flex overflow-x-auto space-x-4">
+      <div className="flex flex-wrap gap-2">
         {champion.skins.map((skin) => (
           <Skin
             key={skin.id}
