@@ -42,7 +42,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
             "group-hover:opacity-0"
           )}
         >
-          <span className="text-lg font-bold">Collected!</span>
+          <span className="text-sm font-bold">Collected!</span>
         </div>
 
         <div
@@ -52,12 +52,12 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
             "group-hover:opacity-100"
           )}
         >
-          <span className="text-lg font-bold">
+          <span className="text-sm font-bold">
             {skin.isCollected ? "Not Collected?" : "Collected?"}
           </span>
         </div>
       </div>
-      <span className="mt-2">{skinNameReplaced}</span>
+      <span className="mt-2 text-xs">{skinNameReplaced}</span>
     </div>
   );
 };

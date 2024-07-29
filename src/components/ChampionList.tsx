@@ -24,7 +24,7 @@ export const ChampionList = function ChampionList({
 
   return (
     <main className="flex min-h-screen flex-col gap-2 ">
-      <div className="flex gap-2 pb-4">
+      <div className="flex gap-4 pb-4">
         <Search search={search} setSearch={setSearch} />
         <LanguageSelect language={language} />
       </div>

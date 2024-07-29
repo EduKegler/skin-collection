@@ -61,5 +61,7 @@ async function getChampionList(language: string) {
     })
   );
 
-  return detailedChampions;
+  return detailedChampions.sort((champA, champB) =>
+    champA.name >= champB.name ? 1 : -1
+  );
 }
