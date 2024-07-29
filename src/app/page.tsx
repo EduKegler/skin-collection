@@ -51,12 +51,14 @@ async function getChampionList(language: string) {
 
       return {
         ...champion,
-        skins: details.skins.map((skin) => {
-          return {
-            ...skin,
-            isCollected: isCollected.includes(skin.id.toString()),
-          };
-        }),
+        skins: details.skins
+          .map((skin) => {
+            return {
+              ...skin,
+              isCollected: isCollected.includes(skin.id.toString()),
+            };
+          })
+          .filter((skin) => skin.name !== "(2022)"),
       };
     })
   );
