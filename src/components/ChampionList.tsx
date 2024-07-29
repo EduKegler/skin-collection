@@ -29,8 +29,11 @@ export const ChampionList = function ChampionList({
         <LanguageSelect language={language} />
       </div>
 
-      {championFilter.map((champion) => (
+      {championFilter.map((champion, index) => (
         <div key={champion.id} className="px-2">
+          {Boolean(index) && (
+            <hr className="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+          )}
           <Champion champion={champion} />
         </div>
       ))}
