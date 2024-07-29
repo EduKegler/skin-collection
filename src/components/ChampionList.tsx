@@ -18,7 +18,10 @@ export const ChampionList = function ChampionList({
   const [search, setSearch] = useState("");
 
   const championFilter = useMemo(
-    () => champions.filter((champion) => champion.name.includes(search)),
+    () =>
+      champions.filter((champion) =>
+        champion.name.toLocaleLowerCase().includes(search)
+      ),
     [champions, search]
   );
 
