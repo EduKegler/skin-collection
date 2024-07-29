@@ -14,7 +14,7 @@ export const Search = memo(function Search({ search, setSearch }: SearchProps) {
     [setSearch]
   );
   return (
-    <form className="flex items-center pb-4">
+    <form className="flex items-center w-full flex-2">
       <label htmlFor="voice-search" className="sr-only">
         Search
       </label>

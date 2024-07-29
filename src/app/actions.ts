@@ -13,3 +13,7 @@ export async function updateSkin(championId: string, skinId: string) {
     cookies().set(championId, [...skins, skinId].join(","));
   }
 }
+
+export async function updateLanguage(language: string) {
+  cookies().set("language", language);
+}

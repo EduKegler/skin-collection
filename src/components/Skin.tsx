@@ -12,17 +12,15 @@ type SkinProps = {
   skin: ISkin;
 };
 
-export const Skin = function Skin({ id, name, skin }: SkinProps) {
-  const skinNameReplaced = skin.name
-    .replaceAll(name, "")
-    .replaceAll("default", "Default")
-    .trim();
+export const Skin = function Skin({ id, skin }: SkinProps) {
+  const skinNameReplaced = skin.name.replaceAll("default", "Default").trim();
 
   const handleClick = useCallback(() => {
     updateSkin(id, skin.id.toString());
   }, [id, skin.id]);
 
   const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
+
   return (
     <div className="text-center">
       <div

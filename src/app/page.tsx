@@ -3,18 +3,22 @@ import { IChampion, IChampionDetail } from "@/type";
 import { cookies } from "next/headers";
 
 export default async function Page() {
-  const champions = await getChampionList();
+  const language = cookies().get("language")?.value ?? "en_US";
+  const champions = await getChampionList(language);
 
   return (
     <main className="flex min-h-screen flex-col gap-2 px-10 py-10">
-      <ChampionList champions={champions} />
+      <ChampionList champions={champions} language={language} />
     </main>
   );
 }
 
-async function getChampionDetail(id: string): Promise<IChampionDetail> {
+async function getChampionDetail(
+  id: string,
+  language: string
+): Promise<IChampionDetail> {
   const res = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/en_US/champion/${id}.json`
+    `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion/${id}.json`
   );
 
   if (!res.ok) {
@@ -25,9 +29,9 @@ async function getChampionDetail(id: string): Promise<IChampionDetail> {
   return data.data[id];
 }
 
-async function getChampionList() {
+async function getChampionList(language: string) {
   const champiosnResponseJSON = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/14.14.1/data/en_US/champion.json"
+    `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion.json`
   );
 
   if (!champiosnResponseJSON.ok) {
@@ -42,7 +46,7 @@ async function getChampionList() {
 
   const detailedChampions = await Promise.all(
     champions.map(async (champion) => {
-      const details = await getChampionDetail(champion.id);
+      const details = await getChampionDetail(champion.id, language);
       const isCollected = cookies().get(champion.id)?.value.split(",") ?? [];
 
       return {
