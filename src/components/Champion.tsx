@@ -1,10 +1,10 @@
 "use client";
 
-import { IChampionDetail } from "@/type";
+import { IChampion } from "@/type";
 import { Skin } from "./Skin";
 
 type ChampionProps = {
-  champion: IChampionDetail;
+  champion: IChampion;
 };
 
 export const Champion = function Champion({ champion }: ChampionProps) {

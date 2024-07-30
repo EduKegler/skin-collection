@@ -2,12 +2,12 @@
 
 import { Champion } from "@/components/Champion";
 import { Search } from "@/components/Search";
-import { IChampionDetail } from "@/type";
 import { useMemo, useState } from "react";
 import { LanguageSelect } from "./LanguageSelect";
+import { IChampion } from "@/type";
 
 type ChampionListProps = {
-  champions: IChampionDetail[];
+  champions: IChampion[];
   language: string;
 };
 

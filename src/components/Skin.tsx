@@ -5,6 +5,8 @@ import { clsx } from "clsx";
 import { useCallback } from "react";
 import { ISkin } from "@/type";
 import { updateSkin } from "@/app/actions";
+import { SkinTier } from "./SkinTier";
+import { Rating } from "./Rating";
 
 type SkinProps = {
   id: string;
@@ -19,9 +21,10 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
     updateSkin(id, skin.id.toString());
   }, [id, skin.id]);
 
+  console.log(skin);
+
   const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
 
-  console.log(id, skin.id);
   return (
     <div className="text-center w-[154px]">
       <div
@@ -59,9 +62,17 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
           </span>
         </div>
       </div>
-      <span className="mt-2 text-xs">
-        {skinNameReplaced} {skin.id}
-      </span>
+      <div className="flex justify-center pt-2">
+        <Rating
+          amountReviews={skin.rating.amountReviews}
+          rating={skin.rating.rating}
+        />
+      </div>
+
+      <div className="flex mt-2 text-xs gap-2 justify-center">
+        <SkinTier tier={skin.info?.tier} />
+        <span className="self-center">{skinNameReplaced}</span>
+      </div>
     </div>
   );
 };

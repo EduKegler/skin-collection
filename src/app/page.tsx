@@ -1,5 +1,7 @@
 import { ChampionList } from "@/components/ChampionList";
-import { IChampion, IChampionDetail } from "@/type";
+import { SignInWithRiotButton } from "@/components/SignInWithRiot";
+import { skinInfo } from "@/data/skin";
+import { IChampion, IChampionBase } from "@/type";
 import { cookies } from "next/headers";
 
 export default async function Page() {
@@ -8,6 +10,7 @@ export default async function Page() {
 
   return (
     <main className="flex min-h-screen flex-col gap-2 px-10 py-10">
+      <SignInWithRiotButton />
       <ChampionList champions={champions} language={language} />
     </main>
   );
@@ -16,7 +19,7 @@ export default async function Page() {
 async function getChampionDetail(
   id: string,
   language: string
-): Promise<IChampionDetail> {
+): Promise<IChampion> {
   const res = await fetch(
     `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion/${id}.json`
   );
@@ -29,7 +32,7 @@ async function getChampionDetail(
   return data.data[id];
 }
 
-async function getChampionList(language: string) {
+async function getChampionList(language: string): Promise<IChampion[]> {
   const champiosnResponseJSON = await fetch(
     `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion.json`
   );
@@ -42,7 +45,7 @@ async function getChampionList(language: string) {
 
   const champions = Array.from(
     Object.values(championsResponse.data)
-  ) as IChampion[];
+  ) as IChampionBase[];
 
   const detailedChampions = await Promise.all(
     champions.map(async (champion) => {
@@ -51,14 +54,20 @@ async function getChampionList(language: string) {
 
       return {
         ...champion,
-        skins: details.skins
-          .map((skin) => {
-            return {
-              ...skin,
-              isCollected: isCollected.includes(skin.id.toString()),
-            };
-          })
-          .filter((skin) => !skin.name.includes("(2022)")),
+        skins: details.skins.map((skin) => {
+          const rating = (Math.random() * 5).toFixed(1);
+          const amountReviews = Math.floor(Math.random() * 25) + 1;
+
+          return {
+            ...skin,
+            isCollected: isCollected.includes(skin.id.toString()),
+            info: skinInfo[skin.id as keyof typeof skinInfo],
+            rating: {
+              rating,
+              amountReviews,
+            },
+          };
+        }),
       };
     })
   );
