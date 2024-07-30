@@ -21,6 +21,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
 
   const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
 
+  console.log(id, skin.id);
   return (
     <div className="text-center w-[154px]">
       <div
@@ -58,7 +59,9 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
           </span>
         </div>
       </div>
-      <span className="mt-2 text-xs">{skinNameReplaced}</span>
+      <span className="mt-2 text-xs">
+        {skinNameReplaced} {skin.id}
+      </span>
     </div>
   );
 };
