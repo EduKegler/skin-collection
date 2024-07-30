@@ -25,6 +25,7 @@ export const SkinTier = function SkinTier({ tier = "Default" }: SkinTierProps) {
       Budget: null,
       Timeworn: null,
       Default: null,
+      None: null,
     };
     return icons[tier];
   }, [tier]);

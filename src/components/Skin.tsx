@@ -42,7 +42,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
           className={clsx(
             "bg-green-300 bg-opacity-40 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300",
             skin.isCollected ? "opacity-100" : "opacity-0",
-            "group-hover:opacity-0"
+            "group-hover:opacity-0",
           )}
         >
           <span className="text-sm font-bold">Collected!</span>
@@ -52,7 +52,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
           className={clsx(
             "bg-opacity-40 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300",
             skin.isCollected ? "bg-red-300" : "bg-gray-300",
-            "group-hover:opacity-100"
+            "group-hover:opacity-100",
           )}
         >
           <span className="text-sm font-bold">
@@ -61,15 +61,12 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
         </div>
       </div>
       <div className="flex justify-center pt-2">
-        <Rating
-          amountReviews={skin.rating.amountReviews}
-          rating={skin.rating.rating}
-        />
+        <Rating amountReviews={skin.rating.amountReviews} rating={skin.rating.rating} />
       </div>
 
       <div className="flex mt-2 text-xs gap-2 justify-center">
         <SkinTier tier={skin.info?.tier} />
-        <span className="self-center">{skin.id}</span>
+        <span className="self-center">{skinNameReplaced}</span>
       </div>
     </div>
   );

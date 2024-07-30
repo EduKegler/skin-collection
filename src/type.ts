@@ -119,10 +119,23 @@ export type ISkinSet =
   | "World Champions: 2015 (SKT T1)"
   | "World Champions: 2022 (DRX)"
   | "World Champions: 2022 (EDG)"
-  | "World Championship";
+  | "World Championship"
+  | "Snow Day"
+  | "Rift Quest"
+  | "Astronaut"
+  | "Shan Hai Scrolls"
+  | "Arcade: Battle Bosses"
+  | "Primordian"
+  | "Piltover Customs"
+  | "Definitely Not"
+  | "Program"
+  | "Riot"
+  | "Lancer"
+  | "Space Groove"
+  | "Zenith Games"
+  | "Bees!";
 
 export type IInfoSkin = {
-  champion: string;
   tier: ISkinTier;
   isLegacy: boolean;
   set: ISkinSet;
