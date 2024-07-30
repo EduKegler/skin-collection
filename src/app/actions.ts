@@ -9,24 +9,22 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-export async function getUserId() {
-  const userId = cookies().get("userId")?.value ?? "";
-
-  if (!userId) {
-    const newUserId = uuidv4();
-    cookies().set("userId", newUserId);
-    return newUserId;
-  } else {
-    return userId;
-  }
+export async function setUserId() {
+  const newUserId = uuidv4();
+  cookies().set("userId", newUserId);
+  return newUserId;
 }
 
-export async function getSkinList(userId: string) {
+export async function getUserId() {
+  return cookies().get("userId")?.value;
+}
+
+export async function getSkinList(userId?: string) {
   return ((await redis.get(`champions_${userId}`)) ?? []) as string[];
 }
 
 export async function updateSkin(skinId: string) {
-  const userId = await getUserId();
+  const userId = (await getUserId()) ?? (await setUserId());
   const championList = await getSkinList(userId);
 
   if (championList.find((skin) => skin === skinId)) {
