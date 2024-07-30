@@ -12,9 +12,10 @@ type SkinProps = {
   id: string;
   name: string;
   skin: ISkin;
+  index: number;
 };
 
-export const Skin = function Skin({ id, skin }: SkinProps) {
+export const Skin = function Skin({ id, skin, index }: SkinProps) {
   const skinNameReplaced = skin.name.replaceAll("default", "Default").trim();
 
   const handleClick = useCallback(() => {
@@ -30,10 +31,11 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
         onClick={handleClick}
       >
         <Image
-          priority={!skin.num}
+          priority={index <= 10}
           src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${idRenamed}_${skin.num}.jpg`}
           alt={skinNameReplaced}
           fill={true}
+          loading={index > 10 ? "lazy" : "eager"}
           className="rounded-lg shadow-md pb-2"
           sizes="154px"
           unoptimized

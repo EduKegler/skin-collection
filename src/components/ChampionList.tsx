@@ -24,8 +24,13 @@ export const ChampionList = function ChampionList({
         <LanguageSelect language={language} />
       </div>
 
-      {champions.map((champion) => (
-        <Champion key={champion.id} champion={champion} search={search} />
+      {champions.map((champion, index) => (
+        <Champion
+          key={champion.id}
+          champion={champion}
+          search={search}
+          championIndex={index}
+        />
       ))}
     </main>
   );

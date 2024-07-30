@@ -9,18 +9,23 @@ import Ultimate from "@/assets/Ultimate.png";
 import { ISkinTier } from "@/type";
 import { useMemo } from "react";
 
+type Icon = {
+  iconName: StaticImageData;
+  height?: number;
+};
+
 type SkinTierProps = {
   tier?: ISkinTier;
 };
 
 export const SkinTier = function SkinTier({ tier = "Default" }: SkinTierProps) {
   const icon = useMemo(() => {
-    const icons: Record<ISkinTier, StaticImageData | null> = {
-      Transcendent: Transcendent,
-      Ultimate: Ultimate,
-      Mythic: Mythic,
-      Legendary: Legendary,
-      Epic: Epic,
+    const icons: Record<ISkinTier, Icon | null> = {
+      Transcendent: { iconName: Transcendent },
+      Ultimate: { iconName: Ultimate },
+      Mythic: { iconName: Mythic, height: 19 },
+      Legendary: { iconName: Legendary },
+      Epic: { iconName: Epic, height: 17 },
       Standard: null,
       Budget: null,
       Timeworn: null,
@@ -34,12 +39,13 @@ export const SkinTier = function SkinTier({ tier = "Default" }: SkinTierProps) {
 
   return (
     <Image
-      className="self-start"
-      src={icon}
+      className="self-start h-auto"
+      src={icon.iconName}
       alt={tier}
-      unoptimized
       width={20}
-      height={20}
+      height={icon.height}
+      loading="lazy"
+      unoptimized
     />
   );
 };

@@ -7,9 +7,14 @@ import { useMemo } from "react";
 type ChampionProps = {
   champion: IChampion;
   search: string;
+  championIndex: number;
 };
 
-export const Champion = function Champion({ champion, search }: ChampionProps) {
+export const Champion = function Champion({
+  champion,
+  search,
+  championIndex,
+}: ChampionProps) {
   const collected = champion.skins.reduce((acc, skin) => {
     return acc + (skin.isCollected ? 1 : 0);
   }, 0);
@@ -33,7 +38,13 @@ export const Champion = function Champion({ champion, search }: ChampionProps) {
       </div>
       <div className="flex flex-wrap gap-2">
         {skinsFiltered.map((skin) => (
-          <Skin key={skin.id} id={champion.id} name={champion.name} skin={skin} />
+          <Skin
+            key={skin.id}
+            id={champion.id}
+            name={champion.name}
+            skin={skin}
+            index={championIndex}
+          />
         ))}
       </div>
     </div>
