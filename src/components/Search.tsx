@@ -11,7 +11,7 @@ export const Search = memo(function Search({ search, setSearch }: SearchProps) {
     (e: ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value);
     },
-    [setSearch]
+    [setSearch],
   );
   return (
     <form className="flex items-center w-full flex-2">
@@ -23,9 +23,8 @@ export const Search = memo(function Search({ search, setSearch }: SearchProps) {
           type="text"
           onChange={handleSearch}
           value={search}
-          id="voice-search"
           className=" text-sm rounded-lg block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          placeholder="Search Champions..."
+          placeholder="Search Skins..."
           required
         />
       </div>

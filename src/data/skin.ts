@@ -198,4 +198,92 @@ export const skinInfo: { [st: string]: IInfoSkin } = {
   "53036": { tier: "None", isLegacy: false, set: "Victorious" },
   "53047": { tier: "Epic", isLegacy: false, set: "Zenith Games" },
   "53056": { tier: "Epic", isLegacy: false, set: "Bees!" },
+
+  // Brand
+  "63001": { tier: "Budget", isLegacy: true, set: "Road Warrior" },
+  "63002": { tier: "None", isLegacy: false, set: "Vandal" },
+  "63003": { tier: "Standard", isLegacy: true, set: "Silver Age" },
+  "63004": { tier: "Legendary", isLegacy: false, set: "Zombies vs Slayers" },
+  "63005": { tier: "Epic", isLegacy: false, set: "Worldbreaker" },
+  "63006": { tier: "Epic", isLegacy: false, set: "Arcade: Battle Bosses" },
+  "63007": { tier: "Epic", isLegacy: false, set: "Arclight" },
+  "63008": { tier: "Epic", isLegacy: false, set: "Dragonmancers" },
+  "63021": { tier: "Epic", isLegacy: false, set: "Debonair" },
+  "63022": { tier: "Mythic", isLegacy: false, set: "Debonair" },
+  "63033": { tier: "Epic", isLegacy: false, set: "Street Demons" },
+  "63042": { tier: "Epic", isLegacy: false, set: "Empyrean" },
+
+  // Braum
+  "201001": { tier: "Standard", isLegacy: false, set: "Dragon World" },
+  "201002": { tier: "Epic", isLegacy: false, set: "Luchador" },
+  "201003": { tier: "Budget", isLegacy: false, set: "Rift Quest" },
+  "201010": { tier: "Epic", isLegacy: true, set: "Snowdown Showdown" },
+  "201011": { tier: "Epic", isLegacy: false, set: "Crime City" },
+  "201024": { tier: "Epic", isLegacy: false, set: "Sugar Rush" },
+  "201033": { tier: "Epic", isLegacy: false, set: "Pool Party" },
+
+  // Briar
+  "233001": { tier: "Epic", isLegacy: false, set: "Street Demons" },
+
+  // Caitlyn
+  "51001": { tier: "Timeworn", isLegacy: false, set: "Battlecast" },
+  "51002": { tier: "None", isLegacy: true, set: "High Noon" },
+  "51003": { tier: "None", isLegacy: true, set: "Legacy" },
+  "51004": { tier: "Budget", isLegacy: false, set: "Arcticops" },
+  "51005": { tier: "Standard", isLegacy: false, set: "Cops and Robbers" },
+  "51006": { tier: "Standard", isLegacy: false, set: "Headhunter" },
+  "51010": { tier: "Epic", isLegacy: true, set: "Lunar Revel" },
+  "51011": { tier: "Legendary", isLegacy: false, set: "Pulsefire" },
+  "51013": { tier: "Epic", isLegacy: false, set: "Pool Party" },
+  "51019": { tier: "Epic", isLegacy: false, set: "Arcade: Heroes" },
+  "51020": { tier: "Mythic", isLegacy: false, set: "Arcade: Heroes" },
+  "51022": { tier: "Legendary", isLegacy: false, set: "Battle Academy" },
+  "51028": { tier: "Standard", isLegacy: false, set: "Arcane" },
+  "51029": { tier: "Mythic", isLegacy: true, set: "Arcade: Heroes" },
+  "51030": { tier: "Epic", isLegacy: false, set: "Snow Moon" },
+  "51039": { tier: "Epic", isLegacy: false, set: "Heartthrobs and Heartaches" },
+  "51048": { tier: "Epic", isLegacy: false, set: "World Champions: 2022 (DRX)" },
+
+  // Camille
+  "164001": { tier: "Epic", isLegacy: false, set: "Program" },
+  "164002": { tier: "Epic", isLegacy: false, set: "Coven" },
+  "164010": { tier: "Epic", isLegacy: true, set: "World Champions: 2018 (IG)" },
+  "164011": { tier: "Epic", isLegacy: false, set: "Arcana" },
+  "164021": { tier: "Epic", isLegacy: false, set: "Steel Valkyries" },
+  "164031": { tier: "Epic", isLegacy: false, set: "Winterblessed" },
+  "164032": { tier: "Mythic", isLegacy: false, set: "Winterblessed" },
+
+  // Cassiopeia
+  "69001": { tier: "Timeworn", isLegacy: false, set: "High Noon" },
+  "69002": { tier: "Timeworn", isLegacy: false, set: "Fables" },
+  "69003": { tier: "Standard", isLegacy: false, set: "Fables" },
+  "69004": { tier: "Standard", isLegacy: false, set: "Lunar Revel" },
+  "69008": { tier: "Epic", isLegacy: false, set: "Eternum" },
+  "69009": { tier: "Epic", isLegacy: false, set: "Spirit Blossom" },
+  "69018": { tier: "Epic", isLegacy: false, set: "Coven" },
+  "69028": { tier: "Epic", isLegacy: true, set: "Bewitching" },
+
+  // Chogath
+  "31001": { tier: "None", isLegacy: true, set: "Legacy" },
+  "31002": { tier: "Legendary", isLegacy: false, set: "High Society" },
+  "31003": { tier: "None", isLegacy: true, set: "Fables" },
+  "31004": { tier: "Standard", isLegacy: false, set: "Day Job" },
+  "31005": { tier: "Legendary", isLegacy: false, set: "Battlecast" },
+  "31006": { tier: "None", isLegacy: false, set: "Prehistoric Hunters" },
+  "31007": { tier: "Mythic", isLegacy: false, set: "Dark Star" },
+  "31014": { tier: "Epic", isLegacy: false, set: "Shan Hai Scrolls" },
+  "31023": { tier: "Epic", isLegacy: false, set: "Broken Covenant" },
+  "31032": { tier: "Epic", isLegacy: false, set: "Toy Box" },
+
+  // Corki
+  "42001": { tier: "None", isLegacy: false, set: "Invaders" },
+  "42002": { tier: "Legendary", isLegacy: true, set: "Winter Sports" },
+  "42003": { tier: "Legendary", isLegacy: true, set: "Legacy" },
+  "42004": { tier: "None", isLegacy: true, set: "Piltover Customs" },
+  "42005": { tier: "Standard", isLegacy: false, set: "Urf The Manatee" },
+  "42006": { tier: "None", isLegacy: false, set: "Lunar Revel: Firecracker" },
+  "42007": { tier: "None", isLegacy: true, set: "World Champions: 2011 (FNATIC)" },
+  "42008": { tier: "Epic", isLegacy: false, set: "Arcade: Heroes" },
+  "42018": { tier: "Epic", isLegacy: false, set: "Cats vs Dogs" },
+  "42026": { tier: "Epic", isLegacy: false, set: "Astronaut" },
 };
