@@ -23,7 +23,7 @@ export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
     setInternalCollected((isCollected) => !isCollected);
     onChange((counter) => (internalCollected ? counter - 1 : counter + 1));
     updateSkin(skin.id);
-  }, [id, skin.id, internalCollected, onChange]);
+  }, [skin.id, internalCollected, onChange]);
 
   const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
 
