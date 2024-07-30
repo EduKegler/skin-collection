@@ -21,8 +21,6 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
     updateSkin(id, skin.id.toString());
   }, [id, skin.id]);
 
-  console.log(skin);
-
   const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
 
   return (
@@ -71,7 +69,7 @@ export const Skin = function Skin({ id, skin }: SkinProps) {
 
       <div className="flex mt-2 text-xs gap-2 justify-center">
         <SkinTier tier={skin.info?.tier} />
-        <span className="self-center">{skinNameReplaced}</span>
+        <span className="self-center">{skin.id}</span>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { ChampionList } from "@/components/ChampionList";
-import { SignInWithRiotButton } from "@/components/SignInWithRiot";
 import { skinInfo } from "@/data/skin";
 import { IChampion, IChampionBase } from "@/type";
 import { cookies } from "next/headers";
@@ -10,7 +9,7 @@ export default async function Page() {
 
   return (
     <main className="flex min-h-screen flex-col gap-2 px-10 py-10">
-      <SignInWithRiotButton />
+      {/* <SignInWithRiotButton /> */}
       <ChampionList champions={champions} language={language} />
     </main>
   );
@@ -51,6 +50,13 @@ async function getChampionList(language: string): Promise<IChampion[]> {
     champions.map(async (champion) => {
       const details = await getChampionDetail(champion.id, language);
       const isCollected = cookies().get(champion.id)?.value.split(",") ?? [];
+
+      if (champion.id.includes("Aka")) {
+        console.log(
+          champion.id,
+          details.skins.map((e) => e.id)
+        );
+      }
 
       return {
         ...champion,
