@@ -2,7 +2,7 @@
 
 import { IChampion } from "@/type";
 import { Skin } from "./Skin";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 type ChampionProps = {
   champion: IChampion;
@@ -19,6 +19,8 @@ export const Champion = function Champion({
     return acc + (skin.isCollected ? 1 : 0);
   }, 0);
 
+  const [internalCounter, setInternalCounter] = useState(collected);
+
   const skinsFiltered = useMemo(
     () => champion.skins.filter((skin) => skin.name.includes(search)),
     [champion.skins, search],
@@ -30,10 +32,12 @@ export const Champion = function Champion({
 
   return (
     <div key={champion.id} className="px-2">
-      <hr className="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-      <div className="pb-2">
+      {Boolean(championIndex) && (
+        <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+      )}
+      <div className="pb-8">
         <h3 className="text-4xl font-extrabold dark:text-white">
-          {champion.name} ({collected}/{champion.skins.length})
+          {champion.name} ({internalCounter}/{champion.skins.length})
         </h3>
       </div>
       <div className="flex flex-wrap gap-2">
@@ -44,6 +48,7 @@ export const Champion = function Champion({
             name={champion.name}
             skin={skin}
             index={championIndex}
+            onChange={setInternalCounter}
           />
         ))}
       </div>

@@ -2,6 +2,7 @@ import { ChampionList } from "@/components/ChampionList";
 import { skinInfo } from "@/data/skin";
 import { IChampion, IChampionBase, IInfoSkin } from "@/type";
 import { cookies } from "next/headers";
+import { getSkinList, getUserId } from "./actions";
 
 export default async function Page() {
   const language = cookies().get("language")?.value ?? "en_US";
@@ -29,6 +30,9 @@ async function getChampionDetail(id: string, language: string): Promise<IChampio
 }
 
 async function getChampionList(language: string): Promise<IChampion[]> {
+  const userId = await getUserId();
+  const collectedSkins = await getSkinList(userId);
+
   const champiosnResponseJSON = await fetch(
     `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion.json`,
   );
@@ -44,15 +48,6 @@ async function getChampionList(language: string): Promise<IChampion[]> {
   const detailedChampions = await Promise.all(
     champions.map(async (champion) => {
       const details = await getChampionDetail(champion.id, language);
-      const isCollected = cookies().get(champion.id)?.value.split(",") ?? [];
-
-      if (champion.id.startsWith("B")) {
-        console.log(
-          champion.id,
-          details.skins.map((e) => e.id),
-        );
-      }
-
       return {
         ...champion,
         skins: details.skins
@@ -62,7 +57,7 @@ async function getChampionList(language: string): Promise<IChampion[]> {
             if (!skin.num) return undefined;
             return {
               ...skin,
-              isCollected: isCollected.includes(skin.id.toString()),
+              isCollected: collectedSkins.includes(skin.id.toString()),
               info: skinInfo[skin.id as keyof typeof skinInfo],
               rating: {
                 rating,
