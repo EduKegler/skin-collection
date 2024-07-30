@@ -16,7 +16,7 @@ type SkinProps = {
   onChange: Dispatch<SetStateAction<number>>;
 };
 
-export const Skin = function Skin({ id, name, skin, index, onChange }: SkinProps) {
+export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
   const [internalCollected, setInternalCollected] = useState(skin.isCollected);
 
   const handleClick = useCallback(() => {
