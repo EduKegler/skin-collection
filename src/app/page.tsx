@@ -51,12 +51,12 @@ async function getChampionList(language: string): Promise<IChampion[]> {
       const details = await getChampionDetail(champion.id, language);
       const isCollected = cookies().get(champion.id)?.value.split(",") ?? [];
 
-      if (champion.id.includes("Aka")) {
-        console.log(
-          champion.id,
-          details.skins.map((e) => e.id)
-        );
-      }
+      // if (champion.id.includes("A")) {
+      //   console.log(
+      //     champion.id,
+      //     details.skins.map((e) => e.id)
+      //   );
+      // }
 
       return {
         ...champion,
