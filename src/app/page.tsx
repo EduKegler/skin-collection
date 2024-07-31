@@ -3,6 +3,7 @@ import { skinInfo } from "@/data/skin";
 import { IChampion, IChampionBase, IInfoSkin } from "@/type";
 import { cookies } from "next/headers";
 import { getSkinList, getUserId } from "./actions";
+import { FilterProvider } from "@/providers/FilterProvider";
 
 export default async function Page() {
   const language = cookies().get("language")?.value ?? "en_US";
@@ -10,8 +11,9 @@ export default async function Page() {
 
   return (
     <main className="flex min-h-screen flex-col gap-2 px-10 py-10">
-      {/* <SignInWithRiotButton /> */}
-      <ChampionList champions={champions} language={language} />
+      <FilterProvider>
+        <ChampionList champions={champions} language={language} />
+      </FilterProvider>
     </main>
   );
 }

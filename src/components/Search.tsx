@@ -1,12 +1,12 @@
 "use client";
 
-import React, { ChangeEvent, Dispatch, memo, useCallback } from "react";
+import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
+import React, { ChangeEvent, memo, useCallback } from "react";
 
-type SearchProps = {
-  setSearch: Dispatch<React.SetStateAction<string>>;
-  search: string;
-};
-export const Search = memo(function Search({ search, setSearch }: SearchProps) {
+export const Search = memo(function Search() {
+  const { search } = useFilter();
+  const { setSearch } = useFilterDispatch();
+
   const handleSearch = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value);

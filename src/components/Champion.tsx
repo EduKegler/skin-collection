@@ -2,19 +2,20 @@
 
 import { IChampion } from "@/type";
 import { Skin } from "./Skin";
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
+import { useFilter } from "@/providers/FilterProvider";
 
 type ChampionProps = {
   champion: IChampion;
-  search: string;
   championIndex: number;
 };
 
-export const Champion = function Champion({
+export const Champion = memo(function Champion({
   champion,
-  search,
   championIndex,
 }: ChampionProps) {
+  const { search } = useFilter();
+
   const collected = champion.skins.reduce((acc, skin) => {
     return acc + (skin.isCollected ? 1 : 0);
   }, 0);
@@ -54,4 +55,4 @@ export const Champion = function Champion({
       </div>
     </div>
   );
-};
+});

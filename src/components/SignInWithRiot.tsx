@@ -1,7 +1,7 @@
 "use client";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 
-export const SignInWithRiotButton = function SignInWithRiotButton() {
+export const SignInWithRiotButton = memo(function SignInWithRiotButton() {
   const redirect_uri = "http://example.com/callback";
   const client_id = "700425";
   const response_type = "code";
@@ -20,4 +20,4 @@ export const SignInWithRiotButton = function SignInWithRiotButton() {
       Button
     </button>
   );
-};
+});

@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import { clsx } from "clsx";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { Dispatch, memo, SetStateAction, useCallback, useMemo, useState } from "react";
 import { ISkin } from "@/type";
 import { updateSkin } from "@/app/actions";
 import { SkinTier } from "./SkinTier";
 import { Rating } from "./Rating";
+import { useFilter } from "@/providers/FilterProvider";
 
 type SkinProps = {
   id: string;
@@ -16,7 +17,9 @@ type SkinProps = {
   onChange: Dispatch<SetStateAction<number>>;
 };
 
-export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
+export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps) {
+  const { collectFilter } = useFilter();
+
   const [internalCollected, setInternalCollected] = useState(skin.isCollected);
 
   const handleClick = useCallback(() => {
@@ -25,10 +28,18 @@ export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
     updateSkin(skin.id);
   }, [skin.id, internalCollected, onChange]);
 
-  const idRenamed = id === "Fiddlesticks" ? "FiddleSticks" : id;
+  const idRenamed = useMemo(() => {
+    return id === "Fiddlesticks" ? "FiddleSticks" : id;
+  }, [id]);
 
   return (
-    <div className="text-center w-[154px]">
+    <div
+      className={clsx(
+        "text-center w-[154px]",
+        collectFilter === "Uncollect" && internalCollected && "hidden",
+        collectFilter === "Collect" && !internalCollected && "hidden",
+      )}
+    >
       <div
         className={clsx(
           "flex items-center justify-center transition-opacity duration-300",
@@ -37,11 +48,11 @@ export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
         )}
       >
         <span className="text-sm font-bold">
-          {internalCollected ? "Collected!" : "Not Collected!"}
+          {internalCollected ? "Collected!" : "Uncollected!"}
         </span>
       </div>
       <div
-        className="flex-none w-[154px] h-[280px] relative group cursor-pointer"
+        className="flex-none w-full h-[280px] relative group cursor-pointer"
         onClick={handleClick}
       >
         <Image
@@ -63,7 +74,7 @@ export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
           )}
         >
           <span className="text-sm font-bold">
-            {internalCollected ? "Not Collected?" : "Collected?"}
+            {internalCollected ? "Uncollected?" : "Collected?"}
           </span>
         </div>
       </div>
@@ -77,4 +88,4 @@ export const Skin = function Skin({ id, skin, index, onChange }: SkinProps) {
       </div>
     </div>
   );
-};
+});

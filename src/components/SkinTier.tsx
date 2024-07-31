@@ -7,7 +7,7 @@ import Epic from "@/assets/Epic.png";
 import Legendary from "@/assets/Legendary.png";
 import Ultimate from "@/assets/Ultimate.png";
 import { ISkinTier } from "@/type";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 type Icon = {
   iconName: StaticImageData;
@@ -18,7 +18,7 @@ type SkinTierProps = {
   tier?: ISkinTier;
 };
 
-export const SkinTier = function SkinTier({ tier = "Default" }: SkinTierProps) {
+export const SkinTier = memo(function SkinTier({ tier = "Default" }: SkinTierProps) {
   const icon = useMemo(() => {
     const icons: Record<ISkinTier, Icon | null> = {
       Transcendent: { iconName: Transcendent },
@@ -48,4 +48,4 @@ export const SkinTier = function SkinTier({ tier = "Default" }: SkinTierProps) {
       unoptimized
     />
   );
-};
+});

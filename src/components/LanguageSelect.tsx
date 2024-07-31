@@ -1,19 +1,14 @@
 import { updateLanguage } from "@/app/actions";
-import { ChangeEvent, useCallback } from "react";
+import { ChangeEvent, memo, useCallback } from "react";
 
 type LanguageProps = {
   language: string;
 };
 
-export const LanguageSelect = function LanguageSelect({
-  language,
-}: LanguageProps) {
-  const handleChangeLanguage = useCallback(
-    (event: ChangeEvent<HTMLSelectElement>) => {
-      updateLanguage(event.target.value);
-    },
-    []
-  );
+export const LanguageSelect = memo(function LanguageSelect({ language }: LanguageProps) {
+  const handleChangeLanguage = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
+    updateLanguage(event.target.value);
+  }, []);
 
   return (
     <form>
@@ -31,4 +26,4 @@ export const LanguageSelect = function LanguageSelect({
       </select>
     </form>
   );
-};
+});

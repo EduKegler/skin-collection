@@ -17,6 +17,8 @@ export type IRating = {
   amountReviews: number;
 };
 
+export type ICollectFilter = "All" | "Collect" | "Uncollect";
+
 export type ISkinTier =
   | "Transcendent"
   | "Ultimate"
