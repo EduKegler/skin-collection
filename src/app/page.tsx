@@ -29,7 +29,7 @@ export default async function Page() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col gap-2 px-10 py-10">
+    <main className="flex min-h-screen flex-col gap-2 px-8 py-6">
       <Flowbite theme={{ theme: customTheme }}>
         <FilterProvider>
           <ChampionList champions={champions} language={language} />

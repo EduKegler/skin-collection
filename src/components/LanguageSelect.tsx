@@ -1,3 +1,4 @@
+"use client";
 import { updateLanguage } from "@/app/actions";
 import { Dropdown } from "flowbite-react";
 import { memo, useCallback, useMemo } from "react";
