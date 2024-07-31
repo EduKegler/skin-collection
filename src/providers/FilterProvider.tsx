@@ -1,6 +1,6 @@
 "use client";
 
-import { ICollectFilter } from "@/type";
+import { ICollectFilter, ISkinTier } from "@/type";
 import {
   createContext,
   Dispatch,
@@ -18,20 +18,24 @@ type FilterProviderProps = { children?: ReactNode };
 type FilterContextType = {
   search: string;
   collectFilter: ICollectFilter;
+  tierFilter: ISkinTier | "All";
 };
 
 const FilterContext = createContext<FilterContextType>({
   search: "",
   collectFilter: "All",
+  tierFilter: "All",
 });
 
 type FilterDispatchContextType = {
   setSearch: Dispatch<SetStateAction<string>>;
   setCollectFilter: Dispatch<SetStateAction<ICollectFilter>>;
+  setTierFilter: Dispatch<SetStateAction<ISkinTier | "All">>;
 };
 const FilterDispatchContext = createContext<FilterDispatchContextType>({
   setSearch: () => {},
   setCollectFilter: () => {},
+  setTierFilter: () => {},
 });
 
 export const FilterProvider = memo(function FilterProvider(
@@ -39,18 +43,21 @@ export const FilterProvider = memo(function FilterProvider(
 ): ReactElement {
   const [search, setSearch] = useState<string>("");
   const [collectFilter, setCollectFilter] = useState<ICollectFilter>("All");
+  const [tierFilter, setTierFilter] = useState<ISkinTier | "All">("All");
 
   const filterMemo = useMemo(() => {
     return {
       search,
       collectFilter,
+      tierFilter,
     };
-  }, [collectFilter, search]);
+  }, [collectFilter, search, tierFilter]);
 
   const filterDispatchMemo = useMemo(() => {
     return {
       setSearch,
       setCollectFilter,
+      setTierFilter,
     };
   }, [setCollectFilter, setSearch]);
 

@@ -14,7 +14,7 @@ export const Champion = memo(function Champion({
   champion,
   championIndex,
 }: ChampionProps) {
-  const { search } = useFilter();
+  const { search, tierFilter } = useFilter();
 
   const collected = champion.skins.reduce((acc, skin) => {
     return acc + (skin.isCollected ? 1 : 0);
@@ -23,8 +23,13 @@ export const Champion = memo(function Champion({
   const [internalCounter, setInternalCounter] = useState(collected);
 
   const skinsFiltered = useMemo(
-    () => champion.skins.filter((skin) => skin.name.includes(search)),
-    [champion.skins, search],
+    () =>
+      champion.skins.filter((skin) => {
+        const nameSearch = skin.name.includes(search);
+        const tierSearch = tierFilter === "All" ? true : skin.info?.tier === tierFilter;
+        return nameSearch && tierSearch;
+      }),
+    [champion.skins, search, tierFilter],
   );
 
   if (!skinsFiltered.length) {

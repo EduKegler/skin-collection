@@ -4,16 +4,37 @@ import { IChampion, IChampionBase, IInfoSkin } from "@/type";
 import { cookies } from "next/headers";
 import { getSkinList, getUserId } from "./actions";
 import { FilterProvider } from "@/providers/FilterProvider";
+import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
 
 export default async function Page() {
   const language = cookies().get("language")?.value ?? "en_US";
   const champions = await getChampionList(language);
 
+  const customTheme: CustomFlowbiteTheme = {
+    button: {
+      color: {
+        primary: "bg-red-500 hover:bg-red-600",
+      },
+    },
+    dropdown: {
+      arrowIcon: "ml-2 mt-0.5 h-4 w-4",
+    },
+    floatingLabel: {
+      helperText: {
+        default: "text-xs text-gray-600 dark:text-gray-400",
+        success: "text-xs text-green-600 dark:text-green-400",
+        error: "text-xs text-red-600 dark:text-red-400",
+      },
+    },
+  };
+
   return (
     <main className="flex min-h-screen flex-col gap-2 px-10 py-10">
-      <FilterProvider>
-        <ChampionList champions={champions} language={language} />
-      </FilterProvider>
+      <Flowbite theme={{ theme: customTheme }}>
+        <FilterProvider>
+          <ChampionList champions={champions} language={language} />
+        </FilterProvider>
+      </Flowbite>
     </main>
   );
 }

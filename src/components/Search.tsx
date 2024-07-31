@@ -1,6 +1,7 @@
 "use client";
 
 import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
+import { FloatingLabel } from "flowbite-react";
 import React, { ChangeEvent, memo, useCallback } from "react";
 
 export const Search = memo(function Search() {
@@ -13,21 +14,14 @@ export const Search = memo(function Search() {
     },
     [setSearch],
   );
+
   return (
-    <form className="flex items-center w-full flex-2">
-      <label htmlFor="voice-search" className="sr-only">
-        Search
-      </label>
-      <div className="w-full">
-        <input
-          type="text"
-          onChange={handleSearch}
-          value={search}
-          className=" text-sm rounded-lg block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          placeholder="Search Skins..."
-          required
-        />
-      </div>
-    </form>
+    <FloatingLabel
+      sizing="sm"
+      variant="outlined"
+      label="Search Skins..."
+      value={search}
+      onChange={handleSearch}
+    />
   );
 });
