@@ -19,6 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
       <body className={inter.className}>{children}</body>
