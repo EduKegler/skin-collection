@@ -2,7 +2,7 @@ import { ChampionList } from "@/components/ChampionList";
 import { skinInfo } from "@/data/skin";
 import { IChampion, IChampionBase, IInfoSkin } from "@/type";
 import { cookies } from "next/headers";
-import { getSkinList, getUserId } from "./actions";
+import { getGeneralReviews, getSkinList, getUserId } from "./actions";
 import { FilterProvider } from "@/providers/FilterProvider";
 import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
 
@@ -67,6 +67,7 @@ async function getChampionList(language: string): Promise<IChampion[]> {
   const championsResponse = await champiosnResponseJSON.json();
 
   const champions = Array.from(Object.values(championsResponse.data)) as IChampionBase[];
+  const reviews = await getGeneralReviews();
 
   const detailedChampions = await Promise.all(
     champions.map(async (champion) => {
@@ -75,16 +76,17 @@ async function getChampionList(language: string): Promise<IChampion[]> {
         ...champion,
         skins: details.skins
           .map((skin) => {
-            const rating = (Math.random() * 5).toFixed(1);
-            const amountReviews = Math.floor(Math.random() * 25) + 1;
             if (!skin.num) return undefined;
+            const review = reviews[skin.id as keyof typeof reviews] ?? [];
+            const rating = review.reduce((acc, curr) => acc + curr, 0) / review.length;
+
             return {
               ...skin,
               isCollected: collectedSkins.includes(skin.id.toString()),
               info: skinInfo[skin.id as keyof typeof skinInfo],
               rating: {
-                rating,
-                amountReviews,
+                rating: rating ? rating : 0,
+                amountReviews: review.length,
               },
             };
           })

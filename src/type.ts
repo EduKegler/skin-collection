@@ -176,3 +176,13 @@ export type IInfoSkin = {
 export type IChampion = IChampionBase & {
   skins: ISkin[];
 };
+
+export type IReviewDetail = {
+  userId: string;
+  rating: number;
+  comment?: string;
+};
+
+export type IReviewGeneral = {
+  [skinId: string]: number[];
+};

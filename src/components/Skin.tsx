@@ -6,8 +6,9 @@ import { Dispatch, memo, SetStateAction, useCallback, useMemo, useState } from "
 import { ISkin } from "@/type";
 import { updateSkin } from "@/app/actions";
 import { SkinTier } from "./SkinTier";
-import { Rating } from "./Rating";
+import { SkinRating } from "./SkinRating";
 import { useFilter } from "@/providers/FilterProvider";
+import { ModalReview } from "./ModalReview";
 
 type SkinProps = {
   id: string;
@@ -19,7 +20,7 @@ type SkinProps = {
 
 export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps) {
   const { collectFilter } = useFilter();
-
+  const [openModal, setOpenModal] = useState(false);
   const [internalCollected, setInternalCollected] = useState(skin.isCollected);
 
   const handleClick = useCallback(() => {
@@ -56,11 +57,11 @@ export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps)
         onClick={handleClick}
       >
         <Image
-          priority={index <= 10}
+          priority={index <= 4}
           src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${idRenamed}_${skin.num}.jpg`}
           alt={skin.name}
           fill={true}
-          loading={index > 10 ? "lazy" : "eager"}
+          loading={index > 4 ? "lazy" : "eager"}
           className="rounded-lg shadow-md pb-2"
           sizes="154px"
           unoptimized
@@ -79,13 +80,28 @@ export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps)
         </div>
       </div>
       <div className="flex justify-center pt-2">
-        <Rating amountReviews={skin.rating.amountReviews} rating={skin.rating.rating} />
+        <SkinRating
+          amountReviews={skin.rating.amountReviews}
+          rating={skin.rating.rating}
+          onClick={() => {
+            setOpenModal(true);
+          }}
+        />
       </div>
 
       <div className="flex mt-2 text-xs gap-2 justify-center">
         <SkinTier tier={skin.info?.tier} />
         <span className="self-center">{skin.name}</span>
       </div>
+
+      <ModalReview
+        onClose={() => {
+          setOpenModal(false);
+        }}
+        openModal={openModal}
+        skin={skin}
+        id={id}
+      />
     </div>
   );
 });
