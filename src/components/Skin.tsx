@@ -7,7 +7,6 @@ import { ISkin } from "@/type";
 import { updateSkin } from "@/app/actions";
 import { SkinTier } from "./SkinTier";
 import { SkinRating } from "./SkinRating";
-import { useFilter } from "@/providers/FilterProvider";
 import { ModalReview } from "./ModalReview";
 import { useRouter } from "next/navigation";
 type SkinProps = {
