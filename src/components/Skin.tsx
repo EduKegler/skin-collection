@@ -19,7 +19,6 @@ type SkinProps = {
 };
 
 export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps) {
-  const { collectFilter } = useFilter();
   const [openModal, setOpenModal] = useState(false);
   const [internalCollected, setInternalCollected] = useState(skin.isCollected);
 
@@ -46,13 +45,7 @@ export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps)
   }, [id]);
 
   return (
-    <div
-      className={clsx(
-        "text-center w-[154px]",
-        collectFilter === "Uncollect" && internalCollected && "hidden",
-        collectFilter === "Collect" && !internalCollected && "hidden",
-      )}
-    >
+    <div className={clsx("text-center w-[154px]")}>
       <div
         className={clsx(
           "flex items-center justify-center transition-opacity duration-300 rounded-t-md",
