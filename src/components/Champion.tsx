@@ -37,14 +37,12 @@ export const Champion = memo(function Champion({
   }
 
   return (
-    <div key={champion.id} className="px-2">
-      {Boolean(championIndex) && (
-        <hr className="my-8 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
-      )}
-      <div className="pb-8">
-        <h3 className="text-4xl font-extrabold dark:text-white">
+    <div key={champion.id} className="px-2 py-4">
+      <div className="pb-8 relative flex items-center gap-4">
+        <h3 className="text-4xl font-medium dark:text-white">
           {champion.name} ({internalCounter}/{champion.skins.length})
         </h3>
+        <div className="flex-grow border-t border-gray-600"></div>
       </div>
       <div className="flex flex-wrap gap-2">
         {skinsFiltered.map((skin) => (

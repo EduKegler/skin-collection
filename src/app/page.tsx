@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { getGeneralReviews, getSkinList, getUserId } from "./actions";
 import { FilterProvider } from "@/providers/FilterProvider";
 import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
+import { ScrollTo } from "@/components/ScrollToButton";
 
 export default async function Page() {
   const language = cookies().get("language")?.value ?? "en_US";
@@ -34,6 +35,7 @@ export default async function Page() {
         <FilterProvider>
           <ChampionList champions={champions} language={language} />
         </FilterProvider>
+        <ScrollTo />
       </Flowbite>
     </main>
   );

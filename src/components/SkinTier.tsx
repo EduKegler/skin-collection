@@ -39,7 +39,7 @@ export const SkinTier = memo(function SkinTier({ tier = "Default" }: SkinTierPro
 
   return (
     <Image
-      className="self-start h-auto"
+      className="self-center h-auto inline"
       src={icon.iconName}
       alt={tier}
       width={20}

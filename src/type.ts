@@ -181,6 +181,7 @@ export type IReviewDetail = {
   userId: string;
   rating: number;
   comment?: string;
+  isOwner: boolean;
 };
 
 export type IReviewGeneral = {

@@ -26,3 +26,7 @@ body {
     text-wrap: balance;
   }
 }
+
+[id^="outlined_helper_text"] {
+  display: none;
+}

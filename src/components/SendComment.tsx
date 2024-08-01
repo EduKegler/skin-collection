@@ -1,35 +1,60 @@
 import { Button, Dropdown, Textarea } from "flowbite-react";
-import { memo, useMemo, useState } from "react";
+import { ChangeEvent, memo, useCallback, useMemo, useState } from "react";
 import { RatingStars } from "./RatingStars";
-1;
-export const SendComment = memo(function SendComment() {
-  const [value, setValue] = useState<number | "Rating">("Rating");
+
+type SendCommentProps = {
+  onSuccess: (rating: number, comment?: string) => void;
+};
+
+export const SendComment = memo(function SendComment({ onSuccess }: SendCommentProps) {
+  const [rating, setRating] = useState<number | "Rating">("Rating");
+  const [comment, setComment] = useState("");
+
   const labels = useMemo(() => {
     return {
       Rating: "Rating",
-      5: <RatingStars stars={5} filledStars={5} />,
-      4: <RatingStars stars={5} filledStars={4} />,
-      3: <RatingStars stars={5} filledStars={3} />,
-      2: <RatingStars stars={5} filledStars={2} />,
-      1: <RatingStars stars={5} filledStars={1} />,
+      5: <RatingStars filledStars={5} />,
+      4: <RatingStars filledStars={4} />,
+      3: <RatingStars filledStars={3} />,
+      2: <RatingStars filledStars={2} />,
+      1: <RatingStars filledStars={1} />,
     };
   }, []);
 
+  const handleChangeComment = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(event.target.value);
+  }, []);
+
+  const handleSendComment = useCallback(() => {
+    if (rating !== "Rating") {
+      onSuccess(rating, comment);
+    }
+  }, [comment, onSuccess, rating]);
+
   return (
     <div className="">
-      <Textarea id="comment" placeholder="Leave a comment..." required rows={4} />
-      <div className="pt-4 flex justify-between">
-        <Dropdown label={labels[value as keyof typeof labels]} inline>
-          <Dropdown.Item onClick={() => setValue("Rating")}>
+      <Textarea
+        id="comment"
+        placeholder="Leave a comment..."
+        value={comment}
+        onChange={handleChangeComment}
+        required
+        rows={4}
+      />
+      <div className="pt-4 flex justify-end gap-4">
+        <Dropdown label={labels[rating as keyof typeof labels]} inline>
+          <Dropdown.Item onClick={() => setRating("Rating")}>
             {labels["Rating"]}
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => setValue(5)}>{labels[5]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => setValue(4)}>{labels[4]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => setValue(3)}>{labels[3]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => setValue(2)}>{labels[2]}</Dropdown.Item>
-          <Dropdown.Item onClick={() => setValue(1)}>{labels[1]}</Dropdown.Item>
+          <Dropdown.Item onClick={() => setRating(5)}>{labels[5]}</Dropdown.Item>
+          <Dropdown.Item onClick={() => setRating(4)}>{labels[4]}</Dropdown.Item>
+          <Dropdown.Item onClick={() => setRating(3)}>{labels[3]}</Dropdown.Item>
+          <Dropdown.Item onClick={() => setRating(2)}>{labels[2]}</Dropdown.Item>
+          <Dropdown.Item onClick={() => setRating(1)}>{labels[1]}</Dropdown.Item>
         </Dropdown>
-        <Button disabled>Send</Button>
+        <Button disabled={rating === "Rating"} onClick={handleSendComment}>
+          Send
+        </Button>
       </div>
     </div>
   );

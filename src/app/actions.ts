@@ -51,6 +51,14 @@ export async function getGeneralReviews() {
   return reviews;
 }
 
+export async function getSkinReview(skinId: string): Promise<IReviewDetail[]> {
+  const userId = (await getUserId()) ?? (await setUserId());
+  const skinReview = ((await redis.get(`${TABLE.REVIEWS}_${skinId}`)) ??
+    []) as IReviewDetail[];
+
+  return skinReview.map((review) => ({ ...review, isOwner: review.userId === userId }));
+}
+
 export async function addReview(skinId: string, rating: number, comment?: string) {
   const userId = (await getUserId()) ?? (await setUserId());
 
@@ -66,5 +74,24 @@ export async function addReview(skinId: string, rating: number, comment?: string
   const ratingsBySkin = reviews ? (reviews[skinId] ?? []) : [];
 
   const reviewList = { ...reviews, [skinId]: [...ratingsBySkin, rating] };
+  await redis.set(`${TABLE.REVIEWS}`, reviewList);
+}
+
+export async function removeReview(userId: string, skinId: string, rating: number) {
+  const skinReview = ((await redis.get(`${TABLE.REVIEWS}_${skinId}`)) ??
+    []) as IReviewDetail[];
+  const reviews = (await redis.get(TABLE.REVIEWS)) as IReviewGeneral;
+
+  await redis.set(
+    `${TABLE.REVIEWS}_${skinId}`,
+    skinReview.filter((review) => review.userId !== userId),
+  );
+
+  const ratingsBySkin = reviews ? (reviews[skinId] ?? []) : [];
+  const reviewList = {
+    ...reviews,
+    [skinId]: ratingsBySkin.filter((review) => review !== rating),
+  };
+
   await redis.set(`${TABLE.REVIEWS}`, reviewList);
 }
