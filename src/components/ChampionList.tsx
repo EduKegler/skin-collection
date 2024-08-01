@@ -23,7 +23,7 @@ export const ChampionList = memo(function ChampionList({ champions }: ChampionLi
           <TierFilter />
         </div>
 
-        {champions.slice(0, 5).map((champion, index) => (
+        {champions.map((champion, index) => (
           <Champion key={champion.id} champion={champion} championIndex={index} />
         ))}
       </div>
