@@ -3,7 +3,7 @@
 import { memo, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
 import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
-import { PrimaryButton } from "./PrimaryButton";
+import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
 
 export const LegacySkinFilter = memo(function LegacySkinFilter() {

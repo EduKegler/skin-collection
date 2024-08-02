@@ -12,7 +12,7 @@ export default async function Page() {
   const champions = await getChampionList(language);
 
   return (
-    <main>
+    <main className="flex flex-auto h-full w-full">
       <FilterProvider>
         <ChampionsProvider defaultChampions={champions}>
           <ChampionList />

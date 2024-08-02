@@ -38,7 +38,7 @@ export const ScrollTo = memo(function ScrollTo() {
   }, []);
 
   return (
-    <div className="fixed flex flex-col gap-2 bottom-16 right-10">
+    <div className="fixed flex flex-col gap-2 bottom-20 right-10">
       {enableUp && (
         <Button color="gray" onClick={backToTop} size="lg" className="dark:bg-gray-900">
           <div className="flex gap-2 items-center">

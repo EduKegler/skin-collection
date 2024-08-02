@@ -2,10 +2,10 @@
 
 import { memo, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
-import { SkinTier } from "./SkinTier";
+import { SkinTier } from "../SkinTier";
 import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
 import { ISkinTier } from "@/type";
-import { PrimaryButton } from "./PrimaryButton";
+import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
 
 export const TierFilter = memo(function TierFilter() {

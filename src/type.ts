@@ -55,7 +55,6 @@ export type ISkinTier =
   | "Standard"
   | "Budget"
   | "Timeworn"
-  | "Default"
   | "None";
 
 export type ISkinSet =
@@ -108,6 +107,7 @@ export type ISkinSet =
   | "Lunar Revel: Warring Kingdoms"
   | "Lunar Revel"
   | "Mad Scientists"
+  | "None"
   | "Marauder"
   | "Mecha"
   | "Medieval"

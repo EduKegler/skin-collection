@@ -22,13 +22,14 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
       pt_BR: (
         <span className="flex gap-2">
           <Image
-            className="self-center h-auto inline"
+            className="self-center h-auto inline w-[20px]"
             src={"br.svg"}
             alt={"pt_BR"}
-            width={20}
-            height={20}
-            loading="lazy"
+            width={0}
+            height={0}
             unoptimized
+            priority
+            sizes="100vw"
           />
           PT-BR
         </span>
@@ -37,13 +38,14 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
       en_US: (
         <span className="flex gap-2">
           <Image
-            className="self-center h-auto inline"
+            className="self-center h-auto inline  w-[20px]"
             src={"us.svg"}
             alt={"en_US"}
-            width={20}
-            height={20}
-            loading="lazy"
+            width={0}
+            height={0}
             unoptimized
+            priority
+            sizes="100vw"
           />
           EN-US
         </span>

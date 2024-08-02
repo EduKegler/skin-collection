@@ -5,6 +5,7 @@ import Mythic from "@/assets/Mythic.png";
 import Transcendent from "@/assets/Transcendent.png";
 import Epic from "@/assets/Epic.png";
 import Legendary from "@/assets/Legendary.png";
+import Standard from "@/assets/Standard.png";
 import Ultimate from "@/assets/Ultimate.png";
 import { ISkinTier } from "@/type";
 import { memo, useMemo } from "react";
@@ -18,7 +19,7 @@ type SkinTierProps = {
   tier?: ISkinTier;
 };
 
-export const SkinTier = memo(function SkinTier({ tier = "Default" }: SkinTierProps) {
+export const SkinTier = memo(function SkinTier({ tier = "None" }: SkinTierProps) {
   const icon = useMemo(() => {
     const icons: Record<ISkinTier, Icon | null> = {
       Transcendent: { iconName: Transcendent },
@@ -26,10 +27,9 @@ export const SkinTier = memo(function SkinTier({ tier = "Default" }: SkinTierPro
       Mythic: { iconName: Mythic, height: 19 },
       Legendary: { iconName: Legendary },
       Epic: { iconName: Epic, height: 17 },
-      Standard: null,
-      Budget: null,
-      Timeworn: null,
-      Default: null,
+      Standard: { iconName: Standard },
+      Budget: { iconName: Standard },
+      Timeworn: { iconName: Standard },
       None: null,
     };
     return icons[tier];

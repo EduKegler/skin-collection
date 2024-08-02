@@ -3,11 +3,10 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Header } from "@/components/Header";
 import localFont from "next/font/local";
-import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
-import { Footer } from "@/components/Footer";
+import { CustomFlowbiteTheme, Flowbite, Footer } from "flowbite-react";
 import { cookies } from "next/headers";
+import { Header } from "@/components/layout/Header";
 
 export const spiegel = localFont({
   src: [

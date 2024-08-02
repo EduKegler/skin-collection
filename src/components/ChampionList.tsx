@@ -1,16 +1,17 @@
 "use client";
 
 import { Champion } from "@/components/Champion";
-import { Search } from "@/components/Search";
-import { CollectedFilter } from "./CollectedFilter";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { TierFilter } from "./TierFilter";
+import { CollectedFilter } from "./filters/CollectedFilter";
+import { TierFilter } from "./filters/TierFilter";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useFilter } from "@/providers/FilterProvider";
 import { useChampions } from "@/providers/ChampionsProvider";
 import { PrimaryButton } from "./PrimaryButton";
-import { LegacySkinFilter } from "./LegacySkinFilter";
+import { LegacySkinFilter } from "./filters/LegacySkinFilter";
 import { filterSkin } from "@/app/utils/filterSkin";
+import { NoData } from "./NoData";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { Search } from "./filters/Search";
 
 export const ChampionList = memo(function ChampionList() {
   const { search, tierFilter, collectFilter, legacyFilter } = useFilter();
@@ -40,7 +41,7 @@ export const ChampionList = memo(function ChampionList() {
           };
         })
         .filter((champion) => champion.skins.length),
-    [champions, collectFilter, search, tierFilter],
+    [champions, collectFilter, legacyFilter, search, tierFilter],
   );
 
   const fetchMoreData = useCallback(() => {
@@ -60,7 +61,7 @@ export const ChampionList = memo(function ChampionList() {
   }, [championsFiltered.length, visibleImages]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <div className="flex gap-4 pb-4 pt-4">
         <Search />
         <CollectedFilter />
@@ -68,20 +69,26 @@ export const ChampionList = memo(function ChampionList() {
         <LegacySkinFilter />
       </div>
 
-      <InfiniteScroll
-        dataLength={visibleImages}
-        next={fetchMoreData}
-        hasMore={false}
-        loader={<h4>Loading...</h4>}
-      >
-        {championsFiltered.slice(0, visibleImages).map((champion, index) => (
-          <Champion key={champion.id} champion={champion} championIndex={index} />
-        ))}
-      </InfiniteScroll>
-      {hasMore && (
-        <div className="w-full flex justify-center items-center">
-          <PrimaryButton onClick={fetchMoreData}>LOAD MORE</PrimaryButton>
-        </div>
+      {championsFiltered.length ? (
+        <>
+          <InfiniteScroll
+            dataLength={visibleImages}
+            next={fetchMoreData}
+            hasMore={false}
+            loader={<h4>Loading...</h4>}
+          >
+            {championsFiltered.slice(0, visibleImages).map((champion, index) => (
+              <Champion key={champion.id} champion={champion} championIndex={index} />
+            ))}
+          </InfiniteScroll>
+          {hasMore && (
+            <div className="w-full flex justify-center items-center">
+              <PrimaryButton onClick={fetchMoreData}>LOAD MORE</PrimaryButton>
+            </div>
+          )}
+        </>
+      ) : (
+        <NoData />
       )}
     </div>
   );
