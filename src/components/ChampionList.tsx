@@ -9,6 +9,7 @@ import { Button, Flowbite } from "flowbite-react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useFilter } from "@/providers/FilterProvider";
 import { useChampions } from "@/providers/ChampionsProvider";
+import { PrimaryButton } from "./PrimaryButton";
 
 export const ChampionList = memo(function ChampionList() {
   const { search, tierFilter, collectFilter } = useFilter();
@@ -64,30 +65,28 @@ export const ChampionList = memo(function ChampionList() {
   }, [championsFiltered.length, visibleImages]);
 
   return (
-    <Flowbite theme={{ mode: "dark" }}>
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-4 pb-8">
-          <Search />
-          <CollectedFilter />
-          <TierFilter />
-        </div>
-
-        <InfiniteScroll
-          dataLength={visibleImages}
-          next={fetchMoreData}
-          hasMore={false}
-          loader={<h4>Loading...</h4>}
-        >
-          {championsFiltered.slice(0, visibleImages).map((champion, index) => (
-            <Champion key={champion.id} champion={champion} championIndex={index} />
-          ))}
-        </InfiniteScroll>
-        {hasMore && (
-          <div className="w-full flex justify-center items-center">
-            <Button onClick={fetchMoreData}>Load More</Button>
-          </div>
-        )}
+    <div className="flex flex-col gap-2">
+      <div className="flex gap-4 pb-4 pt-4">
+        <Search />
+        <CollectedFilter />
+        <TierFilter />
       </div>
-    </Flowbite>
+
+      <InfiniteScroll
+        dataLength={visibleImages}
+        next={fetchMoreData}
+        hasMore={false}
+        loader={<h4>Loading...</h4>}
+      >
+        {championsFiltered.slice(0, visibleImages).map((champion, index) => (
+          <Champion key={champion.id} champion={champion} championIndex={index} />
+        ))}
+      </InfiniteScroll>
+      {hasMore && (
+        <div className="w-full flex justify-center items-center">
+          <PrimaryButton onClick={fetchMoreData}>Load More</PrimaryButton>
+        </div>
+      )}
+    </div>
   );
 });

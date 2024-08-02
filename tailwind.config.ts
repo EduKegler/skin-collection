@@ -15,6 +15,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        sans: ["var(--font-spiegel)"],
+        mono: ["var(--font-beaufort)"],
+      },
     },
     gridTemplateColumns: {
       "auto-fit-400": "repeat(auto-fit, minmax(400px, auto))",

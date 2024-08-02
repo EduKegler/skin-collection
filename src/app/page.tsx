@@ -4,42 +4,22 @@ import { IChampion, IChampionAPI, IChampionBase, ISkin } from "@/type";
 import { cookies } from "next/headers";
 import { getGeneralReviews, getSkinList, getUserId } from "./actions";
 import { FilterProvider } from "@/providers/FilterProvider";
-import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
 import { ScrollTo } from "@/components/ScrollToButton";
 import { ChampionsProvider } from "@/providers/ChampionsProvider";
+import { Flowbite } from "flowbite-react";
 
 export default async function Page() {
   const language = cookies().get("language")?.value ?? "en_US";
   const champions = await getChampionList(language);
 
-  const customTheme: CustomFlowbiteTheme = {
-    button: {
-      color: {
-        primary: "bg-red-500 hover:bg-red-600",
-      },
-    },
-    dropdown: {
-      arrowIcon: "ml-2 mt-0.5 h-4 w-4",
-    },
-    floatingLabel: {
-      helperText: {
-        default: "text-xs text-gray-600 dark:text-gray-400",
-        success: "text-xs text-green-600 dark:text-green-400",
-        error: "text-xs text-red-600 dark:text-red-400",
-      },
-    },
-  };
-
   return (
-    <main className="flex min-h-screen flex-col gap-2 px-8 py-6">
-      <Flowbite theme={{ theme: customTheme }}>
-        <FilterProvider>
-          <ChampionsProvider defaultChampions={champions}>
-            <ChampionList />
-          </ChampionsProvider>
-        </FilterProvider>
-        <ScrollTo />
-      </Flowbite>
+    <main>
+      <FilterProvider>
+        <ChampionsProvider defaultChampions={champions}>
+          <ChampionList />
+        </ChampionsProvider>
+      </FilterProvider>
+      <ScrollTo />
     </main>
   );
 }

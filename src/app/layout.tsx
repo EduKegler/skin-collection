@@ -1,16 +1,132 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/Header";
+import localFont from "next/font/local";
+import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
 
-const inter = Inter({ subsets: ["latin"] });
+export const spiegel = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Spiegel/Spiegel_TT_Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Spiegel/Spiegel_TT_Regular_Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/Spiegel/Spiegel_TT_Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Spiegel/Spiegel_TT_Bold_Italic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/Spiegel/Spiegel_TT_SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Spiegel/Spiegel_TT_SemiBold_Italic.ttf",
+      weight: "600",
+      style: "italic",
+    },
+  ],
+  variable: "--font-spiegel",
+});
+
+export const beaufort = localFont({
+  src: [
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-BoldItalic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Heavy.ttf",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-HeavyItalic.ttf",
+      weight: "900",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-LightItalic.ttf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-MediumItalic.ttf",
+      weight: "500",
+      style: "italic",
+    },
+  ],
+  variable: "--font-beaufort",
+});
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",
   description: "Skin Collection website.",
+};
+
+const customTheme: CustomFlowbiteTheme = {
+  button: {
+    gradientDuoTone: {
+      primary:
+        "bg-gradient-to-br from-[#785a27] to-[#c89b3c] text-[#F0E6D2] focus:ring-4 focus:ring-pink-200 enabled:hover:bg-gradient-to-bl dark:focus:ring-pink-800",
+    },
+  },
+  dropdown: {
+    arrowIcon: "ml-2 mt-0.5 h-4 w-4",
+  },
+  floatingLabel: {
+    helperText: {
+      default: "text-xs text-gray-600 dark:text-gray-400",
+      success: "text-xs text-green-600 dark:text-green-400",
+      error: "text-xs text-red-600 dark:text-red-400",
+    },
+  },
+  modal: {
+    content: {
+      inner:
+        "relative flex max-h-[90dvh] flex-col rounded-lg bg-white shadow dark:bg-slate-800",
+    },
+  },
 };
 
 export default function RootLayout({
@@ -19,13 +135,15 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${beaufort.variable}  ${spiegel.variable}`}>
       <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
-      <body className={inter.className}>
-        <Header />
-        {children}
+      <body className="flex min-h-screen flex-col gap-2 px-8 py-6">
+        <Flowbite theme={{ theme: customTheme }}>
+          <Header />
+          {children}
+        </Flowbite>
       </body>
     </html>
   );

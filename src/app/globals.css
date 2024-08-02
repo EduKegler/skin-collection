@@ -19,6 +19,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background-color: #111827;
+  font-family: var(--font-spiegel);
 }
 
 @layer utilities {
@@ -29,4 +30,24 @@ body {
 
 [id^="outlined_helper_text"] {
   display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-beaufort);
+  font-style: italic;
+  font-weight: 700;
+  color: #f0e6d2;
+}
+
+a,
+p,
+pre,
+button,
+span {
+  color: #f0e6d2;
 }

@@ -64,7 +64,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
         )}
       >
         <span className="text-sm font-bold">
-          {skin.isCollected ? "Collected!" : "Uncollected!"}
+          {skin.isCollected ? "Collected" : "Uncollected"}
         </span>
       </div>
       <div

@@ -4,6 +4,7 @@ import { IReviewDetail, IReviewGeneral } from "@/type";
 import { Redis } from "@upstash/redis";
 import { cookies } from "next/headers";
 import { v4 as uuidv4 } from "uuid";
+import { redirect } from "next/navigation";
 
 const TABLE = {
   SKINS: "skins",
@@ -94,4 +95,8 @@ export async function removeReview(userId: string, skinId: string, rating: numbe
   };
 
   await redis.set(`${TABLE.REVIEWS}`, reviewList);
+}
+
+export async function homepage() {
+  redirect(`/`);
 }
