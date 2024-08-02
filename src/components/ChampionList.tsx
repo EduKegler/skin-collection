@@ -84,7 +84,7 @@ export const ChampionList = memo(function ChampionList() {
       </InfiniteScroll>
       {hasMore && (
         <div className="w-full flex justify-center items-center">
-          <PrimaryButton onClick={fetchMoreData}>Load More</PrimaryButton>
+          <PrimaryButton onClick={fetchMoreData}>LOAD MORE</PrimaryButton>
         </div>
       )}
     </div>

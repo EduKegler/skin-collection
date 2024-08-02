@@ -13,7 +13,7 @@ export default function NotFound() {
       <div className="flex flex-col justify-center items-center gap-4">
         <h2 className="text-7xl text-lol-gold">Not Found</h2>
         <p className="text-lg">Could not find requested resource</p>
-        <PrimaryButton onClick={handleRedirect}>Return Home</PrimaryButton>
+        <PrimaryButton onClick={handleRedirect}>RETURN HOME</PrimaryButton>
       </div>
     </main>
   );

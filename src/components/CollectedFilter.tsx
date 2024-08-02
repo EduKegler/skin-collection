@@ -16,21 +16,21 @@ export const CollectedFilter = memo(function CollectedFilter() {
         color={"gray"}
         onClick={() => setCollectFilter("All")}
       >
-        All
+        ALL
       </Button>
       <Button
         className={collectFilter === "Collect" ? className : undefined}
         color={"gray"}
         onClick={() => setCollectFilter("Collect")}
       >
-        Collect
+        COLLECT
       </Button>
       <Button
         className={collectFilter === "Uncollect" ? className : undefined}
         color={"gray"}
         onClick={() => setCollectFilter("Uncollect")}
       >
-        Uncollect
+        UNCOLLECT
       </Button>
     </Button.Group>
   );
