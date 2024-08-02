@@ -1,4 +1,4 @@
-import { Button, Dropdown, Textarea } from "flowbite-react";
+import { Dropdown, Textarea } from "flowbite-react";
 import { ChangeEvent, memo, useCallback, useMemo, useState } from "react";
 import { RatingStars } from "./RatingStars";
 import { PrimaryButton } from "./PrimaryButton";

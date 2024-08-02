@@ -14,16 +14,6 @@ export const ScrollTo = memo(function ScrollTo() {
     } else {
       setEnableUp(false);
     }
-
-    // if (
-    //   document.body.scrollTop < window.innerHeight - document.body.scrollHeight ||
-    //   document.documentElement.scrollTop <
-    //     document.documentElement.scrollHeight - window.innerHeight
-    // ) {
-    //   setEnableDown(true);
-    // } else {
-    //   setEnableDown(false);
-    // }
   };
 
   const backToTop = () => {
