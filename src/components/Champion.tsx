@@ -4,6 +4,7 @@ import { IChampion } from "@/type";
 import { Skin } from "./Skin";
 import { memo, useMemo } from "react";
 import { useFilter } from "@/providers/FilterProvider";
+import { filterSkin } from "@/app/utils/filterSkin";
 
 type ChampionProps = {
   champion: IChampion;
@@ -14,7 +15,7 @@ export const Champion = memo(function Champion({
   champion,
   championIndex,
 }: ChampionProps) {
-  const { search, tierFilter, collectFilter } = useFilter();
+  const { search, tierFilter, collectFilter, legacyFilter } = useFilter();
 
   const collected = champion.skins.reduce((acc, skin) => {
     return acc + (skin.isCollected ? 1 : 0);
@@ -23,20 +24,16 @@ export const Champion = memo(function Champion({
   const skinsFiltered = useMemo(
     () =>
       champion.skins.filter((skin) => {
-        const nameSearch = champion.name
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase());
-        const skinNameSearch = skin.name
-          .toLocaleLowerCase()
-          .includes(search.toLowerCase());
-        const tierSearch = tierFilter === "All" ? true : skin.info?.tier === tierFilter;
-        const collectSearch =
-          (collectFilter === "Collect" && skin.isCollected) ||
-          (collectFilter === "Uncollect" && !skin.isCollected) ||
-          collectFilter === "All";
-        return (nameSearch || skinNameSearch) && tierSearch && collectSearch;
+        return filterSkin(
+          champion.name,
+          skin,
+          tierFilter,
+          collectFilter,
+          legacyFilter,
+          search,
+        );
       }),
-    [champion.name, champion.skins, collectFilter, search, tierFilter],
+    [champion.name, champion.skins, collectFilter, legacyFilter, search, tierFilter],
   );
 
   if (!skinsFiltered.length) {

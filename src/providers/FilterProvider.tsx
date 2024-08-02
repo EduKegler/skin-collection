@@ -1,6 +1,6 @@
 "use client";
 
-import { ICollectFilter, ISkinTier } from "@/type";
+import { ICollectFilter, ILegacyFilter, ISkinTier } from "@/type";
 import {
   createContext,
   Dispatch,
@@ -19,23 +19,27 @@ type FilterContextType = {
   search: string;
   collectFilter: ICollectFilter;
   tierFilter: ISkinTier | "All";
+  legacyFilter: ILegacyFilter;
 };
 
 const FilterContext = createContext<FilterContextType>({
   search: "",
   collectFilter: "All",
   tierFilter: "All",
+  legacyFilter: "All",
 });
 
 type FilterDispatchContextType = {
   setSearch: Dispatch<SetStateAction<string>>;
   setCollectFilter: Dispatch<SetStateAction<ICollectFilter>>;
   setTierFilter: Dispatch<SetStateAction<ISkinTier | "All">>;
+  setLegacyFilter: Dispatch<SetStateAction<ILegacyFilter>>;
 };
 const FilterDispatchContext = createContext<FilterDispatchContextType>({
   setSearch: () => {},
   setCollectFilter: () => {},
   setTierFilter: () => {},
+  setLegacyFilter: () => {},
 });
 
 export const FilterProvider = memo(function FilterProvider(
@@ -44,20 +48,23 @@ export const FilterProvider = memo(function FilterProvider(
   const [search, setSearch] = useState<string>("");
   const [collectFilter, setCollectFilter] = useState<ICollectFilter>("All");
   const [tierFilter, setTierFilter] = useState<ISkinTier | "All">("All");
+  const [legacyFilter, setLegacyFilter] = useState<ILegacyFilter>("All");
 
   const filterMemo = useMemo(() => {
     return {
       search,
       collectFilter,
       tierFilter,
+      legacyFilter,
     };
-  }, [collectFilter, search, tierFilter]);
+  }, [collectFilter, legacyFilter, search, tierFilter]);
 
   const filterDispatchMemo = useMemo(() => {
     return {
       setSearch,
       setCollectFilter,
       setTierFilter,
+      setLegacyFilter,
     };
   }, [setCollectFilter, setSearch]);
 

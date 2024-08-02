@@ -9,9 +9,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useFilter } from "@/providers/FilterProvider";
 import { useChampions } from "@/providers/ChampionsProvider";
 import { PrimaryButton } from "./PrimaryButton";
+import { LegacySkinFilter } from "./LegacySkinFilter";
+import { filterSkin } from "@/app/utils/filterSkin";
 
 export const ChampionList = memo(function ChampionList() {
-  const { search, tierFilter, collectFilter } = useFilter();
+  const { search, tierFilter, collectFilter, legacyFilter } = useFilter();
   const { champions } = useChampions();
   const [visibleImages, setVisibleImages] = useState(6);
   const [hasMore, setHasMore] = useState(true);
@@ -26,20 +28,14 @@ export const ChampionList = memo(function ChampionList() {
             skins: Object.keys(champion.skins)
               .map((skinKey) => champion.skins[skinKey])
               .filter((skin) => {
-                const nameSearch = champion.name
-                  .toLocaleLowerCase()
-                  .includes(search.toLocaleLowerCase());
-
-                const skinNameSearch = skin?.name
-                  .toLocaleLowerCase()
-                  .includes(search.toLowerCase());
-                const tierSearch =
-                  tierFilter === "All" ? true : skin.info?.tier === tierFilter;
-                const collectSearch =
-                  (collectFilter === "Collect" && skin.isCollected) ||
-                  (collectFilter === "Uncollect" && !skin.isCollected) ||
-                  collectFilter === "All";
-                return (nameSearch || skinNameSearch) && tierSearch && collectSearch;
+                return filterSkin(
+                  champion.name,
+                  skin,
+                  tierFilter,
+                  collectFilter,
+                  legacyFilter,
+                  search,
+                );
               }),
           };
         })
@@ -69,6 +65,7 @@ export const ChampionList = memo(function ChampionList() {
         <Search />
         <CollectedFilter />
         <TierFilter />
+        <LegacySkinFilter />
       </div>
 
       <InfiniteScroll

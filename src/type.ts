@@ -32,6 +32,8 @@ export type IRating = {
 };
 
 export type ICollectFilter = "All" | "Collect" | "Uncollect";
+export type ILegacyFilter = "All" | "OnlyLegacy" | "OnlyNonLegacy";
+export type ISkinFilter = "All" | ISkinTier;
 
 export type IReviewDetail = {
   userId: string;
