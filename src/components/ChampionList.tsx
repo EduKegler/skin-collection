@@ -5,7 +5,6 @@ import { Search } from "@/components/Search";
 import { CollectedFilter } from "./CollectedFilter";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { TierFilter } from "./TierFilter";
-import { Button, Flowbite } from "flowbite-react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useFilter } from "@/providers/FilterProvider";
 import { useChampions } from "@/providers/ChampionsProvider";

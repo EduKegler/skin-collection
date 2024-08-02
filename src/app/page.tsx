@@ -6,7 +6,6 @@ import { getGeneralReviews, getSkinList, getUserId } from "./actions";
 import { FilterProvider } from "@/providers/FilterProvider";
 import { ScrollTo } from "@/components/ScrollToButton";
 import { ChampionsProvider } from "@/providers/ChampionsProvider";
-import { Flowbite } from "flowbite-react";
 
 export default async function Page() {
   const language = cookies().get("language")?.value ?? "en_US";
