@@ -1,5 +1,6 @@
 "use client";
 import { memo, useCallback } from "react";
+import { PrimaryButton } from "./PrimaryButton";
 
 export const SignInWithRiotButton = memo(function SignInWithRiotButton() {
   const redirect_uri = "http://example.com/callback";
@@ -12,12 +13,5 @@ export const SignInWithRiotButton = memo(function SignInWithRiotButton() {
     window.open(url, "_blank");
   }, []);
 
-  return (
-    <button
-      className="w-24 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      onClick={handleSignIn}
-    >
-      Button
-    </button>
-  );
+  return <PrimaryButton onClick={handleSignIn}>SIGN IN</PrimaryButton>;
 });

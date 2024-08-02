@@ -5,7 +5,7 @@ import { Title } from "@/components/typograph/Title";
 
 export default async function Page() {
   return (
-    <div>
+    <div className="pt-8">
       <h1 className="text-3xl text-center pb-4">Terms of Service for Skin Collection</h1>
       <Title>Last Updated: July 31, 2024</Title>
       <Text>

@@ -44,7 +44,7 @@ export const Champion = memo(function Champion({
   }
 
   return (
-    <div key={champion.id} className="px-2 py-4">
+    <div key={champion.id} className="py-4">
       <div className="pb-8 relative flex items-center gap-4">
         <h3 className={`text-4xl font-medium`}>
           {champion.name} ({collected}/{champion.skins.length})

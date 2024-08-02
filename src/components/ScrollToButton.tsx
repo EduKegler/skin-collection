@@ -1,6 +1,8 @@
 "use client";
+
 import { memo, useEffect, useState } from "react";
 import { Button } from "flowbite-react";
+import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
 
 export const ScrollTo = memo(function ScrollTo() {
   const [enableUp, setEnableUp] = useState(false);
@@ -36,15 +38,19 @@ export const ScrollTo = memo(function ScrollTo() {
   }, []);
 
   return (
-    <div className="fixed flex flex-col gap-2 bottom-10 right-10">
+    <div className="fixed flex flex-col gap-2 bottom-16 right-10">
       {enableUp && (
-        <Button color="light" onClick={backToTop}>
-          {"Back to the top"}
+        <Button color="gray" onClick={backToTop} size="lg" className="dark:bg-gray-900">
+          <div className="flex gap-2 items-center">
+            <FaAngleDoubleUp />
+          </div>
         </Button>
       )}
       {true && (
-        <Button color="light" onClick={goToBottom}>
-          {"Go to bottom"}
+        <Button color="gray" onClick={goToBottom} size="lg" className="dark:bg-gray-900">
+          <div className="flex gap-2 items-center">
+            <FaAngleDoubleDown />
+          </div>
         </Button>
       )}
     </div>

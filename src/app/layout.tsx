@@ -6,6 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/Header";
 import localFont from "next/font/local";
 import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
+import { Footer } from "@/components/Footer";
+import { cookies } from "next/headers";
 
 export const spiegel = localFont({
   src: [
@@ -108,7 +110,7 @@ const customTheme: CustomFlowbiteTheme = {
   button: {
     gradientDuoTone: {
       primary:
-        "bg-gradient-to-br from-[#785a27] to-[#c89b3c] text-[#F0E6D2] focus:ring-4 focus:ring-pink-200 enabled:hover:bg-gradient-to-bl dark:focus:ring-pink-800",
+        "bg-gradient-to-br from-[#785a27] to-[#c89b3c] text-[#F0E6D2] focus:ring-1 focus:ring-pink-200 enabled:hover:bg-gradient-to-bl dark:focus:ring-pink-800",
     },
   },
   dropdown: {
@@ -134,16 +136,19 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const language = cookies().get("language")?.value ?? "en_US";
+
   return (
-    <html lang="en" className={`dark ${beaufort.variable}  ${spiegel.variable}`}>
+    <html lang="en" className={`dark ${beaufort.variable} ${spiegel.variable}`}>
       <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
       <body className="flex min-h-screen flex-col gap-2 px-8 py-6">
         <Flowbite theme={{ theme: customTheme }}>
-          <Header />
+          <Header language={language} />
           {children}
         </Flowbite>
+        <Footer />
       </body>
     </html>
   );

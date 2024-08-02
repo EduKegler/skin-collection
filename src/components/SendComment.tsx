@@ -1,4 +1,4 @@
-import { Dropdown, Textarea } from "flowbite-react";
+import { Dropdown, Textarea, Tooltip } from "flowbite-react";
 import { ChangeEvent, memo, useCallback, useMemo, useState } from "react";
 import { RatingStars } from "./RatingStars";
 import { PrimaryButton } from "./PrimaryButton";
@@ -53,9 +53,16 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
           <Dropdown.Item onClick={() => setRating(2)}>{labels[2]}</Dropdown.Item>
           <Dropdown.Item onClick={() => setRating(1)}>{labels[1]}</Dropdown.Item>
         </Dropdown>
-        <PrimaryButton disabled={rating === "Rating"} onClick={handleSendComment}>
-          SEND
-        </PrimaryButton>
+        <Tooltip
+          className={rating === "Rating" ? "block" : "hidden"}
+          content="Select a rating before send a comment"
+          trigger={"hover"}
+          placement="bottom"
+        >
+          <PrimaryButton disabled={rating === "Rating"} onClick={handleSendComment}>
+            SEND
+          </PrimaryButton>
+        </Tooltip>
       </div>
     </div>
   );

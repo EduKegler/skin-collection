@@ -5,6 +5,8 @@ import { Dropdown } from "flowbite-react";
 import { SkinTier } from "./SkinTier";
 import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
 import { ISkinTier } from "@/type";
+import { PrimaryButton } from "./PrimaryButton";
+import { FaAngleDown } from "react-icons/fa";
 
 export const TierFilter = memo(function TierFilter() {
   const { tierFilter } = useFilter();
@@ -27,7 +29,18 @@ export const TierFilter = memo(function TierFilter() {
   return (
     <div className="flex gap-4 items-center">
       <span>Tier: </span>
-      <Dropdown label={labels[tierFilter as keyof typeof labels]}>
+      <Dropdown
+        label={labels[tierFilter as keyof typeof labels]}
+        renderTrigger={() => (
+          <div className="relative">
+            <PrimaryButton>
+              <div className="flex gap-2 items-center">
+                {labels[tierFilter as keyof typeof labels]} <FaAngleDown />
+              </div>
+            </PrimaryButton>
+          </div>
+        )}
+      >
         <Dropdown.Item onClick={() => setTierFilter("All")}>
           {labels["All"]}
         </Dropdown.Item>

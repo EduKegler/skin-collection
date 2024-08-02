@@ -1,6 +1,6 @@
 "use client";
 import { updateLanguage } from "@/app/actions";
-import { Dropdown } from "flowbite-react";
+import { Button, Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { memo, useCallback, useMemo, useState } from "react";
 
@@ -52,7 +52,14 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
   }, []);
 
   return (
-    <Dropdown label={labels[language as keyof typeof labels]}>
+    <Dropdown
+      label={labels[language as keyof typeof labels]}
+      renderTrigger={() => (
+        <div className="relative">
+          <Button color="gray">{labels[language as keyof typeof labels]}</Button>
+        </div>
+      )}
+    >
       {loading ? null : (
         <>
           <Dropdown.Item onClick={() => handleChangeLanguage("pt_BR")}>
