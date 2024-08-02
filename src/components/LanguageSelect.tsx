@@ -11,8 +11,6 @@ type LanguageProps = {
 export const LanguageSelect = memo(function LanguageSelect({ language }: LanguageProps) {
   const [loading, setLoading] = useState(false);
 
-  console.log(loading);
-
   const handleChangeLanguage = useCallback(async (value: string) => {
     setLoading(true);
     await updateLanguage(value);

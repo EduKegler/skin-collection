@@ -2,32 +2,43 @@
 
 import Image from "next/image";
 import { clsx } from "clsx";
-import { Dispatch, memo, SetStateAction, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { ISkin } from "@/type";
 import { updateSkin } from "@/app/actions";
 import { SkinTier } from "./SkinTier";
 import { SkinRating } from "./SkinRating";
 import { ModalReview } from "./ModalReview";
 import { useRouter } from "next/navigation";
+import { useChampionsDispatch } from "@/providers/ChampionsProvider";
 type SkinProps = {
   id: string;
   name: string;
   skin: ISkin;
   index: number;
-  onChange: Dispatch<SetStateAction<number>>;
 };
 
-export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps) {
+export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
   const [openModal, setOpenModal] = useState(false);
-  const [internalCollected, setInternalCollected] = useState(skin.isCollected);
+  const { setChampions } = useChampionsDispatch();
 
   const { refresh } = useRouter();
 
   const handleClick = useCallback(() => {
-    setInternalCollected((isCollected) => !isCollected);
-    onChange((counter) => (internalCollected ? counter - 1 : counter + 1));
+    setChampions((champions) => ({
+      ...champions,
+      [id]: {
+        ...champions[id],
+        skins: {
+          ...champions[id].skins,
+          [champions[id].skins[skin.id].id]: {
+            ...champions[id].skins[skin.id],
+            isCollected: !skin.isCollected,
+          },
+        },
+      },
+    }));
     updateSkin(skin.id);
-  }, [skin.id, internalCollected, onChange]);
+  }, [setChampions, skin.id, skin.isCollected, id]);
 
   const handleCloseModal = useCallback(
     (changed: boolean) => {
@@ -49,11 +60,11 @@ export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps)
         className={clsx(
           "flex items-center justify-center transition-opacity duration-300 rounded-t-md",
           "opacity-100 group-hover:opacity-0 py-1",
-          internalCollected ? "bg-green-800" : "bg-gray-800",
+          skin.isCollected ? "bg-green-800" : "bg-gray-800",
         )}
       >
         <span className="text-sm font-bold">
-          {internalCollected ? "Collected!" : "Uncollected!"}
+          {skin.isCollected ? "Collected!" : "Uncollected!"}
         </span>
       </div>
       <div
@@ -74,12 +85,12 @@ export const Skin = memo(function Skin({ id, skin, index, onChange }: SkinProps)
         <div
           className={clsx(
             "bg-opacity-80 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300 rounded-b-md",
-            internalCollected ? "bg-red-800" : "bg-green-800",
+            skin.isCollected ? "bg-red-800" : "bg-green-800",
             "group-hover:opacity-100",
           )}
         >
           <span className="text-sm font-bold">
-            {internalCollected ? "Uncollected?" : "Collected?"}
+            {skin.isCollected ? "Uncollected?" : "Collected?"}
           </span>
         </div>
       </div>

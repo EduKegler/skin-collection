@@ -2,7 +2,7 @@ import { Rating } from "flowbite-react";
 import React, { memo } from "react";
 
 type SkinRatingProps = {
-  rating: string;
+  rating: number;
   amountReviews: number;
   onClick: () => void;
 };

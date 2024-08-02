@@ -1,21 +1,29 @@
 "use client";
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Button } from "flowbite-react";
 
-type IDirection = "Up" | "Down";
-
 export const ScrollTo = memo(function ScrollTo() {
-  const [direction, setDirection] = useState<IDirection>("Down");
+  const [enableUp, setEnableUp] = useState(false);
 
   const handleScroll = () => {
     if (
       document.body.scrollTop > window.innerHeight ||
       document.documentElement.scrollTop > window.innerHeight
     ) {
-      setDirection("Up");
+      setEnableUp(true);
     } else {
-      setDirection("Down");
+      setEnableUp(false);
     }
+
+    // if (
+    //   document.body.scrollTop < window.innerHeight - document.body.scrollHeight ||
+    //   document.documentElement.scrollTop <
+    //     document.documentElement.scrollHeight - window.innerHeight
+    // ) {
+    //   setEnableDown(true);
+    // } else {
+    //   setEnableDown(false);
+    // }
   };
 
   const backToTop = () => {
@@ -37,13 +45,18 @@ export const ScrollTo = memo(function ScrollTo() {
     };
   }, []);
 
-  const isDown = useMemo(() => direction === "Down", [direction]);
-
   return (
-    <div className="fixed bottom-10 right-10">
-      <Button color="light" onClick={direction === "Down" ? goToBottom : backToTop}>
-        {isDown ? "Go to bottom" : "Back to the top"}
-      </Button>
+    <div className="fixed flex flex-col gap-2 bottom-10 right-10">
+      {enableUp && (
+        <Button color="light" onClick={backToTop}>
+          {"Back to the top"}
+        </Button>
+      )}
+      {true && (
+        <Button color="light" onClick={goToBottom}>
+          {"Go to bottom"}
+        </Button>
+      )}
     </div>
   );
 });

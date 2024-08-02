@@ -1,3 +1,11 @@
+export type IChampionAPI = IChampionBase & {
+  skins: Record<string, ISkin>;
+};
+
+export type IChampion = IChampionBase & {
+  skins: ISkin[];
+};
+
 export type IChampionBase = {
   id: string;
   name: string;
@@ -12,12 +20,29 @@ export type ISkin = {
   rating: IRating;
 };
 
+export type IInfoSkin = {
+  tier: ISkinTier;
+  isLegacy: boolean;
+  set: ISkinSet;
+};
+
 export type IRating = {
-  rating: string;
+  rating: number;
   amountReviews: number;
 };
 
 export type ICollectFilter = "All" | "Collect" | "Uncollect";
+
+export type IReviewDetail = {
+  userId: string;
+  rating: number;
+  comment?: string;
+  isOwner: boolean;
+};
+
+export type IReviewGeneral = {
+  [skinId: string]: number[];
+};
 
 export type ISkinTier =
   | "Transcendent"
@@ -166,24 +191,3 @@ export type ISkinSet =
   | "Urf The Manatee"
   | "World Champions: 2011 (FNATIC)"
   | "Cats vs Dogs";
-
-export type IInfoSkin = {
-  tier: ISkinTier;
-  isLegacy: boolean;
-  set: ISkinSet;
-};
-
-export type IChampion = IChampionBase & {
-  skins: ISkin[];
-};
-
-export type IReviewDetail = {
-  userId: string;
-  rating: number;
-  comment?: string;
-  isOwner: boolean;
-};
-
-export type IReviewGeneral = {
-  [skinId: string]: number[];
-};
