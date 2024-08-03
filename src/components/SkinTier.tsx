@@ -39,13 +39,14 @@ export const SkinTier = memo(function SkinTier({ tier = "None" }: SkinTierProps)
 
   return (
     <Image
-      className="self-center h-auto inline"
+      className="self-center h-auto inline w-[15px]"
+      sizes="100vw"
+      width={0}
+      height={0}
+      unoptimized
       src={icon.iconName}
       alt={tier}
-      width={20}
-      height={icon.height}
       loading="lazy"
-      unoptimized
     />
   );
 });

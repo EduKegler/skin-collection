@@ -12,6 +12,7 @@ import { filterSkin } from "@/app/utils/filterSkin";
 import { NoData } from "./NoData";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Search } from "./filters/Search";
+import { OrderSkinBy } from "./filters/OrderSkinBy";
 
 export const ChampionList = memo(function ChampionList() {
   const { search, tierFilter, collectFilter, legacyFilter } = useFilter();
@@ -62,11 +63,12 @@ export const ChampionList = memo(function ChampionList() {
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <div className="flex gap-4 pb-4 pt-4">
+      <div className="flex gap-4 pb-4 pt-4 items-center">
         <Search />
         <CollectedFilter />
         <TierFilter />
         <LegacySkinFilter />
+        <OrderSkinBy />
       </div>
 
       {championsFiltered.length ? (

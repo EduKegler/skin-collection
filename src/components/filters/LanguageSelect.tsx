@@ -23,13 +23,13 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
         <span className="flex gap-2">
           <Image
             className="self-center h-auto inline w-[20px]"
-            src={"br.svg"}
-            alt={"pt_BR"}
+            sizes="100vw"
             width={0}
             height={0}
             unoptimized
+            src={"br.svg"}
+            alt={"pt_BR"}
             priority
-            sizes="100vw"
           />
           PT-BR
         </span>
@@ -58,7 +58,9 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
       label={labels[language as keyof typeof labels]}
       renderTrigger={() => (
         <div className="relative">
-          <Button color="gray">{labels[language as keyof typeof labels]}</Button>
+          <Button color="gray" size={"xs"}>
+            {labels[language as keyof typeof labels]}
+          </Button>
         </div>
       )}
     >

@@ -5,7 +5,6 @@ import { clsx } from "clsx";
 import { memo, useCallback, useMemo, useState } from "react";
 import { ISkin } from "@/type";
 import { updateSkin } from "@/app/actions";
-import { SkinTier } from "./SkinTier";
 import { SkinRating } from "./SkinRating";
 import { ModalReview } from "./ModalReview";
 import { useRouter } from "next/navigation";
@@ -94,11 +93,9 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
           </span>
         </div>
       </div>
-      <div className="flex justify-center pt-2 gap-2 text-center">
-        <SkinTier tier={skin.info?.tier} />
+      <div className="flex pt-2 gap-2 items-center text-center justify-center">
         <SkinRating
-          amountReviews={skin.rating.amountReviews}
-          rating={skin.rating.rating}
+          skin={skin}
           onClick={() => {
             setOpenModal(true);
           }}
@@ -106,7 +103,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
       </div>
 
       <div className="flex mt-2 text-sm  gap-2 justify-center">
-        <span className="self-center">{skin.name}</span>
+        <span className="self-center font-semibold">{skin.name}</span>
       </div>
 
       <ModalReview onClose={handleCloseModal} openModal={openModal} skin={skin} id={id} />

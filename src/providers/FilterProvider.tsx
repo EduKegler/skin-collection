@@ -1,6 +1,6 @@
 "use client";
 
-import { ICollectFilter, ILegacyFilter, ISkinTier } from "@/type";
+import { ICollectFilter, ILegacyFilter, IOrderBy, ISkinTier } from "@/type";
 import {
   createContext,
   Dispatch,
@@ -20,6 +20,7 @@ type FilterContextType = {
   collectFilter: ICollectFilter;
   tierFilter: ISkinTier | "All";
   legacyFilter: ILegacyFilter;
+  orderBy: IOrderBy;
 };
 
 const FilterContext = createContext<FilterContextType>({
@@ -27,6 +28,7 @@ const FilterContext = createContext<FilterContextType>({
   collectFilter: "All",
   tierFilter: "All",
   legacyFilter: "All",
+  orderBy: "ReleaseDate",
 });
 
 type FilterDispatchContextType = {
@@ -34,12 +36,14 @@ type FilterDispatchContextType = {
   setCollectFilter: Dispatch<SetStateAction<ICollectFilter>>;
   setTierFilter: Dispatch<SetStateAction<ISkinTier | "All">>;
   setLegacyFilter: Dispatch<SetStateAction<ILegacyFilter>>;
+  setOrderBy: Dispatch<SetStateAction<IOrderBy>>;
 };
 const FilterDispatchContext = createContext<FilterDispatchContextType>({
   setSearch: () => {},
   setCollectFilter: () => {},
   setTierFilter: () => {},
   setLegacyFilter: () => {},
+  setOrderBy: () => {},
 });
 
 export const FilterProvider = memo(function FilterProvider(
@@ -49,6 +53,7 @@ export const FilterProvider = memo(function FilterProvider(
   const [collectFilter, setCollectFilter] = useState<ICollectFilter>("All");
   const [tierFilter, setTierFilter] = useState<ISkinTier | "All">("All");
   const [legacyFilter, setLegacyFilter] = useState<ILegacyFilter>("All");
+  const [orderBy, setOrderBy] = useState<IOrderBy>("ReleaseDate");
 
   const filterMemo = useMemo(() => {
     return {
@@ -56,8 +61,9 @@ export const FilterProvider = memo(function FilterProvider(
       collectFilter,
       tierFilter,
       legacyFilter,
+      orderBy,
     };
-  }, [collectFilter, legacyFilter, search, tierFilter]);
+  }, [collectFilter, legacyFilter, orderBy, search, tierFilter]);
 
   const filterDispatchMemo = useMemo(() => {
     return {
@@ -65,6 +71,7 @@ export const FilterProvider = memo(function FilterProvider(
       setCollectFilter,
       setTierFilter,
       setLegacyFilter,
+      setOrderBy,
     };
   }, [setCollectFilter, setSearch]);
 

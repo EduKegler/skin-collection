@@ -1,7 +1,7 @@
 "use client";
 
 import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
-import { FloatingLabel } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import React, { ChangeEvent, memo, useCallback } from "react";
 
 export const Search = memo(function Search() {
@@ -16,12 +16,15 @@ export const Search = memo(function Search() {
   );
 
   return (
-    <FloatingLabel
+    <TextInput
+      width={"100%"}
+      id="small"
+      type="text"
       sizing="sm"
-      variant="outlined"
-      label="Search Skins..."
+      placeholder="Search Skins..."
       value={search}
       onChange={handleSearch}
+      className="w-[280px]"
     />
   );
 });

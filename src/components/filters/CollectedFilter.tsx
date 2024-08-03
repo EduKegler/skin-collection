@@ -15,6 +15,7 @@ export const CollectedFilter = memo(function CollectedFilter() {
       <Button
         className={collectFilter === "All" ? className : undefined}
         color={"gray"}
+        size={"xs"}
         onClick={() => setCollectFilter("All")}
       >
         ALL
@@ -22,6 +23,7 @@ export const CollectedFilter = memo(function CollectedFilter() {
       <Button
         className={collectFilter === "Collect" ? className : undefined}
         color={"gray"}
+        size={"xs"}
         onClick={() => setCollectFilter("Collect")}
       >
         COLLECT
@@ -29,6 +31,7 @@ export const CollectedFilter = memo(function CollectedFilter() {
       <Button
         className={collectFilter === "Uncollect" ? className : undefined}
         color={"gray"}
+        size={"xs"}
         onClick={() => setCollectFilter("Uncollect")}
       >
         UNCOLLECT
