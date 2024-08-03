@@ -1,21 +1,10 @@
 "use client";
 
-import { IChampion, ISkinTier } from "@/type";
+import { IChampion } from "@/type";
 import { Skin } from "./Skin";
 import { memo, useMemo } from "react";
 import { useFilter } from "@/providers/FilterProvider";
-
-const tierOrder: Record<ISkinTier, number> = {
-  Transcendent: 1,
-  Ultimate: 2,
-  Mythic: 3,
-  Legendary: 4,
-  Epic: 5,
-  Standard: 6,
-  Budget: 7,
-  Timeworn: 8,
-  None: 9,
-};
+import { orderBySkins } from "@/app/utils/sortSkin";
 
 type ChampionProps = {
   champion: IChampion;
@@ -32,16 +21,8 @@ export const Champion = memo(function Champion({
   }, 0);
 
   const skinsOrdered = useMemo(() => {
-    if (orderBy === "ReleaseDate") {
-      return champion.skins;
-    } else {
-      return champion.skins.sort(
-        (skinA, skinB) =>
-          tierOrder[skinA.info?.tier ?? "Timeworn"] -
-          tierOrder[skinB.info?.tier ?? "Timeworn"],
-      );
-    }
-  }, [champion.skins, orderBy]);
+    return orderBySkins(orderBy, champion);
+  }, [champion, orderBy]);
 
   return (
     <div key={champion.id} className="py-4">

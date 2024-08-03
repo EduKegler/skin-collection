@@ -14,6 +14,8 @@ export const OrderSkinBy = memo(function OrderSkinBy() {
     return {
       ReleaseDate: "Release Date",
       Rarity: "Rarity",
+      Reviews: "Reviews",
+      Rating: "Rating",
     };
   }, []);
 
@@ -37,6 +39,12 @@ export const OrderSkinBy = memo(function OrderSkinBy() {
         </Dropdown.Item>
         <Dropdown.Item onClick={() => setOrderBy("Rarity")}>
           {labels["Rarity"]}
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => setOrderBy("Reviews")}>
+          {labels["Reviews"]}
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => setOrderBy("Rating")}>
+          {labels["Rating"]}
         </Dropdown.Item>
       </Dropdown>
     </div>
