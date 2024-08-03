@@ -4,9 +4,10 @@ import { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
-import { CustomFlowbiteTheme, Flowbite, Footer } from "flowbite-react";
+import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
 import { cookies } from "next/headers";
 import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 export const spiegel = localFont({
   src: [
@@ -138,11 +139,11 @@ export default function RootLayout({
   const language = cookies().get("language")?.value ?? "en_US";
 
   return (
-    <html lang="en" className={`dark ${beaufort.variable} ${spiegel.variable}`}>
+    <html lang="en" className={` ${beaufort.variable} ${spiegel.variable} dark`}>
       <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
-      <body className="flex min-h-screen flex-col gap-2 px-8 py-6">
+      <body className="flex min-h-screen flex-col gap-2 px-8 py-6 dark">
         <Flowbite theme={{ theme: customTheme }}>
           <Header language={language} />
           {children}
