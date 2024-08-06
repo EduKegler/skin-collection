@@ -145,7 +145,10 @@ export default function RootLayout({
       <SpeedInsights />
       <body className="flex min-h-screen flex-col gap-2 px-8 py-6 dark">
         <Flowbite theme={{ theme: customTheme }}>
-          <Header language={language} />
+          <Header
+            language={language}
+            clientId={process.env.RIOT_APPLICATION_CLIENT_ID ?? ""}
+          />
           {children}
         </Flowbite>
         <Footer />

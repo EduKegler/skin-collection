@@ -14,11 +14,13 @@ import { SignInWithRiotButton } from "../SignInWithRiot";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { routes } from "@/contants";
+
 type HeaderProps = {
   language: string;
+  clientId: string;
 };
 
-export const Header = memo(function Header({ language }: HeaderProps) {
+export const Header = memo(function Header({ language, clientId }: HeaderProps) {
   const path = usePathname();
   const customTheme: CustomFlowbiteTheme["megaMenu"] = {
     root: {
@@ -75,7 +77,7 @@ export const Header = memo(function Header({ language }: HeaderProps) {
         </Navbar.Collapse>
         <div className="flex gap-2">
           <LanguageSelect language={language} />
-          <SignInWithRiotButton />
+          <SignInWithRiotButton clientId={clientId} />
         </div>
       </div>
     </MegaMenu>
