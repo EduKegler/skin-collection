@@ -2,24 +2,23 @@
 import { memo, useCallback } from "react";
 import { PrimaryButton } from "./PrimaryButton";
 
-type SignInWithRiotButtonProps = {
+type SignInWithRiotProps = {
   clientId: string;
 };
 
-export const SignInWithRiotButton = memo(function SignInWithRiotButton({
+export const SignInWithRiot = memo(function SignInWithRiot({
   clientId,
-}: SignInWithRiotButtonProps) {
+}: SignInWithRiotProps) {
   const redirect_uri = "https://skincollection.gg/oauth/callback";
   const response_type = "code";
   const scope = "openid";
 
+  const callback =
+    "http://localhost:3000/oauth/callback?code=dXcxOkNWeUkyaUU1QW1SRXV2NlUzaUZuOVEuYi0yLXVkR2ZIM1AyY29RY2J3V2VOZw%3D%3D&iss=https%3A%2F%2Fauth.riotgames.com&session_state=ytovGnZ8obUdk9acfTCW8tc6z4UauCcWtoW0TPM0toc.d8LvvSWjbTUa_mVcrVtXVQ";
+
   const handleSignIn = useCallback(() => {
-    console.log(
-      "test",
-      `https://auth.riotgames.com/authorize?redirect_uri=${redirect_uri}&client_id=${clientId}&response_type=${response_type}&scope=${scope}`,
-    );
     const url = `https://auth.riotgames.com/authorize?redirect_uri=${redirect_uri}&client_id=${clientId}&response_type=${response_type}&scope=${scope}`;
-    window.open(url, "_blank");
+    window.open(callback, "_blank");
   }, [clientId]);
 
   return <PrimaryButton onClick={handleSignIn}>SIGN IN</PrimaryButton>;

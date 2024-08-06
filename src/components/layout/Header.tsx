@@ -10,7 +10,7 @@ import {
   MegaMenu,
   Navbar,
 } from "flowbite-react";
-import { SignInWithRiotButton } from "../SignInWithRiot";
+import { SignInWithRiot } from "../SignInWithRiot";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { routes } from "@/contants";
@@ -77,7 +77,7 @@ export const Header = memo(function Header({ language, clientId }: HeaderProps) 
         </Navbar.Collapse>
         <div className="flex gap-2">
           <LanguageSelect language={language} />
-          <SignInWithRiotButton clientId={clientId} />
+          <SignInWithRiot clientId={clientId} />
         </div>
       </div>
     </MegaMenu>
