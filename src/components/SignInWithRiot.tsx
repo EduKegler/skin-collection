@@ -18,7 +18,7 @@ export const SignInWithRiot = memo(function SignInWithRiot({
 
   const handleSignIn = useCallback(() => {
     const url = `https://auth.riotgames.com/authorize?redirect_uri=${redirect_uri}&client_id=${clientId}&response_type=${response_type}&scope=${scope}`;
-    window.open(callback, "_blank");
+    window.open(url, "_blank");
   }, [clientId]);
 
   return <PrimaryButton onClick={handleSignIn}>SIGN IN</PrimaryButton>;
