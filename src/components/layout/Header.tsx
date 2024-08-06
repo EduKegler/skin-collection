@@ -18,9 +18,14 @@ import { routes } from "@/contants";
 type HeaderProps = {
   language: string;
   clientId: string;
+  callback: string;
 };
 
-export const Header = memo(function Header({ language, clientId }: HeaderProps) {
+export const Header = memo(function Header({
+  language,
+  clientId,
+  callback,
+}: HeaderProps) {
   const path = usePathname();
   const customTheme: CustomFlowbiteTheme["megaMenu"] = {
     root: {
@@ -77,7 +82,7 @@ export const Header = memo(function Header({ language, clientId }: HeaderProps) 
         </Navbar.Collapse>
         <div className="flex gap-2">
           <LanguageSelect language={language} />
-          <SignInWithRiot clientId={clientId} />
+          <SignInWithRiot clientId={clientId} callback={callback} />
         </div>
       </div>
     </MegaMenu>

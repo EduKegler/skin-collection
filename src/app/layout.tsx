@@ -8,6 +8,7 @@ import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
 import { cookies } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { OAuthProvider } from "@/providers/OAuthProvider";
 
 export const spiegel = localFont({
   src: [
@@ -131,27 +132,50 @@ const customTheme: CustomFlowbiteTheme = {
   },
 };
 
-export default function RootLayout({
+async function getData() {
+  const jwt = cookies().get("jwt")?.value ?? "";
+
+  const res = await fetch(
+    `https://americas.api.riotgames.com/riot/account/v1/accounts/me`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Baerer " + jwt,
+      },
+    },
+  );
+
+  const data = await res.json();
+  console.log("data", data);
+
+  return data;
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   const language = cookies().get("language")?.value ?? "en_US";
+  await getData();
 
   return (
-    <html lang="en" className={` ${beaufort.variable} ${spiegel.variable} dark`}>
+    <html lang="en" className={`${beaufort.variable} ${spiegel.variable} dark`}>
       <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
       <body className="flex min-h-screen flex-col gap-2 px-8 py-6 dark">
-        <Flowbite theme={{ theme: customTheme }}>
-          <Header
-            language={language}
-            clientId={process.env.RIOT_APPLICATION_CLIENT_ID ?? ""}
-          />
-          {children}
-        </Flowbite>
-        <Footer />
+        <OAuthProvider>
+          <Flowbite theme={{ theme: customTheme }}>
+            <Header
+              language={language}
+              clientId={process.env.RIOT_APPLICATION_CLIENT_ID ?? ""}
+              callback={process.env.RIOT_APPLICATION_CALLBACK ?? ""}
+            />
+            {children}
+          </Flowbite>
+          <Footer />
+        </OAuthProvider>
       </body>
     </html>
   );
