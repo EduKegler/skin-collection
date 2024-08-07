@@ -11,9 +11,10 @@ import Image from "next/image";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Comment } from "./Comment";
 import { SendComment } from "./SendComment";
-import { addReview, getSkinReview, removeReview } from "@/app/actions";
 import { RatingStars } from "./RatingStars";
 import { useOAuth } from "@/providers/OAuthProvider";
+import { addReview, getSkinReview, removeReview } from "@/actions/review";
+import clsx from "clsx";
 
 type ModalReviewProps = {
   openModal: boolean;
@@ -47,7 +48,7 @@ export const ModalReview = memo(function ModalReview({
   const [changed, setChanged] = useState(false);
 
   const prevReviewsLength = useRef(reviews.length);
-  const { id: userId } = useOAuth();
+  const { id: userId, nickName } = useOAuth();
 
   const getData = useCallback(async () => {
     setLoading(true);
@@ -91,16 +92,16 @@ export const ModalReview = memo(function ModalReview({
 
   const handleSendComment = useCallback(
     async (rating: number, comment?: string) => {
-      await addReview(userId, skin.id, rating, comment);
+      await addReview(userId, nickName, skin.id, rating, comment);
       getData();
       setChanged(true);
     },
-    [getData, skin.id, userId],
+    [getData, nickName, skin.id, userId],
   );
 
   const handleDeleteComment = useCallback(
-    async (userId: string, rating: number) => {
-      await removeReview(userId, skin.id, rating);
+    async (userId: string) => {
+      await removeReview(userId, skin.id);
       getData();
       setChanged(true);
     },
@@ -122,13 +123,21 @@ export const ModalReview = memo(function ModalReview({
           {skin.name}
           {"'"}s Reviews
         </Modal.Header>
-        <Modal.Body>
-          {loading ? (
-            <div className="min-h-96 w-full flex justify-center items-center">
-              <Spinner aria-label="Extra large spinner example" size="xl" />
-            </div>
-          ) : (
-            <div className="flex-col">
+        <Modal.Body className="relative p-0">
+          <div
+            className={clsx(
+              "absolute w-full h-full z-10  justify-center items-center bg-slate-900 bg-opacity-80 pb-10",
+              loading ? "flex" : "hidden",
+            )}
+          >
+            <Spinner
+              aria-label="Extra large spinner example"
+              size="xl"
+              color={"warning"}
+            />
+          </div>
+          <div className="p-6">
+            <div className="flex-col min-h-96">
               <div className="flex gap-8">
                 <Image
                   src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${id}_${skin.num}.jpg`}
@@ -182,7 +191,7 @@ export const ModalReview = memo(function ModalReview({
                 ))}
               </div>
             </div>
-          )}
+          </div>
         </Modal.Body>
       </Modal>
     </Flowbite>

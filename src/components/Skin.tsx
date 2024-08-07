@@ -4,13 +4,14 @@ import Image from "next/image";
 import { clsx } from "clsx";
 import { memo, useCallback, useMemo, useState } from "react";
 import { ISkin } from "@/type";
-import { updateSkin } from "@/app/actions";
 import { SkinRating } from "./SkinRating";
 import { ModalReview } from "./ModalReview";
-import { useRouter } from "next/navigation";
 import { useChampionsDispatch } from "@/providers/ChampionsProvider";
 import { useOAuth } from "@/providers/OAuthProvider";
 import { useSignIn } from "@/hooks/useSignIn";
+import { collectSkin, uncollectSkin } from "@/actions/skins";
+import { SkinOverlay } from "./SkinOverlay";
+
 type SkinProps = {
   id: string;
   name: string;
@@ -20,42 +21,58 @@ type SkinProps = {
 
 export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
   const [openModal, setOpenModal] = useState(false);
-  const { setChampions } = useChampionsDispatch();
+  const { setChampions, refreshChampions } = useChampionsDispatch();
+  const [loading, setLoading] = useState(false);
 
   const { id: userId, isConnected } = useOAuth();
   const { signIn } = useSignIn();
-  const { refresh } = useRouter();
 
-  const handleClick = useCallback(() => {
-    setChampions((champions) => ({
-      ...champions,
-      [id]: {
-        ...champions[id],
-        skins: {
-          ...champions[id].skins,
-          [champions[id].skins[skin.id].id]: {
-            ...champions[id].skins[skin.id],
-            isCollected: !skin.isCollected,
+  const handleClick = useCallback(async () => {
+    setLoading(true);
+
+    skin.isCollected
+      ? await uncollectSkin(userId, skin.id)
+      : await collectSkin(userId, skin.id);
+
+    setChampions((champions) => {
+      return {
+        ...champions,
+        [id]: {
+          ...champions[id],
+          skins: {
+            ...champions[id].skins,
+            [champions[id].skins[skin.id].id]: {
+              ...champions[id].skins[skin.id],
+              isCollected: !champions[id].skins[skin.id].isCollected,
+            },
           },
         },
-      },
-    }));
-    updateSkin(userId, skin.id);
+      };
+    });
+    setLoading(false);
   }, [setChampions, userId, skin.id, skin.isCollected, id]);
 
   const handleCloseModal = useCallback(
     (changed: boolean) => {
       setOpenModal(false);
       if (changed) {
-        refresh();
+        refreshChampions();
       }
     },
-    [refresh],
+    [refreshChampions],
   );
 
   const idRenamed = useMemo(() => {
     return id === "Fiddlesticks" ? "FiddleSticks" : id;
   }, [id]);
+
+  const handleCollect = useCallback(() => {
+    if (isConnected) {
+      handleClick();
+    } else {
+      signIn();
+    }
+  }, [handleClick, isConnected, signIn]);
 
   return (
     <div className={clsx("text-center w-[154px]")}>
@@ -73,7 +90,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
 
       <div
         className="flex-none w-full h-[280px] relative group cursor-pointer"
-        onClick={isConnected ? handleClick : signIn}
+        onClick={loading ? undefined : handleCollect}
       >
         <Image
           priority={index <= 4}
@@ -85,33 +102,11 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
           sizes="154px"
           unoptimized
         />
-
-        {isConnected ? (
-          <div
-            className={clsx(
-              "bg-opacity-80 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300 rounded-b-md",
-              skin.isCollected ? "bg-red-800" : "bg-green-800",
-              "group-hover:opacity-100",
-            )}
-          >
-            <span className="text-sm font-bold">
-              {skin.isCollected ? "Uncollected?" : "Collected?"}
-            </span>
-          </div>
-        ) : (
-          <div
-            className={clsx(
-              "bg-opacity-80 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300 rounded-b-md",
-              "bg-gray-800",
-              "group-hover:opacity-100",
-            )}
-          >
-            <span className="text-sm font-bold">
-              <span className="underline">Sign in</span>
-              <span> to track your collected skins.</span>
-            </span>
-          </div>
-        )}
+        <SkinOverlay
+          isCollected={skin.isCollected}
+          isConnected={isConnected}
+          isLoading={loading}
+        />
       </div>
       <div className="flex pt-2 gap-2 items-center text-center justify-center">
         <SkinRating
@@ -121,11 +116,9 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
           }}
         />
       </div>
-
       <div className="flex mt-2 text-sm  gap-2 justify-center">
         <span className="self-center font-semibold">{skin.name}</span>
       </div>
-
       <ModalReview onClose={handleCloseModal} openModal={openModal} skin={skin} id={id} />
     </div>
   );

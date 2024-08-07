@@ -4,12 +4,14 @@ import { RatingStars } from "./RatingStars";
 import { PrimaryButton } from "./PrimaryButton";
 import { useOAuth } from "@/providers/OAuthProvider";
 import { useSignIn } from "@/hooks/useSignIn";
+import { AiOutlineLoading } from "react-icons/ai";
 
 type SendCommentProps = {
-  onSuccess: (rating: number, comment?: string) => void;
+  onSuccess: (rating: number, comment?: string) => Promise<void>;
 };
 
 export const SendComment = memo(function SendComment({ onSuccess }: SendCommentProps) {
+  const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState<number | "Rating">("Rating");
   const [comment, setComment] = useState("");
   const { isConnected } = useOAuth();
@@ -30,9 +32,11 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
     setComment(event.target.value);
   }, []);
 
-  const handleSendComment = useCallback(() => {
+  const handleSendComment = useCallback(async () => {
     if (rating !== "Rating") {
-      onSuccess(rating, comment);
+      setLoading(true);
+      await onSuccess(rating, comment);
+      setLoading(false);
     }
   }, [comment, onSuccess, rating]);
 
@@ -77,7 +81,12 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
           trigger={"hover"}
           placement="bottom"
         >
-          <PrimaryButton disabled={rating === "Rating"} onClick={handleSendComment}>
+          <PrimaryButton
+            disabled={rating === "Rating" || loading}
+            onClick={handleSendComment}
+            isProcessing={loading}
+            processingSpinner={<AiOutlineLoading className="h-3 w-3 animate-spin" />}
+          >
             SEND
           </PrimaryButton>
         </Tooltip>

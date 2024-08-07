@@ -35,6 +35,5 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(`${redirectUrl}/${routes.COLLECTION}`);
 
   response.cookies.set("jwt", data.access_token ?? "");
-
   return response;
 }

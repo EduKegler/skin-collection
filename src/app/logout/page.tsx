@@ -1,5 +1,6 @@
 "use client";
-import { homepage, logout } from "../actions";
+import { logout } from "@/actions/logout";
+import { homepage } from "@/actions/redirect";
 import { useEffect } from "react";
 
 export default function Page() {

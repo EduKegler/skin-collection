@@ -39,6 +39,7 @@ export type ISkinFilter = "All" | ISkinTier;
 export type IReviewDetail = {
   userId: string;
   rating: number;
+  nickName: string;
   comment?: string;
   isOwner: boolean;
 };

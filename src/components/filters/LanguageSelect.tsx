@@ -1,5 +1,5 @@
 "use client";
-import { updateLanguage } from "@/app/actions";
+import { updateLanguage } from "@/actions/language";
 import { Button, Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { memo, useCallback, useMemo, useState } from "react";

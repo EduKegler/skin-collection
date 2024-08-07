@@ -14,3 +14,9 @@ export const OAUTH_DEFAULT_VALUES = {
   level: 0,
   isConnected: false,
 };
+
+export const TABLE = {
+  SKINS: "skins",
+  REVIEWS: "reviews",
+  SIGNINS: "signins",
+};

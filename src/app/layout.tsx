@@ -3,105 +3,15 @@ import "./globals.css";
 import React, { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import localFont from "next/font/local";
 import { CustomFlowbiteTheme, Flowbite } from "flowbite-react";
-import { cookies } from "next/headers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { OAuthContextDefaultType, OAuthProvider } from "@/providers/OAuthProvider";
-import { OAUTH_DEFAULT_VALUES } from "@/contants";
-
-export const spiegel = localFont({
-  src: [
-    {
-      path: "../../public/fonts/Spiegel/Spiegel_TT_Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Spiegel/Spiegel_TT_Regular_Italic.ttf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/Spiegel/Spiegel_TT_Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Spiegel/Spiegel_TT_Bold_Italic.ttf",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/Spiegel/Spiegel_TT_SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/Spiegel/Spiegel_TT_SemiBold_Italic.ttf",
-      weight: "600",
-      style: "italic",
-    },
-  ],
-  variable: "--font-spiegel",
-});
-
-export const beaufort = localFont({
-  src: [
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Italic.ttf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-BoldItalic.ttf",
-      weight: "700",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Heavy.ttf",
-      weight: "900",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-HeavyItalic.ttf",
-      weight: "900",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Light.ttf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-LightItalic.ttf",
-      weight: "300",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BeaufortforLOL/BeaufortforLOL-MediumItalic.ttf",
-      weight: "500",
-      style: "italic",
-    },
-  ],
-  variable: "--font-beaufort",
-});
+import { OAuthProvider } from "@/providers/OAuthProvider";
+import { beaufort, spiegel } from "@/font";
+import { accountInfo } from "@/actions/signIn";
+import { getLanguage } from "@/actions/language";
+import { ToastProvider } from "@/providers/ToastProvider";
+import { LoadingProvider } from "@/providers/LoadingProvider";
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",
@@ -133,76 +43,33 @@ const customTheme: CustomFlowbiteTheme = {
   },
 };
 
-async function getData(): Promise<OAuthContextDefaultType> {
-  const jwt = cookies().get("jwt")?.value;
-
-  if (!jwt) {
-    return OAUTH_DEFAULT_VALUES;
-  }
-
-  const accountInfo = await fetch(
-    `https://americas.api.riotgames.com/riot/account/v1/accounts/me`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + jwt,
-      },
-    },
-  );
-
-  const summonerInfo = await fetch(
-    `https://br1.api.riotgames.com/lol/summoner/v4/summoners/me`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + jwt,
-      },
-    },
-  );
-
-  const account = await accountInfo.json();
-  const summoner = await summonerInfo.json();
-
-  if (summoner.status_code || account.status_code) {
-    return OAUTH_DEFAULT_VALUES;
-  }
-
-  return {
-    id: account.puuid,
-    name: account.gameName,
-    tag: account.tagLine,
-    profileIconId: summoner.profileIconId,
-    level: summoner.summonerLevel,
-    isConnected: true,
-  };
-}
-
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: ReactNode;
-  params: {
-    userId: string;
-  };
 }>) {
-  const language = cookies().get("language")?.value ?? "en_US";
-  const oauthValues = await getData();
-  params.userId = oauthValues.id;
+  const language = await getLanguage();
+  const oauthValues = await accountInfo();
 
   return (
     <html lang="en" className={`${beaufort.variable} ${spiegel.variable} dark`}>
       <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
-      <body className="flex min-h-screen flex-col gap-2 px-8 py-6 dark">
-        <OAuthProvider {...oauthValues}>
-          <Flowbite theme={{ theme: customTheme }}>
-            <Header language={language} />
-            {children}
-          </Flowbite>
-          <Footer />
-        </OAuthProvider>
+      <body className="min-h-screen flex dark">
+        <LoadingProvider>
+          <ToastProvider>
+            <OAuthProvider {...oauthValues}>
+              <Flowbite theme={{ theme: customTheme }}>
+                <div className="flex flex-col gap-2 px-8 py-6 ">
+                  <Header language={language} />
+                  {children}
+                  <Footer />
+                </div>
+              </Flowbite>
+            </OAuthProvider>
+          </ToastProvider>
+        </LoadingProvider>
       </body>
     </html>
   );

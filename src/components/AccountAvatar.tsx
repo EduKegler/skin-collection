@@ -3,7 +3,7 @@ import { memo, useCallback } from "react";
 import { Avatar, Button } from "flowbite-react";
 import { useOAuth, useOAuthDispatch } from "@/providers/OAuthProvider";
 import { IoMdLogOut } from "react-icons/io";
-import { logout } from "@/app/actions";
+import { logout } from "@/actions/logout";
 export const AccountAvatar = memo(function AccountAvatar() {
   const { nickName, level, profileIconId } = useOAuth();
   const { setConnected } = useOAuthDispatch();

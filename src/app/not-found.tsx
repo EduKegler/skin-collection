@@ -1,7 +1,7 @@
 "use client";
 import { useCallback } from "react";
-import { homepage } from "./actions";
 import { PrimaryButton } from "@/components/PrimaryButton";
+import { homepage } from "@/actions/redirect";
 
 export default function NotFound() {
   const handleRedirect = useCallback(() => {
