@@ -1,0 +1,41 @@
+{
+  "Header": {
+    "home": "Início",
+    "collection": "Coleção",
+    "legal": "Legal",
+    "tos": "Termos de Serviço",
+    "privacy": "Política de Privacidade"
+  },
+  "CollectedFilter": {
+    "all": "Todos",
+    "collect": "Coletados",
+    "uncollect": "Não Coletados"
+  },
+  "TierFilter": {
+    "title": "Tier: "
+  },
+  "TierFilterOption": {
+    "all": "Todos",
+    "transcendent": "Transcendente",
+    "ultimate": "Ultimate",
+    "mythic": "Mítica",
+    "legendary": "Lendária",
+    "epic": "Épica",
+    "standard": "Padrão",
+    "budget": "Econômica",
+    "timeworn": "Envelhecida"
+  },
+  "LegacySkinFilter": {
+    "title": "Legado: ",
+    "all": "Todos",
+    "onlyLegacy": "Somente Legado",
+    "onlyNonLegacy": "Somente Não Legado"
+  },
+  "OrderSkinBy": {
+    "title": "Ordernar: ",
+    "releaseDate": "Data de Lançamento",
+    "rarity": "Raridade",
+    "reviews": "Quantidade de Reviews",
+    "rating": "Nota"
+  }
+}

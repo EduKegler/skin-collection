@@ -12,3 +12,8 @@ export async function getLanguage(): Promise<ILanguage> {
 export async function updateLanguage(language: ILanguage) {
   cookies().set(COOKIE.LANGUAGE, language);
 }
+
+export async function getLocale() {
+  const language = await getLanguage();
+  return language.split("_")[0] ?? "en";
+}

@@ -9,22 +9,25 @@ import {
   useUserPreferenceDispatch,
 } from "@/providers/UserPreferenceProvider";
 import { ILegacyFilter } from "@/type";
+import { useTranslations } from "next-intl";
 
 export const LegacySkinFilter = memo(function LegacySkinFilter() {
   const { legacyFilter } = useUserPreference();
   const { handleUpdateLegacyFilter } = useUserPreferenceDispatch();
 
+  const translate = useTranslations("LegacySkinFilter");
+
   const labels: Record<ILegacyFilter, ReactNode> = useMemo(() => {
     return {
-      All: "All",
-      OnlyLegacy: "Only Legacy",
-      OnlyNonLegacy: "Only Non Legacy",
+      All: translate("all"),
+      OnlyLegacy: translate("onlyLegacy"),
+      OnlyNonLegacy: translate("onlyNonLegacy"),
     };
-  }, []);
+  }, [translate]);
 
   return (
     <div className="flex gap-4 items-center">
-      <span>Legacy: </span>
+      <span>{translate("title")}</span>
       <Dropdown
         label={labels[legacyFilter as keyof typeof labels]}
         renderTrigger={() => (

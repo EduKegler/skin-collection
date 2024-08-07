@@ -16,10 +16,12 @@ import clsx from "clsx";
 import { routes } from "@/contants";
 import { AccountAvatar } from "../AccountAvatar";
 import { useOAuth } from "@/providers/OAuthProvider";
+import { useTranslations } from "next-intl";
 
 export const Header = memo(function Header() {
   const path = usePathname();
   const { isConnected } = useOAuth();
+  const translate = useTranslations("Header");
 
   const customTheme: CustomFlowbiteTheme["megaMenu"] = {
     root: {
@@ -53,21 +55,25 @@ export const Header = memo(function Header() {
         </Navbar.Brand>
         <Navbar.Collapse>
           <Navbar.Link href={routes.HOME}>
-            <h2 className={activeNavbar([routes.HOME])}>Home</h2>
+            <h2 className={activeNavbar([routes.HOME])}>{translate("home")}</h2>
           </Navbar.Link>
           <Navbar.Link href={routes.COLLECTION}>
-            <h2 className={activeNavbar([routes.COLLECTION])}>Collection</h2>
+            <h2 className={activeNavbar([routes.COLLECTION])}>
+              {translate("collection")}
+            </h2>
           </Navbar.Link>
           <div>
             <Dropdown
               label=""
               renderTrigger={() => (
-                <h2 className={activeNavbar([routes.TOS, routes.PRIVACY])}>Legal</h2>
+                <h2 className={activeNavbar([routes.TOS, routes.PRIVACY])}>
+                  {translate("legal")}
+                </h2>
               )}
             >
-              <DropdownItem href="/tos">Terms of Service</DropdownItem>
+              <DropdownItem href="/tos">{translate("tos")}</DropdownItem>
               <DropdownDivider />
-              <DropdownItem href="/privacy">Privacy Policy</DropdownItem>
+              <DropdownItem href="/privacy">{translate("privacy")}</DropdownItem>
             </Dropdown>
           </div>
         </Navbar.Collapse>

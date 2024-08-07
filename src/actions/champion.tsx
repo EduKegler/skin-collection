@@ -34,6 +34,7 @@ export async function getChampionList(
   }
 
   const championsResponse = await championsResponseJSON.json();
+
   const champions = Array.from(Object.values(championsResponse.data)) as IChampionBase[];
   const reviews = await getGeneralReviews();
 

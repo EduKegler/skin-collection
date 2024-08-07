@@ -14,6 +14,8 @@ import { ToastProvider } from "@/providers/ToastProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { UserPreferenceProvider } from "@/providers/UserPreferenceProvider";
 import { getDefaultFilter } from "@/actions/filter";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",
@@ -51,11 +53,13 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   const language = await getLanguage();
+  const locale = await getLocale();
   const { collectFilter, tierFilter, legacyFilter, orderBy } = await getDefaultFilter();
   const oauthValues = await accountInfo();
+  const messages = await getMessages();
 
   return (
-    <html lang="en" className={`${beaufort.variable} ${spiegel.variable} dark`}>
+    <html lang={locale} className={`${beaufort.variable} ${spiegel.variable} dark`}>
       <link rel="icon" href="/icon.png" sizes="any" />
       <Analytics />
       <SpeedInsights />
@@ -68,17 +72,19 @@ export default async function RootLayout({
             deafultLegacyFilter={legacyFilter}
             defaultOrderBy={orderBy}
           >
-            <ToastProvider>
-              <OAuthProvider {...oauthValues}>
-                <Flowbite theme={{ theme: customTheme }}>
-                  <div className="flex flex-col w-full gap-2 px-8 py-6 ">
-                    <Header />
-                    {children}
-                    <Footer />
-                  </div>
-                </Flowbite>
-              </OAuthProvider>
-            </ToastProvider>
+            <NextIntlClientProvider messages={messages}>
+              <ToastProvider>
+                <OAuthProvider {...oauthValues}>
+                  <Flowbite theme={{ theme: customTheme }}>
+                    <div className="flex flex-col w-full gap-2 px-8 py-6 ">
+                      <Header />
+                      {children}
+                      <Footer />
+                    </div>
+                  </Flowbite>
+                </OAuthProvider>
+              </ToastProvider>
+            </NextIntlClientProvider>
           </UserPreferenceProvider>
         </LoadingProvider>
       </body>

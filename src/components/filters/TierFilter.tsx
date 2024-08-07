@@ -10,14 +10,16 @@ import {
   useUserPreference,
   useUserPreferenceDispatch,
 } from "@/providers/UserPreferenceProvider";
+import { useTranslations } from "next-intl";
 
 export const TierFilter = memo(function TierFilter() {
   const { tierFilter } = useUserPreference();
   const { handleUpdateTierFilter } = useUserPreferenceDispatch();
+  const translate = useTranslations("TierFilter");
 
   const labels: Record<ITierFilter, ReactNode> = useMemo(() => {
     return {
-      All: "All",
+      All: <TierFilterOption type={"All"} />,
       Transcendent: <TierFilterOption type={"Transcendent"} />,
       Ultimate: <TierFilterOption type={"Ultimate"} />,
       Mythic: <TierFilterOption type={"Mythic"} />,
@@ -32,7 +34,7 @@ export const TierFilter = memo(function TierFilter() {
 
   return (
     <div className="flex gap-4 items-center">
-      <span>Tier: </span>
+      <span>{translate("title")}</span>
       <Dropdown
         label={labels[tierFilter as keyof typeof labels]}
         renderTrigger={() => (
@@ -83,10 +85,11 @@ export const TierFilterOption = memo(function TierFilterOption({
 }: {
   type: ISkinTier | "All";
 }) {
-  if (type === "All") return <>{type}</>;
+  const translate = useTranslations("TierFilterOption");
+  if (type === "All") return <>{translate(type.toLowerCase())}</>;
   return (
     <div className="flex gap-2">
-      <SkinTier tier={type} /> {type}
+      <SkinTier tier={type} /> {translate(type.toLowerCase())}
     </div>
   );
 });

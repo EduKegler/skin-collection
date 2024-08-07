@@ -9,23 +9,26 @@ import {
   useUserPreferenceDispatch,
 } from "@/providers/UserPreferenceProvider";
 import { IOrderBy } from "@/type";
+import { useTranslations } from "next-intl";
 
 export const OrderSkinBy = memo(function OrderSkinBy() {
   const { orderBy } = useUserPreference();
   const { handleUpdateOrderBy } = useUserPreferenceDispatch();
 
+  const translate = useTranslations("OrderSkinBy");
+
   const labels: Record<IOrderBy, ReactNode> = useMemo(() => {
     return {
-      ReleaseDate: "Release Date",
-      Rarity: "Rarity",
-      Reviews: "Reviews",
-      Rating: "Rating",
+      ReleaseDate: translate("releaseDate"),
+      Rarity: translate("rarity"),
+      Reviews: translate("reviews"),
+      Rating: translate("rating"),
     };
-  }, []);
+  }, [translate]);
 
   return (
     <div className="flex gap-4 items-center">
-      <span>Order By: </span>
+      <span>{translate("title")}</span>
       <Dropdown
         label={labels[orderBy as keyof typeof labels]}
         renderTrigger={() => (
