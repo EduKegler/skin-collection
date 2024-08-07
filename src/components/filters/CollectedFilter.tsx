@@ -1,12 +1,15 @@
 "use client";
 
-import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
+import {
+  useUserPreference,
+  useUserPreferenceDispatch,
+} from "@/providers/UserPreferenceProvider";
 import { Button } from "flowbite-react";
 import { memo } from "react";
 
 export const CollectedFilter = memo(function CollectedFilter() {
-  const { collectFilter } = useFilter();
-  const { setCollectFilter } = useFilterDispatch();
+  const { collectFilter } = useUserPreference();
+  const { handleUpdateCollectFilter } = useUserPreferenceDispatch();
 
   const className =
     "bg-gradient-to-br from-[#785a28] to-[#c89b3c] font-bold focus:ring-1 focus:ring-pink-200 enabled:hover:bg-gradient-to-bl dark:focus:ring-pink-800";
@@ -16,7 +19,7 @@ export const CollectedFilter = memo(function CollectedFilter() {
         className={collectFilter === "All" ? className : undefined}
         color={"gray"}
         size={"xs"}
-        onClick={() => setCollectFilter("All")}
+        onClick={() => handleUpdateCollectFilter("All")}
       >
         ALL
       </Button>
@@ -24,7 +27,7 @@ export const CollectedFilter = memo(function CollectedFilter() {
         className={collectFilter === "Collect" ? className : undefined}
         color={"gray"}
         size={"xs"}
-        onClick={() => setCollectFilter("Collect")}
+        onClick={() => handleUpdateCollectFilter("Collect")}
       >
         COLLECT
       </Button>
@@ -32,7 +35,7 @@ export const CollectedFilter = memo(function CollectedFilter() {
         className={collectFilter === "Uncollect" ? className : undefined}
         color={"gray"}
         size={"xs"}
-        onClick={() => setCollectFilter("Uncollect")}
+        onClick={() => handleUpdateCollectFilter("Uncollect")}
       >
         UNCOLLECT
       </Button>

@@ -1,16 +1,20 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, ReactNode, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
-import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
 import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
+import {
+  useUserPreference,
+  useUserPreferenceDispatch,
+} from "@/providers/UserPreferenceProvider";
+import { ILegacyFilter } from "@/type";
 
 export const LegacySkinFilter = memo(function LegacySkinFilter() {
-  const { legacyFilter } = useFilter();
-  const { setLegacyFilter } = useFilterDispatch();
+  const { legacyFilter } = useUserPreference();
+  const { handleUpdateLegacyFilter } = useUserPreferenceDispatch();
 
-  const labels = useMemo(() => {
+  const labels: Record<ILegacyFilter, ReactNode> = useMemo(() => {
     return {
       All: "All",
       OnlyLegacy: "Only Legacy",
@@ -33,14 +37,14 @@ export const LegacySkinFilter = memo(function LegacySkinFilter() {
           </div>
         )}
       >
-        <Dropdown.Item onClick={() => setLegacyFilter("All")}>
+        <Dropdown.Item onClick={() => handleUpdateLegacyFilter("All")}>
           {labels["All"]}
         </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => setLegacyFilter("OnlyLegacy")}>
+        <Dropdown.Item onClick={() => handleUpdateLegacyFilter("OnlyLegacy")}>
           {labels["OnlyLegacy"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setLegacyFilter("OnlyNonLegacy")}>
+        <Dropdown.Item onClick={() => handleUpdateLegacyFilter("OnlyNonLegacy")}>
           {labels["OnlyNonLegacy"]}
         </Dropdown.Item>
       </Dropdown>

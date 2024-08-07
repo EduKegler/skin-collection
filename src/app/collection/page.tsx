@@ -1,5 +1,4 @@
 import { ChampionList } from "@/components/ChampionList";
-import { FilterProvider } from "@/providers/FilterProvider";
 import { ScrollTo } from "@/components/ScrollToButton";
 import { ChampionsProvider } from "@/providers/ChampionsProvider";
 import { getChampionList } from "@/actions/champion";
@@ -13,11 +12,9 @@ export default async function Page() {
 
   return (
     <main className="flex flex-auto h-full w-full">
-      <FilterProvider>
-        <ChampionsProvider defaultChampions={champions}>
-          <ChampionList />
-        </ChampionsProvider>
-      </FilterProvider>
+      <ChampionsProvider defaultChampions={champions}>
+        <ChampionList />
+      </ChampionsProvider>
       <ScrollTo />
     </main>
   );

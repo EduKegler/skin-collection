@@ -34,7 +34,7 @@ export type IRating = {
 export type ICollectFilter = "All" | "Collect" | "Uncollect";
 export type ILegacyFilter = "All" | "OnlyLegacy" | "OnlyNonLegacy";
 export type IOrderBy = "ReleaseDate" | "Rarity" | "Reviews" | "Rating";
-export type ISkinFilter = "All" | ISkinTier;
+export type ITierFilter = "All" | ISkinTier;
 
 export type IReviewDetail = {
   userId: string;

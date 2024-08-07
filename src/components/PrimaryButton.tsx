@@ -12,7 +12,7 @@ export const PrimaryButton = memo(function PrimaryButton(props: ButtonProps) {
         "bg-gradient-to-br from-[#785a28] to-[#c89b3c] focus:ring-1 focus:ring-pink-200 enabled:hover:bg-gradient-to-bl dark:focus:ring-pink-800 font-bold capitalize",
         props.className,
       )}
-      size={"xs"}
+      size={props.size ?? "xs"}
     >
       {props.children}
     </Button>

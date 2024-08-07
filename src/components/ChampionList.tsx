@@ -4,7 +4,6 @@ import { Champion } from "@/components/Champion";
 import { CollectedFilter } from "./filters/CollectedFilter";
 import { TierFilter } from "./filters/TierFilter";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useFilter } from "@/providers/FilterProvider";
 import { useChampions } from "@/providers/ChampionsProvider";
 import { PrimaryButton } from "./PrimaryButton";
 import { LegacySkinFilter } from "./filters/LegacySkinFilter";
@@ -13,9 +12,10 @@ import { NoData } from "./NoData";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Search } from "./filters/Search";
 import { OrderSkinBy } from "./filters/OrderSkinBy";
+import { useUserPreference } from "@/providers/UserPreferenceProvider";
 
 export const ChampionList = memo(function ChampionList() {
-  const { search, tierFilter, collectFilter, legacyFilter } = useFilter();
+  const { search, tierFilter, collectFilter, legacyFilter } = useUserPreference();
   const { champions } = useChampions();
   const [visibleImages, setVisibleImages] = useState(6);
   const [hasMore, setHasMore] = useState(true);
@@ -84,8 +84,10 @@ export const ChampionList = memo(function ChampionList() {
             ))}
           </InfiniteScroll>
           {hasMore && (
-            <div className="w-full flex justify-center items-center">
-              <PrimaryButton onClick={fetchMoreData}>LOAD MORE</PrimaryButton>
+            <div className="w-full flex mt-6 justify-center items-center">
+              <PrimaryButton size={"md"} onClick={fetchMoreData}>
+                LOAD MORE
+              </PrimaryButton>
             </div>
           )}
         </>

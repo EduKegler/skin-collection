@@ -1,16 +1,20 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, ReactNode, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
-import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
 import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
+import {
+  useUserPreference,
+  useUserPreferenceDispatch,
+} from "@/providers/UserPreferenceProvider";
+import { IOrderBy } from "@/type";
 
 export const OrderSkinBy = memo(function OrderSkinBy() {
-  const { orderBy } = useFilter();
-  const { setOrderBy } = useFilterDispatch();
+  const { orderBy } = useUserPreference();
+  const { handleUpdateOrderBy } = useUserPreferenceDispatch();
 
-  const labels = useMemo(() => {
+  const labels: Record<IOrderBy, ReactNode> = useMemo(() => {
     return {
       ReleaseDate: "Release Date",
       Rarity: "Rarity",
@@ -34,16 +38,16 @@ export const OrderSkinBy = memo(function OrderSkinBy() {
           </div>
         )}
       >
-        <Dropdown.Item onClick={() => setOrderBy("ReleaseDate")}>
+        <Dropdown.Item onClick={() => handleUpdateOrderBy("ReleaseDate")}>
           {labels["ReleaseDate"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setOrderBy("Rarity")}>
+        <Dropdown.Item onClick={() => handleUpdateOrderBy("Rarity")}>
           {labels["Rarity"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setOrderBy("Reviews")}>
+        <Dropdown.Item onClick={() => handleUpdateOrderBy("Reviews")}>
           {labels["Reviews"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setOrderBy("Rating")}>
+        <Dropdown.Item onClick={() => handleUpdateOrderBy("Rating")}>
           {labels["Rating"]}
         </Dropdown.Item>
       </Dropdown>

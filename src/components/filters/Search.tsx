@@ -1,12 +1,15 @@
 "use client";
 
-import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
+import {
+  useUserPreference,
+  useUserPreferenceDispatch,
+} from "@/providers/UserPreferenceProvider";
 import { TextInput } from "flowbite-react";
 import React, { ChangeEvent, memo, useCallback } from "react";
 
 export const Search = memo(function Search() {
-  const { search } = useFilter();
-  const { setSearch } = useFilterDispatch();
+  const { search } = useUserPreference();
+  const { setSearch } = useUserPreferenceDispatch();
 
   const handleSearch = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

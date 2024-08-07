@@ -13,6 +13,7 @@ import { getLanguage } from "@/actions/language";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { UserPreferenceProvider } from "@/providers/UserPreferenceProvider";
+import { getDefaultFilter } from "@/actions/filter";
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",
@@ -50,6 +51,7 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   const language = await getLanguage();
+  const { collectFilter, tierFilter, legacyFilter, orderBy } = await getDefaultFilter();
   const oauthValues = await accountInfo();
 
   return (
@@ -59,7 +61,13 @@ export default async function RootLayout({
       <SpeedInsights />
       <body className="min-h-screen flex dark">
         <LoadingProvider>
-          <UserPreferenceProvider defaultLanguage={language}>
+          <UserPreferenceProvider
+            defaultLanguage={language}
+            defaultCollectFilter={collectFilter}
+            defaultTierFilter={tierFilter}
+            deafultLegacyFilter={legacyFilter}
+            defaultOrderBy={orderBy}
+          >
             <ToastProvider>
               <OAuthProvider {...oauthValues}>
                 <Flowbite theme={{ theme: customTheme }}>

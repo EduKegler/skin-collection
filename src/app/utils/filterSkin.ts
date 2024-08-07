@@ -1,9 +1,9 @@
-import { ICollectFilter, ILegacyFilter, ISkin, ISkinFilter } from "@/type";
+import { ICollectFilter, ILegacyFilter, ISkin, ITierFilter } from "@/type";
 
 export const filterSkin = (
   championName: string,
   skin: ISkin,
-  tierFilter: ISkinFilter,
+  tierFilter: ITierFilter,
   collectFilter: ICollectFilter,
   legacyFilter: ILegacyFilter,
   search: string,

@@ -1,18 +1,21 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo, ReactNode, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
 import { SkinTier } from "../SkinTier";
-import { useFilter, useFilterDispatch } from "@/providers/FilterProvider";
-import { ISkinTier } from "@/type";
+import { ISkinTier, ITierFilter } from "@/type";
 import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
+import {
+  useUserPreference,
+  useUserPreferenceDispatch,
+} from "@/providers/UserPreferenceProvider";
 
 export const TierFilter = memo(function TierFilter() {
-  const { tierFilter } = useFilter();
-  const { setTierFilter } = useFilterDispatch();
+  const { tierFilter } = useUserPreference();
+  const { handleUpdateTierFilter } = useUserPreferenceDispatch();
 
-  const labels = useMemo(() => {
+  const labels: Record<ITierFilter, ReactNode> = useMemo(() => {
     return {
       All: "All",
       Transcendent: <TierFilterOption type={"Transcendent"} />,
@@ -23,6 +26,7 @@ export const TierFilter = memo(function TierFilter() {
       Standard: <TierFilterOption type={"Standard"} />,
       Budget: <TierFilterOption type={"Budget"} />,
       Timeworn: <TierFilterOption type={"Timeworn"} />,
+      None: null,
     };
   }, []);
 
@@ -41,32 +45,32 @@ export const TierFilter = memo(function TierFilter() {
           </div>
         )}
       >
-        <Dropdown.Item onClick={() => setTierFilter("All")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("All")}>
           {labels["All"]}
         </Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item onClick={() => setTierFilter("Transcendent")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Transcendent")}>
           {labels["Transcendent"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Ultimate")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Ultimate")}>
           {labels["Ultimate"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Mythic")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Mythic")}>
           {labels["Mythic"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Legendary")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Legendary")}>
           {labels["Legendary"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Epic")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Epic")}>
           {labels["Epic"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Standard")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Standard")}>
           {labels["Standard"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Budget")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Budget")}>
           {labels["Budget"]}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => setTierFilter("Timeworn")}>
+        <Dropdown.Item onClick={() => handleUpdateTierFilter("Timeworn")}>
           {labels["Timeworn"]}
         </Dropdown.Item>
       </Dropdown>

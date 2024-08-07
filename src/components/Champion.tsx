@@ -3,8 +3,8 @@
 import { IChampion } from "@/type";
 import { Skin } from "./Skin";
 import { memo, useMemo } from "react";
-import { useFilter } from "@/providers/FilterProvider";
 import { orderBySkins } from "@/app/utils/sortSkin";
+import { useUserPreference } from "@/providers/UserPreferenceProvider";
 
 type ChampionProps = {
   champion: IChampion;
@@ -15,7 +15,7 @@ export const Champion = memo(function Champion({
   champion,
   championIndex,
 }: ChampionProps) {
-  const { orderBy } = useFilter();
+  const { orderBy } = useUserPreference();
   const collected = champion.skins.reduce((acc, skin) => {
     return acc + (skin.isCollected ? 1 : 0);
   }, 0);

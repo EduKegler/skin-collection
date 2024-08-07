@@ -10,7 +10,6 @@ import { memo, ReactNode, useCallback, useMemo } from "react";
 
 export const LanguageSelect = memo(function LanguageSelect() {
   const { language } = useUserPreference();
-
   const { handleUpdateLanguage } = useUserPreferenceDispatch();
 
   const handleChangeLanguage = useCallback(
