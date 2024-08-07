@@ -13,6 +13,7 @@ import { Comment } from "./Comment";
 import { SendComment } from "./SendComment";
 import { addReview, getSkinReview, removeReview } from "@/app/actions";
 import { RatingStars } from "./RatingStars";
+import { useOAuth } from "@/providers/OAuthProvider";
 
 type ModalReviewProps = {
   openModal: boolean;
@@ -46,14 +47,15 @@ export const ModalReview = memo(function ModalReview({
   const [changed, setChanged] = useState(false);
 
   const prevReviewsLength = useRef(reviews.length);
+  const { id: userId } = useOAuth();
 
   const getData = useCallback(async () => {
     setLoading(true);
-    const list = await getSkinReview(skin.id);
+    const list = await getSkinReview(userId, skin.id);
     prevReviewsLength.current = list.length;
     setReviews(list);
     setLoading(false);
-  }, [skin.id]);
+  }, [skin.id, userId]);
 
   useEffect(() => {
     if (openModal) {
@@ -89,11 +91,11 @@ export const ModalReview = memo(function ModalReview({
 
   const handleSendComment = useCallback(
     async (rating: number, comment?: string) => {
-      await addReview(skin.id, rating, comment);
+      await addReview(userId, skin.id, rating, comment);
       getData();
       setChanged(true);
     },
-    [getData, skin.id],
+    [getData, skin.id, userId],
   );
 
   const handleDeleteComment = useCallback(

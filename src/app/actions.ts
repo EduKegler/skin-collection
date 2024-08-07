@@ -3,7 +3,6 @@
 import { IReviewDetail, IReviewGeneral } from "@/type";
 import { Redis } from "@upstash/redis";
 import { cookies } from "next/headers";
-import { v4 as uuidv4 } from "uuid";
 import { redirect } from "next/navigation";
 
 const TABLE = {
@@ -15,22 +14,11 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-export async function setUserId() {
-  const newUserId = uuidv4();
-  cookies().set("userId", newUserId);
-  return newUserId;
-}
-
-export async function getUserId() {
-  return cookies().get("userId")?.value;
-}
-
 export async function getSkinList(userId?: string) {
   return ((await redis.get(`${TABLE.SKINS}_${userId}`)) ?? []) as string[];
 }
 
-export async function updateSkin(skinId: string) {
-  const userId = (await getUserId()) ?? (await setUserId());
+export async function updateSkin(userId: string, skinId: string) {
   const championList = await getSkinList(userId);
 
   if (championList.find((skin) => skin === skinId)) {
@@ -52,17 +40,22 @@ export async function getGeneralReviews() {
   return reviews;
 }
 
-export async function getSkinReview(skinId: string): Promise<IReviewDetail[]> {
-  const userId = (await getUserId()) ?? (await setUserId());
+export async function getSkinReview(
+  userId: string,
+  skinId: string,
+): Promise<IReviewDetail[]> {
   const skinReview = ((await redis.get(`${TABLE.REVIEWS}_${skinId}`)) ??
     []) as IReviewDetail[];
 
   return skinReview.map((review) => ({ ...review, isOwner: review.userId === userId }));
 }
 
-export async function addReview(skinId: string, rating: number, comment?: string) {
-  const userId = (await getUserId()) ?? (await setUserId());
-
+export async function addReview(
+  userId: string,
+  skinId: string,
+  rating: number,
+  comment?: string,
+) {
   const skinReview = ((await redis.get(`${TABLE.REVIEWS}_${skinId}`)) ??
     []) as IReviewDetail[];
   const reviews = (await redis.get(TABLE.REVIEWS)) as IReviewGeneral;
@@ -99,4 +92,8 @@ export async function removeReview(userId: string, skinId: string, rating: numbe
 
 export async function homepage() {
   redirect(`/`);
+}
+
+export async function logout() {
+  cookies().delete("jwt");
 }

@@ -9,6 +9,8 @@ import { SkinRating } from "./SkinRating";
 import { ModalReview } from "./ModalReview";
 import { useRouter } from "next/navigation";
 import { useChampionsDispatch } from "@/providers/ChampionsProvider";
+import { useOAuth } from "@/providers/OAuthProvider";
+import { useSignIn } from "@/hooks/useSignIn";
 type SkinProps = {
   id: string;
   name: string;
@@ -20,6 +22,8 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
   const [openModal, setOpenModal] = useState(false);
   const { setChampions } = useChampionsDispatch();
 
+  const { id: userId, isConnected } = useOAuth();
+  const { signIn } = useSignIn();
   const { refresh } = useRouter();
 
   const handleClick = useCallback(() => {
@@ -36,8 +40,8 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
         },
       },
     }));
-    updateSkin(skin.id);
-  }, [setChampions, skin.id, skin.isCollected, id]);
+    updateSkin(userId, skin.id);
+  }, [setChampions, userId, skin.id, skin.isCollected, id]);
 
   const handleCloseModal = useCallback(
     (changed: boolean) => {
@@ -66,9 +70,10 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
           {skin.isCollected ? "Collected" : "Uncollected"}
         </span>
       </div>
+
       <div
         className="flex-none w-full h-[280px] relative group cursor-pointer"
-        onClick={handleClick}
+        onClick={isConnected ? handleClick : signIn}
       >
         <Image
           priority={index <= 4}
@@ -81,17 +86,32 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
           unoptimized
         />
 
-        <div
-          className={clsx(
-            "bg-opacity-80 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300 rounded-b-md",
-            skin.isCollected ? "bg-red-800" : "bg-green-800",
-            "group-hover:opacity-100",
-          )}
-        >
-          <span className="text-sm font-bold">
-            {skin.isCollected ? "Uncollected?" : "Collected?"}
-          </span>
-        </div>
+        {isConnected ? (
+          <div
+            className={clsx(
+              "bg-opacity-80 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300 rounded-b-md",
+              skin.isCollected ? "bg-red-800" : "bg-green-800",
+              "group-hover:opacity-100",
+            )}
+          >
+            <span className="text-sm font-bold">
+              {skin.isCollected ? "Uncollected?" : "Collected?"}
+            </span>
+          </div>
+        ) : (
+          <div
+            className={clsx(
+              "bg-opacity-80 opacity-0 w-[154px] h-[280px] absolute top-0 left-0 flex items-center justify-center transition-opacity duration-300 rounded-b-md",
+              "bg-gray-800",
+              "group-hover:opacity-100",
+            )}
+          >
+            <span className="text-sm font-bold">
+              <span className="underline">Sign in</span>
+              <span> to track your collected skins.</span>
+            </span>
+          </div>
+        )}
       </div>
       <div className="flex pt-2 gap-2 items-center text-center justify-center">
         <SkinRating

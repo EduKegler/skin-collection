@@ -14,19 +14,17 @@ import { SignInWithRiot } from "../SignInWithRiot";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { routes } from "@/contants";
+import { AccountAvatar } from "../AccountAvatar";
+import { useOAuth } from "@/providers/OAuthProvider";
 
 type HeaderProps = {
   language: string;
-  clientId: string;
-  callback: string;
 };
 
-export const Header = memo(function Header({
-  language,
-  clientId,
-  callback,
-}: HeaderProps) {
+export const Header = memo(function Header({ language }: HeaderProps) {
   const path = usePathname();
+  const { isConnected } = useOAuth();
+
   const customTheme: CustomFlowbiteTheme["megaMenu"] = {
     root: {
       base: "bg-transparent",
@@ -64,9 +62,9 @@ export const Header = memo(function Header({
           <Navbar.Link href={routes.COLLECTION}>
             <h2 className={activeNavbar([routes.COLLECTION])}>Collection</h2>
           </Navbar.Link>
-          <Navbar.Link href={routes.DONATE}>
+          {/* <Navbar.Link href={routes.DONATE}>
             <h2 className={activeNavbar([routes.DONATE])}>Donate</h2>
-          </Navbar.Link>
+          </Navbar.Link> */}
           <div>
             <Dropdown
               label=""
@@ -80,9 +78,9 @@ export const Header = memo(function Header({
             </Dropdown>
           </div>
         </Navbar.Collapse>
-        <div className="flex gap-2">
+        <div className="flex gap-4 items-center">
           <LanguageSelect language={language} />
-          <SignInWithRiot clientId={clientId} callback={callback} />
+          {isConnected ? <AccountAvatar /> : <SignInWithRiot />}
         </div>
       </div>
     </MegaMenu>

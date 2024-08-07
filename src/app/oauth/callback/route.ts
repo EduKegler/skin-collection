@@ -1,3 +1,4 @@
+import { routes } from "@/contants";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -6,7 +7,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const iss = searchParams.get("iss");
 
-  const clientId = process.env.RIOT_APPLICATION_CLIENT_ID;
+  const clientId = process.env.NEXT_PUBLIC_RIOT_APPLICATION_CLIENT_ID;
   const clientSecret = process.env.RIOT_APPLICATION_CLIENT_SECRET;
 
   const res = await fetch(`${iss}/token`, {
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
     body: new URLSearchParams({
       grant_type: "authorization_code",
       code: code ?? "",
-      redirect_uri: process.env.RIOT_APPLICATION_CALLBACK ?? "",
+      redirect_uri: process.env.NEXT_PUBLIC_RIOT_APPLICATION_CALLBACK ?? "",
     }),
   });
 
@@ -31,7 +32,7 @@ export async function GET(request: NextRequest) {
       ? new URL("http://local.example.com/").origin
       : new URL(request.url).origin;
 
-  const response = NextResponse.redirect(redirectUrl);
+  const response = NextResponse.redirect(`${redirectUrl}/${routes.COLLECTION}`);
 
   response.cookies.set("jwt", data.access_token ?? "");
 

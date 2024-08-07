@@ -1,30 +1,72 @@
 "use client";
 
-import { createContext, memo, ReactElement, ReactNode, useContext, useMemo } from "react";
+import { OAUTH_DEFAULT_VALUES } from "@/contants";
+import {
+  createContext,
+  Dispatch,
+  memo,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
-type OAuthProviderProps = { children?: ReactNode };
+type OAuthProviderProps = {
+  children?: ReactNode;
+} & OAuthContextDefaultType;
 
-type OAuthContextType = {};
+export type OAuthContextDefaultType = {
+  id: string;
+  name: string;
+  tag: string;
+  profileIconId: number;
+  level: number;
+  isConnected: boolean;
+};
 
-const OAuthContext = createContext<OAuthContextType>({});
+export type OAuthContextType = OAuthContextDefaultType & {
+  nickName: string;
+};
 
-type OAuthDispatchContextType = {};
-const OAuthDispatchContext = createContext<OAuthDispatchContextType>({});
+const OAuthContext = createContext<OAuthContextType>({
+  ...OAUTH_DEFAULT_VALUES,
+  nickName: "",
+});
+
+type OAuthDispatchContextType = {
+  setConnected: Dispatch<SetStateAction<boolean>>;
+};
+
+const OAuthDispatchContext = createContext<OAuthDispatchContextType>({
+  setConnected: () => {},
+});
 
 export const OAuthProvider = memo(function OAuthProvider(
-  props: OAuthProviderProps,
+  defaultProps: OAuthProviderProps,
 ): ReactElement {
+  const { children, isConnected, ...props } = defaultProps;
+
+  const [internalConnected, setConnected] = useState(isConnected);
+
+  const nickName = useMemo(() => {
+    return props.name + "#" + props.tag;
+  }, [props.name, props.tag]);
+
   const oauthMemo = useMemo(() => {
-    return {};
-  }, []);
+    return { ...props, nickName, isConnected: internalConnected };
+  }, [internalConnected, nickName, props]);
 
   const oauthDispatchMemo = useMemo(() => {
-    return {};
+    return {
+      setConnected,
+    };
   }, []);
 
   return (
     <OAuthDispatchContext.Provider value={oauthDispatchMemo}>
-      <OAuthContext.Provider value={oauthMemo}>{props.children}</OAuthContext.Provider>
+      <OAuthContext.Provider value={oauthMemo}>{children}</OAuthContext.Provider>
     </OAuthDispatchContext.Provider>
   );
 });

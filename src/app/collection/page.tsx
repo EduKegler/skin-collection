@@ -2,14 +2,16 @@ import { ChampionList } from "@/components/ChampionList";
 import { skinInfo } from "@/data/skin";
 import { IChampion, IChampionAPI, IChampionBase, ISkin } from "@/type";
 import { cookies } from "next/headers";
-import { getGeneralReviews, getSkinList, getUserId } from "../actions";
+import { getGeneralReviews, getSkinList } from "../actions";
 import { FilterProvider } from "@/providers/FilterProvider";
 import { ScrollTo } from "@/components/ScrollToButton";
 import { ChampionsProvider } from "@/providers/ChampionsProvider";
 
-export default async function Page() {
+export default async function Page({ params }: { params: { userId: string } }) {
+  console.log(params);
   const language = cookies().get("language")?.value ?? "en_US";
-  const champions = await getChampionList(language);
+
+  const champions = await getChampionList(params.userId, language);
 
   return (
     <main className="flex flex-auto h-full w-full">
@@ -36,8 +38,10 @@ async function getChampionDetail(id: string, language: string): Promise<IChampio
   return data.data[id];
 }
 
-async function getChampionList(language: string): Promise<Record<string, IChampionAPI>> {
-  const userId = await getUserId();
+async function getChampionList(
+  userId: string,
+  language: string,
+): Promise<Record<string, IChampionAPI>> {
   const collectedSkins = await getSkinList(userId);
 
   const championsResponseJSON = await fetch(

@@ -2,6 +2,8 @@ import { Dropdown, Textarea, Tooltip } from "flowbite-react";
 import { ChangeEvent, memo, useCallback, useMemo, useState } from "react";
 import { RatingStars } from "./RatingStars";
 import { PrimaryButton } from "./PrimaryButton";
+import { useOAuth } from "@/providers/OAuthProvider";
+import { useSignIn } from "@/hooks/useSignIn";
 
 type SendCommentProps = {
   onSuccess: (rating: number, comment?: string) => void;
@@ -10,6 +12,8 @@ type SendCommentProps = {
 export const SendComment = memo(function SendComment({ onSuccess }: SendCommentProps) {
   const [rating, setRating] = useState<number | "Rating">("Rating");
   const [comment, setComment] = useState("");
+  const { isConnected } = useOAuth();
+  const { signIn } = useSignIn();
 
   const labels = useMemo(() => {
     return {
@@ -31,6 +35,20 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
       onSuccess(rating, comment);
     }
   }, [comment, onSuccess, rating]);
+
+  if (!isConnected) {
+    return (
+      <div
+        className="flex justify-center items-center p-4 cursor-pointer"
+        onClick={signIn}
+      >
+        <span className="text-sm font-bold">
+          <span className="underline">Sign in</span>
+          <span> to review your collected skins.</span>
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="">
