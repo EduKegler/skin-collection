@@ -1,5 +1,6 @@
 "use client";
 
+import { updateLanguage } from "@/actions/language";
 import { ILanguage } from "@/type";
 
 import {
@@ -42,6 +43,7 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
 
   const handleUpdateLanguage = useCallback((value: ILanguage) => {
     setLanguage(value);
+    updateLanguage(value);
   }, []);
 
   const UserPreferenceMemo = useMemo(() => {
