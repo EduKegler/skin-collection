@@ -1,23 +1,26 @@
 "use client";
-import { updateLanguage } from "@/actions/language";
+import {
+  useUserPreference,
+  useUserPreferenceDispatch,
+} from "@/providers/UserPreferenceProvider";
+import { ILanguage } from "@/type";
 import { Button, Dropdown } from "flowbite-react";
 import Image from "next/image";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, ReactNode, useCallback, useMemo } from "react";
 
-type LanguageProps = {
-  language: string;
-};
+export const LanguageSelect = memo(function LanguageSelect() {
+  const { language } = useUserPreference();
 
-export const LanguageSelect = memo(function LanguageSelect({ language }: LanguageProps) {
-  const [loading, setLoading] = useState(false);
+  const { handleUpdateLanguage } = useUserPreferenceDispatch();
 
-  const handleChangeLanguage = useCallback(async (value: string) => {
-    setLoading(true);
-    await updateLanguage(value);
-    setLoading(false);
-  }, []);
+  const handleChangeLanguage = useCallback(
+    async (value: ILanguage) => {
+      handleUpdateLanguage(value);
+    },
+    [handleUpdateLanguage],
+  );
 
-  const labels = useMemo(() => {
+  const labels: Record<ILanguage, ReactNode> = useMemo(() => {
     return {
       pt_BR: (
         <span className="flex gap-2">
@@ -44,8 +47,8 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
             width={0}
             height={0}
             unoptimized
-            priority
             sizes="100vw"
+            priority
           />
           EN-US
         </span>
@@ -64,17 +67,13 @@ export const LanguageSelect = memo(function LanguageSelect({ language }: Languag
         </div>
       )}
     >
-      {loading ? null : (
-        <>
-          <Dropdown.Item onClick={() => handleChangeLanguage("pt_BR")}>
-            {labels["pt_BR"]}
-          </Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item onClick={() => handleChangeLanguage("en_US")}>
-            {labels["en_US"]}
-          </Dropdown.Item>
-        </>
-      )}
+      <Dropdown.Item onClick={() => handleChangeLanguage("pt_BR")}>
+        {labels["pt_BR"]}
+      </Dropdown.Item>
+      <Dropdown.Divider />
+      <Dropdown.Item onClick={() => handleChangeLanguage("en_US")}>
+        {labels["en_US"]}
+      </Dropdown.Item>
     </Dropdown>
   );
 });

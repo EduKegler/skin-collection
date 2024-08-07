@@ -1,3 +1,5 @@
+import { ILanguage } from "./type";
+
 export const routes = {
   HOME: "/",
   COLLECTION: "/collection",
@@ -20,3 +22,5 @@ export const TABLE = {
   REVIEWS: "reviews",
   SIGNINS: "signins",
 };
+
+export const supportedLanguages: ILanguage[] = ["en_US", "pt_BR"];

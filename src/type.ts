@@ -48,6 +48,8 @@ export type IReviewGeneral = {
   [skinId: string]: number[];
 };
 
+export type ILanguage = "pt_BR" | "en_US";
+
 export type ISkinTier =
   | "Transcendent"
   | "Ultimate"

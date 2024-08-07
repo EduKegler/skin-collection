@@ -1,6 +1,5 @@
 "use client";
 
-import { getLanguage } from "@/actions/language";
 import { IChampionAPI } from "@/type";
 import {
   createContext,
@@ -11,12 +10,15 @@ import {
   SetStateAction,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { useOAuth } from "./OAuthProvider";
 import { getChampionList } from "@/actions/champion";
 import { useLoadingDispatch } from "./LoadingProvider";
+import { useUserPreference } from "./UserPreferenceProvider";
 
 type ChampionsProviderProps = {
   children?: ReactNode;
@@ -44,17 +46,27 @@ const ChampionsDispatchContext = createContext<ChampionsDispatchContextType>({
 export const ChampionsProvider = memo(function ChampionsProvider(
   props: ChampionsProviderProps,
 ): ReactElement {
+  const { language } = useUserPreference();
+
+  const prevLanguage = useRef(language);
+
   const [champions, setChampions] = useState(props.defaultChampions);
   const { id } = useOAuth();
   const { setLoading } = useLoadingDispatch();
 
   const refreshChampions = useCallback(async () => {
     setLoading(true);
-    const language = await getLanguage();
     const champions = await getChampionList(id, language);
     setChampions(champions);
     setLoading(false);
-  }, [id, setLoading]);
+  }, [id, language, setLoading]);
+
+  useEffect(() => {
+    if (language !== prevLanguage.current) {
+      prevLanguage.current = language;
+      refreshChampions();
+    }
+  }, [language, refreshChampions]);
 
   const ChampionsMemo = useMemo(() => {
     return {

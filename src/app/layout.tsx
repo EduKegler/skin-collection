@@ -12,6 +12,7 @@ import { accountInfo } from "@/actions/signIn";
 import { getLanguage } from "@/actions/language";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
+import { UserPreferenceProvider } from "@/providers/UserPreferenceProvider";
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",
@@ -58,17 +59,19 @@ export default async function RootLayout({
       <SpeedInsights />
       <body className="min-h-screen flex dark">
         <LoadingProvider>
-          <ToastProvider>
-            <OAuthProvider {...oauthValues}>
-              <Flowbite theme={{ theme: customTheme }}>
-                <div className="flex flex-col gap-2 px-8 py-6 ">
-                  <Header language={language} />
-                  {children}
-                  <Footer />
-                </div>
-              </Flowbite>
-            </OAuthProvider>
-          </ToastProvider>
+          <UserPreferenceProvider defaultLanguage={language}>
+            <ToastProvider>
+              <OAuthProvider {...oauthValues}>
+                <Flowbite theme={{ theme: customTheme }}>
+                  <div className="flex flex-col w-full gap-2 px-8 py-6 ">
+                    <Header />
+                    {children}
+                    <Footer />
+                  </div>
+                </Flowbite>
+              </OAuthProvider>
+            </ToastProvider>
+          </UserPreferenceProvider>
         </LoadingProvider>
       </body>
     </html>

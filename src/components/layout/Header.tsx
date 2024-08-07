@@ -17,11 +17,7 @@ import { routes } from "@/contants";
 import { AccountAvatar } from "../AccountAvatar";
 import { useOAuth } from "@/providers/OAuthProvider";
 
-type HeaderProps = {
-  language: string;
-};
-
-export const Header = memo(function Header({ language }: HeaderProps) {
+export const Header = memo(function Header() {
   const path = usePathname();
   const { isConnected } = useOAuth();
 
@@ -62,9 +58,6 @@ export const Header = memo(function Header({ language }: HeaderProps) {
           <Navbar.Link href={routes.COLLECTION}>
             <h2 className={activeNavbar([routes.COLLECTION])}>Collection</h2>
           </Navbar.Link>
-          {/* <Navbar.Link href={routes.DONATE}>
-            <h2 className={activeNavbar([routes.DONATE])}>Donate</h2>
-          </Navbar.Link> */}
           <div>
             <Dropdown
               label=""
@@ -79,7 +72,7 @@ export const Header = memo(function Header({ language }: HeaderProps) {
           </div>
         </Navbar.Collapse>
         <div className="flex gap-4 items-center">
-          <LanguageSelect language={language} />
+          <LanguageSelect />
           {isConnected ? <AccountAvatar /> : <SignInWithRiot />}
         </div>
       </div>
