@@ -38,6 +38,13 @@ export const COOKIE = {
   ORDER_BY: "order_by",
 };
 
+export const STORAGE = {
+  COLLECT_FILTER: "collect_filter",
+  TIER_FILTER: "tier_filter",
+  LEGACY_FILTER: "legacy_filter",
+  ORDER_BY: "order_by",
+};
+
 export const supportedLanguages: ILanguage[] = ["en_US", "pt_BR"];
 export const supportedCollectTypes: ICollectFilter[] = ["All", "Collect", "Uncollect"];
 export const supportedTierTypes: ITierFilter[] = [

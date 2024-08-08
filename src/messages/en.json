@@ -51,7 +51,7 @@
   },
   "SkinOverlay": {
     "loading": "Loading...",
-    "singin": "Sign in",
+    "signin": "Sign in",
     "track": " to track your collected skins.",
     "collected": "Collected?",
     "uncollected": "Uncollected?"
@@ -61,7 +61,7 @@
     "star": "star"
   },
   "SendComment": {
-    "singin": "Sign in",
+    "signin": "Sign in",
     "review": " to review your collected skins.",
     "send": "send",
     "placeholder": "Leave a comment...",

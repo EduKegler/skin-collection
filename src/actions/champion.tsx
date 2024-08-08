@@ -1,7 +1,7 @@
 import { IChampion, IChampionAPI, IChampionBase, ISkin } from "@/type";
 import { getSkinList } from "./skins";
 import { getGeneralReviews } from "./review";
-import { skinInfo } from "@/data/skin";
+import { skinInfo } from "@/data/RarityData";
 
 export async function getChampionDetail(
   id: string,

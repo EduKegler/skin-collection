@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  updateCollectFilter,
-  updateLegacyFilter,
-  updateOrderBy,
-  updateTierFilter,
-} from "@/actions/filter";
 import { updateLanguage } from "@/actions/language";
 import { ICollectFilter, ILanguage, ILegacyFilter, IOrderBy, ITierFilter } from "@/type";
 
@@ -25,10 +19,6 @@ import {
 type UserPreferenceProviderProps = {
   children?: ReactNode;
   defaultLanguage: ILanguage;
-  defaultCollectFilter: ICollectFilter;
-  defaultTierFilter: ITierFilter;
-  deafultLegacyFilter: ILegacyFilter;
-  defaultOrderBy: IOrderBy;
 };
 
 type UserPreferenceContextType = {
@@ -68,20 +58,14 @@ const UserPreferenceDispatchContext = createContext<UserPreferenceDispatchContex
 });
 
 export const UserPreferenceProvider = memo(function UserPreferenceProvider({
-  defaultLanguage,
-  defaultCollectFilter,
-  defaultTierFilter,
-  deafultLegacyFilter,
-  defaultOrderBy,
   children,
 }: UserPreferenceProviderProps): ReactElement {
-  const [language, setLanguage] = useState<ILanguage>(defaultLanguage);
+  const [language, setLanguage] = useState<ILanguage>("en_US");
   const [search, setSearch] = useState<string>("");
-  const [collectFilter, setCollectFilter] =
-    useState<ICollectFilter>(defaultCollectFilter);
-  const [tierFilter, setTierFilter] = useState<ITierFilter>(defaultTierFilter);
-  const [legacyFilter, setLegacyFilter] = useState<ILegacyFilter>(deafultLegacyFilter);
-  const [orderBy, setOrderBy] = useState<IOrderBy>(defaultOrderBy);
+  const [collectFilter, setCollectFilter] = useState<ICollectFilter>("All");
+  const [tierFilter, setTierFilter] = useState<ITierFilter>("All");
+  const [legacyFilter, setLegacyFilter] = useState<ILegacyFilter>("All");
+  const [orderBy, setOrderBy] = useState<IOrderBy>("Rarity");
 
   const handleUpdateLanguage = useCallback((value: ILanguage) => {
     setLanguage(value);
@@ -90,22 +74,22 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
 
   const handleUpdateCollectFilter = useCallback((value: ICollectFilter) => {
     setCollectFilter(value);
-    updateCollectFilter(value);
+    // updateCollectFilter(value);
   }, []);
 
   const handleUpdateTierFilter = useCallback((value: ITierFilter) => {
     setTierFilter(value);
-    updateTierFilter(value);
+    // updateTierFilter(value);
   }, []);
 
   const handleUpdateLegacyFilter = useCallback((value: ILegacyFilter) => {
     setLegacyFilter(value);
-    updateLegacyFilter(value);
+    // updateLegacyFilter(value);
   }, []);
 
   const handleUpdateOrderBy = useCallback((value: IOrderBy) => {
     setOrderBy(value);
-    updateOrderBy(value);
+    // updateOrderBy(value);
   }, []);
 
   const UserPreferenceMemo = useMemo(() => {

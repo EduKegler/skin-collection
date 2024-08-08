@@ -9,13 +9,12 @@ import { Footer } from "@/components/layout/Footer";
 import { OAuthProvider } from "@/providers/OAuthProvider";
 import { beaufort, spiegel } from "@/font";
 import { getAccountInfo } from "@/actions/signIn";
-import { getLanguage } from "@/actions/language";
+import { getLanguage, getLocale } from "@/actions/language";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { UserPreferenceProvider } from "@/providers/UserPreferenceProvider";
-import { getDefaultFilter } from "@/actions/filter";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",
@@ -54,7 +53,6 @@ export default async function RootLayout({
 }>) {
   const language = await getLanguage();
   const locale = await getLocale();
-  const { collectFilter, tierFilter, legacyFilter, orderBy } = await getDefaultFilter();
   const oauthValues = await getAccountInfo();
   const messages = await getMessages();
 
@@ -65,13 +63,7 @@ export default async function RootLayout({
       <SpeedInsights />
       <body className="min-h-screen flex dark">
         <LoadingProvider>
-          <UserPreferenceProvider
-            defaultLanguage={language}
-            defaultCollectFilter={collectFilter}
-            defaultTierFilter={tierFilter}
-            deafultLegacyFilter={legacyFilter}
-            defaultOrderBy={orderBy}
-          >
+          <UserPreferenceProvider defaultLanguage={language}>
             <NextIntlClientProvider messages={messages}>
               <ToastProvider>
                 <OAuthProvider {...oauthValues}>
