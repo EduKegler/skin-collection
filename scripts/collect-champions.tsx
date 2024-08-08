@@ -49,7 +49,7 @@ async function main() {
     }
   }
 
-  await fs.writeFile("./public/champions.json", JSON.stringify(championSkins, null, 2));
+  await fs.writeFile("/champions.json", JSON.stringify(championSkins, null, 2));
 }
 
 main().catch(console.error);

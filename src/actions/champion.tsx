@@ -3,16 +3,15 @@ import { IChampionAPI, ISkin } from "@/type";
 import { getSkinList } from "./skins";
 import { getGeneralReviews } from "./review";
 import { skinInfo } from "@/data/RarityData";
-import { promises as fs } from "fs";
+import championsFile from "../../champions.json";
 
 export async function getChampionList(
   userId: string,
 ): Promise<Record<string, IChampionAPI>> {
   const collectedSkins = await getSkinList(userId);
-  const file = await fs.readFile(process.cwd() + "/public/champions.json", "utf8");
-  const champions = JSON.parse(file);
   const reviews = await getGeneralReviews();
 
+  const champions = championsFile as any as Record<string, IChampionAPI>;
   const championSkins: Record<string, IChampionAPI> = {};
 
   for (const champion in champions) {
