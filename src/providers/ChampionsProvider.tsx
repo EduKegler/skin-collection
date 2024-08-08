@@ -56,10 +56,10 @@ export const ChampionsProvider = memo(function ChampionsProvider(
 
   const refreshChampions = useCallback(async () => {
     setLoading(true);
-    const champions = await getChampionList(id, language);
+    const champions = await getChampionList(id);
     setChampions(champions);
     setLoading(false);
-  }, [id, language, setLoading]);
+  }, [id, setLoading]);
 
   useEffect(() => {
     if (language !== prevLanguage.current) {
