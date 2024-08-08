@@ -70,5 +70,10 @@
   },
   "Comment": {
     "delete": "Delete"
+  },
+  "LogoutModal": {
+    "title": "Are you sure you want to disconnect your account?",
+    "confirm": "Yes, I'm sure",
+    "cancel": "No, cancel"
   }
 }

@@ -69,5 +69,10 @@
   },
   "Comment": {
     "delete": "Deletar"
+  },
+  "LogoutModal": {
+    "title": "você tem certeza que quer desconectar sua conta?",
+    "confirm": "Sim, tenho certeza",
+    "cancel": "Não, cancelar"
   }
 }
