@@ -1,4 +1,4 @@
-import { IChampion, IOrderBy, ISkin, ISkinTier } from "@/type";
+import { IOrderBy, ISkin, ISkinTier } from "@/type";
 
 const tierOrder: Record<ISkinTier, number> = {
   Transcendent: 1,
