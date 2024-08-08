@@ -9,12 +9,12 @@ import { Footer } from "@/components/layout/Footer";
 import { OAuthProvider } from "@/providers/OAuthProvider";
 import { beaufort, spiegel } from "@/font";
 import { getAccountInfo } from "@/actions/signIn";
-import { getLanguage, getLocale } from "@/actions/language";
+import { getLanguage } from "@/actions/language";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import { UserPreferenceProvider } from "@/providers/UserPreferenceProvider";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getLocale, getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Skin Collection LOL",

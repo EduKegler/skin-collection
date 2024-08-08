@@ -1,20 +1,22 @@
-export type IChampionAPI = IChampionBase & {
+export type IChampionAPI = {
+  id: string;
+  name: string;
   skins: Record<string, ISkin>;
 };
 
-export type IChampion = IChampionBase & {
+export type IChampion = {
+  id: string;
+  name: string;
   skins: ISkin[];
 };
 
-export type IChampionBase = {
-  id: string;
-  name: string;
-};
+export type IChampionBase = {};
 
 export type ISkin = {
   id: string;
   num: number;
   name: string;
+  names: Record<ILanguage, string>;
   isCollected: boolean;
   info?: IInfoSkin;
   rating: IRating;

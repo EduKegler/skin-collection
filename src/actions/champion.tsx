@@ -1,82 +1,49 @@
-import { IChampion, IChampionAPI, IChampionBase, ISkin } from "@/type";
+"use server";
+import { IChampionAPI, ISkin } from "@/type";
 import { getSkinList } from "./skins";
 import { getGeneralReviews } from "./review";
 import { skinInfo } from "@/data/RarityData";
-
-export async function getChampionDetail(
-  id: string,
-  language: string,
-): Promise<IChampion> {
-  const res = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion/${id}.json`,
-  );
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch details for champion ${id}`);
-  }
-
-  const data = await res.json();
-  return data.data[id];
-}
+import { promises as fs } from "fs";
 
 export async function getChampionList(
   userId: string,
-  language: string,
 ): Promise<Record<string, IChampionAPI>> {
   const collectedSkins = await getSkinList(userId);
-
-  const championsResponseJSON = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/14.14.1/data/${language}/champion.json`,
-  );
-
-  if (!championsResponseJSON.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  const championsResponse = await championsResponseJSON.json();
-
-  const champions = Array.from(Object.values(championsResponse.data)) as IChampionBase[];
+  const file = await fs.readFile(process.cwd() + "/champions.json", "utf8");
+  const champions = JSON.parse(file);
   const reviews = await getGeneralReviews();
 
-  const detailedChampions = await Promise.all(
-    champions.map(async (champion) => {
-      const details: IChampion = await getChampionDetail(champion.id, language);
+  const championSkins: Record<string, IChampionAPI> = {};
 
-      const skins = details.skins.reduce(
-        (skinAcc, skin) => {
-          if (!skin.num) return skinAcc;
-          const review = reviews[skin.id as keyof typeof reviews] ?? [];
-          const rating = review.reduce((acc, curr) => acc + curr, 0) / review.length;
+  for (const champion in champions) {
+    if (Object.prototype.hasOwnProperty.call(champions, champion)) {
+      const currentChampion = champions[champion];
 
-          skinAcc[skin.id] = {
-            ...skin,
-            isCollected: collectedSkins.includes(Number(skin.id)),
-            info: skinInfo[skin.id as keyof typeof skinInfo],
-            rating: {
-              rating: rating ? rating : 0,
-              amountReviews: review.length,
-            },
-          };
+      const skins: Record<string, ISkin> = {};
 
-          return skinAcc;
-        },
-        {} as Record<string, ISkin>,
-      );
+      for (const skin in currentChampion.skins) {
+        const currentSkin = currentChampion.skins[skin];
+        const review = reviews[currentSkin.id as keyof typeof reviews] ?? [];
+        const rating = review.reduce((acc, curr) => acc + curr, 0) / review.length;
 
-      return {
-        ...champion,
+        skins[skin] = {
+          ...currentSkin,
+          isCollected: collectedSkins.includes(Number(currentSkin.id)),
+          info: skinInfo[currentSkin.id as keyof typeof skinInfo],
+          rating: {
+            rating: rating ? rating : 0,
+            amountReviews: review.length,
+          },
+        };
+      }
+
+      championSkins[champion] = {
+        id: currentChampion.id,
+        name: currentChampion.name,
         skins,
       };
-    }),
-  );
+    }
+  }
 
-  const championMap = detailedChampions.reduce(
-    (acc, champion) => {
-      acc[champion.id] = champion as any as IChampionAPI;
-      return acc;
-    },
-    {} as Record<string, IChampionAPI>,
-  );
-
-  return championMap;
+  return championSkins;
 }

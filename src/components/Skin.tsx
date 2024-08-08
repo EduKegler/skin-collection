@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { clsx } from "clsx";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { ISkin } from "@/type";
 import { SkinRating } from "./SkinRating";
 import { ModalReview } from "./ModalReview";
@@ -12,6 +12,7 @@ import { useSignIn } from "@/hooks/useSignIn";
 import { collectSkin, uncollectSkin } from "@/actions/skins";
 import { SkinOverlay } from "./SkinOverlay";
 import { useTranslations } from "next-intl";
+import { useUserPreference } from "@/providers/UserPreferenceProvider";
 
 type SkinProps = {
   id: string;
@@ -23,9 +24,11 @@ type SkinProps = {
 export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
   const [openModal, setOpenModal] = useState(false);
   const { setChampions, refreshChampions } = useChampionsDispatch();
+  const { language } = useUserPreference();
   const [loading, setLoading] = useState(false);
 
   const translate = useTranslations("Skin");
+
   const { id: userId, isConnected } = useOAuth();
   const { signIn } = useSignIn();
 
@@ -64,10 +67,6 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
     [refreshChampions],
   );
 
-  const idRenamed = useMemo(() => {
-    return id === "Fiddlesticks" ? "FiddleSticks" : id;
-  }, [id]);
-
   const handleCollect = useCallback(() => {
     if (isConnected) {
       handleClick();
@@ -95,7 +94,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
       >
         <Image
           priority={index <= 4}
-          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${idRenamed}_${skin.num}.jpg`}
+          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${id}_${skin.num}.jpg`}
           alt={skin.name}
           fill={true}
           loading={index > 4 ? "lazy" : "eager"}
@@ -118,7 +117,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
         />
       </div>
       <div className="flex mt-2 text-sm  gap-2 justify-center">
-        <span className="self-center font-semibold">{skin.name}</span>
+        <span className="self-center font-semibold">{skin.names[language]}</span>
       </div>
       <ModalReview onClose={handleCloseModal} openModal={openModal} skin={skin} id={id} />
     </div>

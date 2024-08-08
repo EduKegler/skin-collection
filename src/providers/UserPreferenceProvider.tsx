@@ -59,13 +59,14 @@ const UserPreferenceDispatchContext = createContext<UserPreferenceDispatchContex
 
 export const UserPreferenceProvider = memo(function UserPreferenceProvider({
   children,
+  defaultLanguage,
 }: UserPreferenceProviderProps): ReactElement {
-  const [language, setLanguage] = useState<ILanguage>("en_US");
+  const [language, setLanguage] = useState<ILanguage>(defaultLanguage);
   const [search, setSearch] = useState<string>("");
   const [collectFilter, setCollectFilter] = useState<ICollectFilter>("All");
   const [tierFilter, setTierFilter] = useState<ITierFilter>("All");
   const [legacyFilter, setLegacyFilter] = useState<ILegacyFilter>("All");
-  const [orderBy, setOrderBy] = useState<IOrderBy>("Rarity");
+  const [orderBy, setOrderBy] = useState<IOrderBy>("ReleaseDate");
 
   const handleUpdateLanguage = useCallback((value: ILanguage) => {
     setLanguage(value);
