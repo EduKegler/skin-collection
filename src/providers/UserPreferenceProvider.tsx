@@ -28,6 +28,7 @@ type UserPreferenceContextType = {
   tierFilter: ITierFilter;
   legacyFilter: ILegacyFilter;
   orderBy: IOrderBy;
+  filtersChanged: boolean;
 };
 
 const UserPreferenceContext = createContext<UserPreferenceContextType>({
@@ -37,6 +38,7 @@ const UserPreferenceContext = createContext<UserPreferenceContextType>({
   tierFilter: "All",
   legacyFilter: "All",
   orderBy: "ReleaseDate",
+  filtersChanged: false,
 });
 
 type UserPreferenceDispatchContextType = {
@@ -46,6 +48,7 @@ type UserPreferenceDispatchContextType = {
   handleUpdateTierFilter: (value: ITierFilter) => void;
   handleUpdateLegacyFilter: (value: ILegacyFilter) => void;
   handleUpdateOrderBy: (value: IOrderBy) => void;
+  clearFilter: () => void;
 };
 
 const UserPreferenceDispatchContext = createContext<UserPreferenceDispatchContextType>({
@@ -55,6 +58,7 @@ const UserPreferenceDispatchContext = createContext<UserPreferenceDispatchContex
   handleUpdateTierFilter: () => {},
   handleUpdateLegacyFilter: () => {},
   handleUpdateOrderBy: () => {},
+  clearFilter: () => {},
 });
 
 export const UserPreferenceProvider = memo(function UserPreferenceProvider({
@@ -67,6 +71,16 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
   const [tierFilter, setTierFilter] = useState<ITierFilter>("All");
   const [legacyFilter, setLegacyFilter] = useState<ILegacyFilter>("All");
   const [orderBy, setOrderBy] = useState<IOrderBy>("ReleaseDate");
+
+  const filtersChanged = useMemo(
+    () =>
+      search !== "" ||
+      collectFilter !== "All" ||
+      tierFilter !== "All" ||
+      legacyFilter !== "All" ||
+      orderBy !== "ReleaseDate",
+    [collectFilter, legacyFilter, orderBy, search, tierFilter],
+  );
 
   const handleUpdateLanguage = useCallback((value: ILanguage) => {
     setLanguage(value);
@@ -93,6 +107,13 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
     // updateOrderBy(value);
   }, []);
 
+  const clearFilter = useCallback(() => {
+    setCollectFilter("All");
+    setTierFilter("All");
+    setLegacyFilter("All");
+    setOrderBy("ReleaseDate");
+  }, []);
+
   const UserPreferenceMemo = useMemo(() => {
     return {
       search,
@@ -101,8 +122,17 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
       tierFilter,
       legacyFilter,
       orderBy,
+      filtersChanged,
     };
-  }, [collectFilter, language, legacyFilter, orderBy, search, tierFilter]);
+  }, [
+    collectFilter,
+    filtersChanged,
+    language,
+    legacyFilter,
+    orderBy,
+    search,
+    tierFilter,
+  ]);
 
   const UserPreferenceDispatchMemo = useMemo(() => {
     return {
@@ -112,6 +142,7 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
       handleUpdateTierFilter,
       handleUpdateLegacyFilter,
       handleUpdateOrderBy,
+      clearFilter,
     };
   }, [
     handleUpdateCollectFilter,
@@ -119,6 +150,7 @@ export const UserPreferenceProvider = memo(function UserPreferenceProvider({
     handleUpdateLegacyFilter,
     handleUpdateOrderBy,
     handleUpdateTierFilter,
+    clearFilter,
   ]);
 
   return (

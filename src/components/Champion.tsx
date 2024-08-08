@@ -2,9 +2,7 @@
 
 import { IChampion } from "@/type";
 import { Skin } from "./Skin";
-import { memo, useMemo } from "react";
-import { orderBySkins } from "@/utils/sortSkin";
-import { useUserPreference } from "@/providers/UserPreferenceProvider";
+import { memo } from "react";
 
 type ChampionProps = {
   champion: IChampion;
@@ -15,14 +13,9 @@ export const Champion = memo(function Champion({
   champion,
   championIndex,
 }: ChampionProps) {
-  const { orderBy } = useUserPreference();
   const collected = champion.skins.reduce((acc, skin) => {
     return acc + (skin.isCollected ? 1 : 0);
   }, 0);
-
-  const skinsOrdered = useMemo(() => {
-    return orderBySkins(orderBy, champion);
-  }, [champion, orderBy]);
 
   return (
     <div key={champion.id}>
@@ -33,7 +26,7 @@ export const Champion = memo(function Champion({
         <div className="flex-grow border-t border-gray-600"></div>
       </div>
       <div className="flex flex-wrap gap-4">
-        {skinsOrdered.map((skin) => (
+        {champion.skins.map((skin) => (
           <Skin
             key={skin.id}
             id={champion.id}

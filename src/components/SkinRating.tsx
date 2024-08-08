@@ -32,7 +32,9 @@ export const SkinRating = memo(function SkinRating({ skin, onClick }: SkinRating
         </Rating>
       </div>
       <div className="flex gap-1 justify-center text-center items-center">
-        <p className="text-sm font-bold ">{skin.rating.rating}</p>
+        <p className="text-sm font-bold ">
+          {skin.rating.rating > 1 ? skin.rating.rating : "--"}
+        </p>
         <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
         <span
           onClick={onClick}

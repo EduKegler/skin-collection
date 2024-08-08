@@ -4,13 +4,13 @@ import { memo, ReactNode, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
 import { SkinTier } from "../SkinTier";
 import { ISkinTier, ITierFilter } from "@/type";
-import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
 import {
   useUserPreference,
   useUserPreferenceDispatch,
 } from "@/providers/UserPreferenceProvider";
 import { useTranslations } from "next-intl";
+import { SecondaryButton } from "../SecondaryButton";
 
 export const TierFilter = memo(function TierFilter() {
   const { tierFilter } = useUserPreference();
@@ -33,17 +33,17 @@ export const TierFilter = memo(function TierFilter() {
   }, []);
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-2 items-center">
       <span>{translate("title")}</span>
       <Dropdown
         label={labels[tierFilter as keyof typeof labels]}
         renderTrigger={() => (
           <div className="relative">
-            <PrimaryButton>
+            <SecondaryButton>
               <div className="flex gap-2 items-center">
                 {labels[tierFilter as keyof typeof labels]} <FaAngleDown />
               </div>
-            </PrimaryButton>
+            </SecondaryButton>
           </div>
         )}
       >

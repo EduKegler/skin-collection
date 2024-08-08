@@ -7,8 +7,8 @@ import {
 import { CustomFlowbiteTheme, TextInput } from "flowbite-react";
 import { useTranslations } from "next-intl";
 import React, { ChangeEvent, memo, useCallback } from "react";
-import { PrimaryButton } from "../PrimaryButton";
 import { MdClear } from "react-icons/md";
+import { SecondaryButton } from "../SecondaryButton";
 
 const customTheme: CustomFlowbiteTheme["textInput"] = {
   field: {
@@ -49,13 +49,13 @@ export const Search = memo(function Search() {
         onChange={handleSearch}
         className="w-full"
       />
-      <PrimaryButton
+      <SecondaryButton
         onClick={() => setSearch("")}
         size={"xs"}
         className="rounded-l-none flex justify-center items-center"
       >
         <MdClear className="h-4 w-4" />
-      </PrimaryButton>
+      </SecondaryButton>
     </div>
   );
 });

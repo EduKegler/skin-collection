@@ -13,6 +13,7 @@ const tierOrder: Record<ISkinTier, number> = {
 };
 
 const sorters = {
+  ReleaseDate: (skinA: ISkin, skinB: ISkin) => skinB.num - skinA.num,
   Rarity: (skinA: ISkin, skinB: ISkin) =>
     tierOrder[skinA.info?.tier ?? "Timeworn"] - tierOrder[skinB.info?.tier ?? "Timeworn"],
   Reviews: (skinA: ISkin, skinB: ISkin) =>
@@ -20,7 +21,7 @@ const sorters = {
   Rating: (skinA: ISkin, skinB: ISkin) => skinB.rating.rating - skinA.rating.rating,
 };
 
-export const orderBySkins = (orderBy: IOrderBy, champion: IChampion) => {
+export const orderBySkins = (orderBy: IOrderBy) => {
   const sorter = sorters[orderBy as keyof typeof sorters];
-  return sorter ? champion.skins.sort(sorter) : champion.skins;
+  return sorter;
 };

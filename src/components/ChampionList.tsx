@@ -14,6 +14,8 @@ import { Search } from "./filters/Search";
 import { OrderSkinBy } from "./filters/OrderSkinBy";
 import { useUserPreference } from "@/providers/UserPreferenceProvider";
 import { useTranslations } from "next-intl";
+import { ClearFilter } from "./filters/ClearFilter";
+import { orderBySkins } from "@/utils/sortSkin";
 
 export const ChampionList = memo(function ChampionList() {
   const { search, tierFilter, collectFilter, legacyFilter } = useUserPreference();
@@ -21,6 +23,8 @@ export const ChampionList = memo(function ChampionList() {
   const [visibleImages, setVisibleImages] = useState(6);
   const [hasMore, setHasMore] = useState(true);
   const translate = useTranslations("ChampionList");
+
+  const { orderBy } = useUserPreference();
 
   const championsFiltered = useMemo(
     () =>
@@ -31,6 +35,7 @@ export const ChampionList = memo(function ChampionList() {
             ...champion,
             skins: Object.keys(champion.skins)
               .map((skinKey) => champion.skins[skinKey])
+              .sort(orderBySkins(orderBy))
               .filter((skin) => {
                 return filterSkin(
                   champion.name,
@@ -44,7 +49,7 @@ export const ChampionList = memo(function ChampionList() {
           };
         })
         .filter((champion) => champion.skins.length),
-    [champions, collectFilter, legacyFilter, search, tierFilter],
+    [champions, collectFilter, legacyFilter, orderBy, search, tierFilter],
   );
 
   const fetchMoreData = useCallback(() => {
@@ -74,6 +79,7 @@ export const ChampionList = memo(function ChampionList() {
           <TierFilter />
           <LegacySkinFilter />
           <OrderSkinBy />
+          <ClearFilter />
         </div>
       </div>
 

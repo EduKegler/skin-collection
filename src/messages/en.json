@@ -75,5 +75,11 @@
     "title": "Are you sure you want to disconnect your account?",
     "confirm": "Yes, I'm sure",
     "cancel": "No, cancel"
+  },
+  "SignInWithRiot": {
+    "signin": "Sign in"
+  },
+  "ClearFilter": {
+    "clear": "Clear Filters"
   }
 }

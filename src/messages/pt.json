@@ -74,5 +74,11 @@
     "title": "você tem certeza que quer desconectar sua conta?",
     "confirm": "Sim, tenho certeza",
     "cancel": "Não, cancelar"
+  },
+  "SignInWithRiot": {
+    "signin": "Entre"
+  },
+  "ClearFilter": {
+    "clear": "Limpar Filtros"
   }
 }

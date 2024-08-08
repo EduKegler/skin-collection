@@ -2,7 +2,6 @@
 
 import { memo, ReactNode, useMemo } from "react";
 import { Dropdown } from "flowbite-react";
-import { PrimaryButton } from "../PrimaryButton";
 import { FaAngleDown } from "react-icons/fa";
 import {
   useUserPreference,
@@ -10,6 +9,7 @@ import {
 } from "@/providers/UserPreferenceProvider";
 import { ILegacyFilter } from "@/type";
 import { useTranslations } from "next-intl";
+import { SecondaryButton } from "../SecondaryButton";
 
 export const LegacySkinFilter = memo(function LegacySkinFilter() {
   const { legacyFilter } = useUserPreference();
@@ -26,17 +26,17 @@ export const LegacySkinFilter = memo(function LegacySkinFilter() {
   }, [translate]);
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex gap-2 items-center">
       <span>{translate("title")}</span>
       <Dropdown
         label={labels[legacyFilter as keyof typeof labels]}
         renderTrigger={() => (
           <div className="relative">
-            <PrimaryButton>
+            <SecondaryButton>
               <div className="flex gap-2 items-center">
                 {labels[legacyFilter as keyof typeof labels]} <FaAngleDown />
               </div>
-            </PrimaryButton>
+            </SecondaryButton>
           </div>
         )}
       >
