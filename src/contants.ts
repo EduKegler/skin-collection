@@ -1,12 +1,17 @@
 import { ICollectFilter, ILanguage, ILegacyFilter, IOrderBy, ITierFilter } from "./type";
 
-export const routes = {
+export const BASE_RIOT_URL = "https://auth.riotgames.com";
+export const CLIENT_ID = process.env.NEXT_PUBLIC_RIOT_APPLICATION_CLIENT_ID ?? "";
+export const CLIENT_SECRET = process.env.RIOT_APPLICATION_CLIENT_SECRET ?? "";
+export const BASE_REDIRECT_URI = process.env.NEXT_PUBLIC_RIOT_APPLICATION_CALLBACK ?? "";
+
+export const ROUTE = {
   HOME: "/",
   COLLECTION: "/collection",
   TOS: "/tos",
   PRIVACY: "/privacy",
   DONATE: "/donate",
-};
+} as const;
 
 export const OAUTH_DEFAULT_VALUES = {
   id: "",
@@ -24,6 +29,8 @@ export const TABLE = {
 };
 
 export const COOKIE = {
+  JWT: "jwt",
+  REFRESH_TOKEN: "refresh_token",
   LANGUAGE: "language",
   COLLECT_FILTER: "collect_filter",
   TIER_FILTER: "tier_filter",

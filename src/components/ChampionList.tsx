@@ -7,7 +7,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useChampions } from "@/providers/ChampionsProvider";
 import { PrimaryButton } from "./PrimaryButton";
 import { LegacySkinFilter } from "./filters/LegacySkinFilter";
-import { filterSkin } from "@/app/utils/filterSkin";
+import { filterSkin } from "@/utils/filterSkin";
 import { NoData } from "./NoData";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { Search } from "./filters/Search";

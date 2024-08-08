@@ -19,6 +19,5 @@ export async function collectSkin(userId: string, skinId: string) {
 
 export async function uncollectSkin(userId: string, skinId: string) {
   const res = await redis.srem(`${TABLE.SKINS}:${userId}`, skinId);
-  console.log(res, `${TABLE.SKINS}:${userId}`, skinId);
   return res;
 }

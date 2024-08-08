@@ -13,7 +13,7 @@ import {
 import { SignInWithRiot } from "../SignInWithRiot";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { routes } from "@/contants";
+import { ROUTE } from "@/contants";
 import { AccountAvatar } from "../AccountAvatar";
 import { useOAuth } from "@/providers/OAuthProvider";
 import { useTranslations } from "next-intl";
@@ -54,11 +54,11 @@ export const Header = memo(function Header() {
           />
         </Navbar.Brand>
         <Navbar.Collapse>
-          <Navbar.Link href={routes.HOME}>
-            <h2 className={activeNavbar([routes.HOME])}>{translate("home")}</h2>
+          <Navbar.Link href={ROUTE.HOME}>
+            <h2 className={activeNavbar([ROUTE.HOME])}>{translate("home")}</h2>
           </Navbar.Link>
-          <Navbar.Link href={routes.COLLECTION}>
-            <h2 className={activeNavbar([routes.COLLECTION])}>
+          <Navbar.Link href={ROUTE.COLLECTION}>
+            <h2 className={activeNavbar([ROUTE.COLLECTION])}>
               {translate("collection")}
             </h2>
           </Navbar.Link>
@@ -66,7 +66,7 @@ export const Header = memo(function Header() {
             <Dropdown
               label=""
               renderTrigger={() => (
-                <h2 className={activeNavbar([routes.TOS, routes.PRIVACY])}>
+                <h2 className={activeNavbar([ROUTE.TOS, ROUTE.PRIVACY])}>
                   {translate("legal")}
                 </h2>
               )}

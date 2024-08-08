@@ -1,11 +1,14 @@
-import { OAUTH_DEFAULT_VALUES } from "@/contants";
+"use server";
+
+import { COOKIE, OAUTH_DEFAULT_VALUES } from "@/contants";
 import { OAuthContextDefaultType } from "@/providers/OAuthProvider";
 import { cookies } from "next/headers";
 
-export async function accountInfo(): Promise<OAuthContextDefaultType> {
-  const jwt = cookies().get("jwt")?.value;
+export async function getAccountInfo(): Promise<OAuthContextDefaultType> {
+  const jwt = cookies().get(COOKIE.JWT)?.value;
+  const refToken = cookies().get(COOKIE.REFRESH_TOKEN)?.value;
 
-  if (!jwt) {
+  if (!jwt || !refToken) {
     return OAUTH_DEFAULT_VALUES;
   }
 
@@ -29,12 +32,12 @@ export async function accountInfo(): Promise<OAuthContextDefaultType> {
     },
   );
 
-  const account = await accountInfo.json();
-  const summoner = await summonerInfo.json();
-
-  if (summoner.status_code || account.status_code) {
+  if (accountInfo.status !== 200 || summonerInfo.status !== 200) {
     return OAUTH_DEFAULT_VALUES;
   }
+
+  const account = await accountInfo.json();
+  const summoner = await summonerInfo.json();
 
   return {
     id: account.puuid,

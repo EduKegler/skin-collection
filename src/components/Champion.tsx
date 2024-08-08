@@ -3,7 +3,7 @@
 import { IChampion } from "@/type";
 import { Skin } from "./Skin";
 import { memo, useMemo } from "react";
-import { orderBySkins } from "@/app/utils/sortSkin";
+import { orderBySkins } from "@/utils/sortSkin";
 import { useUserPreference } from "@/providers/UserPreferenceProvider";
 
 type ChampionProps = {

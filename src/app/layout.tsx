@@ -8,7 +8,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { OAuthProvider } from "@/providers/OAuthProvider";
 import { beaufort, spiegel } from "@/font";
-import { accountInfo } from "@/actions/signIn";
+import { getAccountInfo } from "@/actions/signIn";
 import { getLanguage } from "@/actions/language";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
@@ -55,7 +55,7 @@ export default async function RootLayout({
   const language = await getLanguage();
   const locale = await getLocale();
   const { collectFilter, tierFilter, legacyFilter, orderBy } = await getDefaultFilter();
-  const oauthValues = await accountInfo();
+  const oauthValues = await getAccountInfo();
   const messages = await getMessages();
 
   return (

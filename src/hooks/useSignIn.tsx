@@ -1,3 +1,4 @@
+import { BASE_REDIRECT_URI, CLIENT_ID } from "@/contants";
 import { useCallback, useMemo } from "react";
 
 export const useSignIn = () => {
@@ -6,8 +7,8 @@ export const useSignIn = () => {
 
   const params = useMemo(() => {
     return new URLSearchParams({
-      redirect_uri: process.env.NEXT_PUBLIC_RIOT_APPLICATION_CALLBACK ?? "",
-      client_id: process.env.NEXT_PUBLIC_RIOT_APPLICATION_CLIENT_ID ?? "",
+      redirect_uri: BASE_REDIRECT_URI,
+      client_id: CLIENT_ID,
       response_type,
       scope,
     });

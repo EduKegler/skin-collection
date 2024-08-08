@@ -6,7 +6,6 @@ import {
   COOKIE,
   ROUTE,
 } from "@/contants";
-import { getExpiresCookieDate } from "@/utils/getExpiresCookieDate";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -38,11 +37,8 @@ export async function GET(request: NextRequest) {
 
   const response = NextResponse.redirect(`${redirectUrl}/${ROUTE.COLLECTION}`);
 
-  const expires = getExpiresCookieDate(token.expires_in);
-
   response.cookies.set(COOKIE.JWT, token.access_token ?? "", {
     httpOnly: true,
-    expires,
   });
 
   response.cookies.set(COOKIE.REFRESH_TOKEN, token.refresh_token ?? "", {
