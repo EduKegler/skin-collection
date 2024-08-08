@@ -9,7 +9,7 @@ export async function getChampionList(
   userId: string,
 ): Promise<Record<string, IChampionAPI>> {
   const collectedSkins = await getSkinList(userId);
-  const file = await fs.readFile(process.cwd() + "/champions.json", "utf8");
+  const file = await fs.readFile(process.cwd() + "/public/champions.json", "utf8");
   const champions = JSON.parse(file);
   const reviews = await getGeneralReviews();
 
