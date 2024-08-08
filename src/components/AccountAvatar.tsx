@@ -28,7 +28,7 @@ export const AccountAvatar = memo(function AccountAvatar() {
           <div className="text-xs text-gray-500 dark:text-gray-400">Level: {level}</div>
         </div>
       </Avatar>
-      <Button onClick={handleLogout} size={"sm"} color={"gray"}>
+      <Button onClick={() => setVisible(true)} size={"sm"} color={"gray"}>
         <IoMdLogOut />
       </Button>
       <LogoutModal
