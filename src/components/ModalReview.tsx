@@ -15,6 +15,7 @@ import { RatingStars } from "./RatingStars";
 import { useOAuth } from "@/providers/OAuthProvider";
 import { addReview, getSkinReview, removeReview } from "@/actions/review";
 import clsx from "clsx";
+import { useTranslations } from "next-intl";
 
 type ModalReviewProps = {
   openModal: boolean;
@@ -46,6 +47,8 @@ export const ModalReview = memo(function ModalReview({
   const [reviews, setReviews] = useState<IReviewDetail[]>([]);
   const [loading, setLoading] = useState(false);
   const [changed, setChanged] = useState(false);
+
+  const translate = useTranslations("ModalReview");
 
   const prevReviewsLength = useRef(reviews.length);
   const { id: userId, nickName } = useOAuth();
@@ -119,10 +122,7 @@ export const ModalReview = memo(function ModalReview({
   return (
     <Flowbite theme={{ theme: customTheme }}>
       <Modal size={"2xl"} show={openModal} position={"center"} onClose={handleClose}>
-        <Modal.Header>
-          {skin.name}
-          {"'"}s Reviews
-        </Modal.Header>
+        <Modal.Header>{skin.name} - Reviews</Modal.Header>
         <Modal.Body className="relative p-0">
           <div
             className={clsx(
@@ -130,11 +130,7 @@ export const ModalReview = memo(function ModalReview({
               loading ? "flex" : "hidden",
             )}
           >
-            <Spinner
-              aria-label="Extra large spinner example"
-              size="xl"
-              color={"warning"}
-            />
+            <Spinner size="xl" color={"warning"} />
           </div>
           <div className="p-6">
             <div className="flex-col min-h-96">
@@ -153,25 +149,27 @@ export const ModalReview = memo(function ModalReview({
                     filledStars={Math.floor(Number(skin.rating.rating))}
                   >
                     <p className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-400">
-                      {rating} out of 5
+                      {rating} {translate("outof")} 5
                     </p>
                   </RatingStars>
                   <p className="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">
                     {reviews.length} {reviews.length > 1 ? "reviews" : "review"}
                   </p>
                   <Rating.Advanced percentFilled={stars[5]} className="mb-2">
-                    5 star
+                    5 {translate("star")}
                   </Rating.Advanced>
                   <Rating.Advanced percentFilled={stars[4]} className="mb-2">
-                    4 star
+                    4 {translate("star")}
                   </Rating.Advanced>
                   <Rating.Advanced percentFilled={stars[3]} className="mb-2">
-                    3 star
+                    3 {translate("star")}
                   </Rating.Advanced>
                   <Rating.Advanced percentFilled={stars[2]} className="mb-2">
-                    2 star
+                    2 {translate("star")}
                   </Rating.Advanced>
-                  <Rating.Advanced percentFilled={stars[1]}>1 star</Rating.Advanced>
+                  <Rating.Advanced percentFilled={stars[1]}>
+                    1 {translate("star")}
+                  </Rating.Advanced>
                 </div>
               </div>
               {!hasOwnerCommented && (

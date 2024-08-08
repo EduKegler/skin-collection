@@ -5,6 +5,7 @@ import { PrimaryButton } from "./PrimaryButton";
 import { useOAuth } from "@/providers/OAuthProvider";
 import { useSignIn } from "@/hooks/useSignIn";
 import { AiOutlineLoading } from "react-icons/ai";
+import { useTranslations } from "next-intl";
 
 type SendCommentProps = {
   onSuccess: (rating: number, comment?: string) => Promise<void>;
@@ -17,16 +18,18 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
   const { isConnected } = useOAuth();
   const { signIn } = useSignIn();
 
+  const translate = useTranslations("SendComment");
+
   const labels = useMemo(() => {
     return {
-      Rating: "Rating",
+      Rating: translate("rating"),
       5: <RatingStars filledStars={5} />,
       4: <RatingStars filledStars={4} />,
       3: <RatingStars filledStars={3} />,
       2: <RatingStars filledStars={2} />,
       1: <RatingStars filledStars={1} />,
     };
-  }, []);
+  }, [translate]);
 
   const handleChangeComment = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
@@ -47,8 +50,8 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
         onClick={signIn}
       >
         <span className="text-sm font-bold">
-          <span className="underline">Sign in</span>
-          <span> to review your collected skins.</span>
+          <span className="underline">{translate("signin")}</span>
+          <span>{translate("review")}</span>
         </span>
       </div>
     );
@@ -58,7 +61,7 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
     <div className="">
       <Textarea
         id="comment"
-        placeholder="Leave a comment..."
+        placeholder={translate("placeholder")}
         value={comment}
         onChange={handleChangeComment}
         required
@@ -77,7 +80,7 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
         </Dropdown>
         <Tooltip
           className={rating === "Rating" ? "block" : "hidden"}
-          content="Select a rating before send a comment"
+          content={translate("tooltip")}
           trigger={"hover"}
           placement="bottom"
         >
@@ -87,7 +90,7 @@ export const SendComment = memo(function SendComment({ onSuccess }: SendCommentP
             isProcessing={loading}
             processingSpinner={<AiOutlineLoading className="h-3 w-3 animate-spin" />}
           >
-            SEND
+            {translate("send")}
           </PrimaryButton>
         </Tooltip>
       </div>

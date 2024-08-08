@@ -49,6 +49,7 @@ export type IReviewGeneral = {
 };
 
 export type ILanguage = "pt_BR" | "en_US";
+export type ILocale = "pt" | "en";
 
 export type ISkinTier =
   | "Transcendent"

@@ -11,6 +11,7 @@ import { useOAuth } from "@/providers/OAuthProvider";
 import { useSignIn } from "@/hooks/useSignIn";
 import { collectSkin, uncollectSkin } from "@/actions/skins";
 import { SkinOverlay } from "./SkinOverlay";
+import { useTranslations } from "next-intl";
 
 type SkinProps = {
   id: string;
@@ -24,6 +25,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
   const { setChampions, refreshChampions } = useChampionsDispatch();
   const [loading, setLoading] = useState(false);
 
+  const translate = useTranslations("Skin");
   const { id: userId, isConnected } = useOAuth();
   const { signIn } = useSignIn();
 
@@ -84,10 +86,9 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
         )}
       >
         <span className="text-sm font-bold">
-          {skin.isCollected ? "Collected" : "Uncollected"}
+          {skin.isCollected ? translate("collected") : translate("uncollected")}
         </span>
       </div>
-
       <div
         className="flex-none w-full h-[280px] relative group cursor-pointer"
         onClick={loading ? undefined : handleCollect}

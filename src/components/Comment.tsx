@@ -3,6 +3,7 @@ import { memo, useCallback, useState } from "react";
 import { RatingStars } from "./RatingStars";
 import { Button } from "flowbite-react";
 import { AiOutlineLoading } from "react-icons/ai";
+import { useTranslations } from "next-intl";
 
 type CommentProps = {
   review: IReviewDetail;
@@ -10,6 +11,7 @@ type CommentProps = {
 };
 export const Comment = memo(function Comment({ review, onDelete }: CommentProps) {
   const [loading, setLoading] = useState(false);
+  const translate = useTranslations("Comment");
   const handleDeleteComment = useCallback(async () => {
     setLoading(true);
     await onDelete(review.userId, review.rating);
@@ -33,7 +35,7 @@ export const Comment = memo(function Comment({ review, onDelete }: CommentProps)
           isProcessing={loading}
           processingSpinner={<AiOutlineLoading className="h-3 w-3 animate-spin" />}
         >
-          Delete
+          {translate("delete")}
         </Button>
       )}
     </article>

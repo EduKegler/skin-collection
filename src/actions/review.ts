@@ -2,6 +2,7 @@
 import { TABLE } from "@/contants";
 import { IReviewDetail, IReviewGeneral } from "@/type";
 import { Redis } from "@upstash/redis";
+import { getLocale } from "./language";
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
@@ -36,7 +37,15 @@ export async function addReview(
   rating: number,
   comment?: string,
 ) {
-  await redis.lpush(`${TABLE.REVIEWS}:${skinId}`, { userId, nickName, rating, comment });
+  const locale = getLocale();
+  await redis.lpush(`${TABLE.REVIEWS}:${skinId}`, {
+    userId,
+    nickName,
+    rating,
+    comment,
+    locale,
+    dateTime: Date.now(),
+  });
   const reviews = (await redis.get(TABLE.REVIEWS)) as IReviewGeneral;
   const ratingsBySkin = reviews ? (reviews[skinId] ?? []) : [];
   const reviewList = { ...reviews, [skinId]: [...ratingsBySkin, rating] };

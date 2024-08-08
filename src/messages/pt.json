@@ -6,6 +6,9 @@
     "tos": "Termos de Serviço",
     "privacy": "Política de Privacidade"
   },
+  "Search": {
+    "placeholder": "Busque campeões e skins..."
+  },
   "CollectedFilter": {
     "all": "Todos",
     "collect": "Coletados",
@@ -37,5 +40,34 @@
     "rarity": "Raridade",
     "reviews": "Quantidade de Reviews",
     "rating": "Nota"
+  },
+  "ChampionList": {
+    "load": "Carregar mais"
+  },
+  "Skin": {
+    "collected": "Coletado",
+    "uncollected": "Não Coletado"
+  },
+  "SkinOverlay": {
+    "loading": "Carregando...",
+    "signin": "Entre",
+    "track": " para acompanhar suas skins coletadas.",
+    "collected": "Coletado?",
+    "uncollected": "Não coletado?"
+  },
+  "ModalReview": {
+    "outof": "de",
+    "star": "estrela"
+  },
+  "SendComment": {
+    "signin": "Entre",
+    "review": " para deixar um review.",
+    "send": "Enviar",
+    "placeholder": "Deixe um comentário...",
+    "tooltip": "Selecione uma nota antes de enviar um comentário.",
+    "rating": "Nota"
+  },
+  "Comment": {
+    "delete": "Deletar"
   }
 }
