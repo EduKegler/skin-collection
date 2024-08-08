@@ -5,8 +5,8 @@ import {
 } from "@/providers/UserPreferenceProvider";
 import { ILanguage } from "@/type";
 import { Button, Dropdown } from "flowbite-react";
-import Image from "next/image";
 import { memo, ReactNode, useCallback, useMemo } from "react";
+import { FlagImage } from "../FlagImage";
 
 export const LanguageSelect = memo(function LanguageSelect() {
   const { language } = useUserPreference();
@@ -23,32 +23,13 @@ export const LanguageSelect = memo(function LanguageSelect() {
     return {
       pt_BR: (
         <span className="flex gap-2">
-          <Image
-            className="self-center h-auto inline w-[20px]"
-            sizes="100vw"
-            width={0}
-            height={0}
-            unoptimized
-            src={"br.svg"}
-            alt={"pt_BR"}
-            priority
-          />
+          <FlagImage locale="pt" />
           PT-BR
         </span>
       ),
-
       en_US: (
         <span className="flex gap-2">
-          <Image
-            className="self-center h-auto inline  w-[20px]"
-            src={"us.svg"}
-            alt={"en_US"}
-            width={0}
-            height={0}
-            unoptimized
-            sizes="100vw"
-            priority
-          />
+          <FlagImage locale="en" />
           EN-US
         </span>
       ),

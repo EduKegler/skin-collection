@@ -37,7 +37,7 @@ export async function addReview(
   rating: number,
   comment?: string,
 ) {
-  const locale = getLocale();
+  const locale = await getLocale();
   await redis.lpush(`${TABLE.REVIEWS}:${skinId}`, {
     userId,
     nickName,

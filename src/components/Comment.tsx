@@ -4,6 +4,7 @@ import { RatingStars } from "./RatingStars";
 import { Button } from "flowbite-react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { useTranslations } from "next-intl";
+import { FlagImage } from "./FlagImage";
 
 type CommentProps = {
   review: IReviewDetail;
@@ -18,14 +19,18 @@ export const Comment = memo(function Comment({ review, onDelete }: CommentProps)
     setLoading(true);
   }, [onDelete, review.rating, review.userId]);
 
+  const date = new Date(review.dateTime).toLocaleString();
+
   return (
     <article className="flex justify-between items-center bg-gray-800 p-4 border rounded-md border-gray-600">
       <div className="flex  flex-col gap-2 ">
         <h5 className="flex gap-2 font-bold text-sm">
+          <FlagImage locale={review.locale} />
           {review.nickName}
           <RatingStars filledStars={review.rating} />
         </h5>
         <p className="text-md text-gray-400">{review.comment}</p>
+        <p className="text-xs text-gray-400 italic">{date}</p>
       </div>
       {review.isOwner && (
         <Button

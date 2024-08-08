@@ -42,6 +42,8 @@ export type IReviewDetail = {
   nickName: string;
   comment?: string;
   isOwner: boolean;
+  locale: ILocale;
+  dateTime: number;
 };
 
 export type IReviewGeneral = {
