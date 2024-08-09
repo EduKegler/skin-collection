@@ -1,5 +1,5 @@
+import { Privacy } from "@/components/pages/Privacy";
 import React from "react";
-import { Privacy } from "@/components/Privacy";
 
 export default async function Page() {
   return <Privacy />;

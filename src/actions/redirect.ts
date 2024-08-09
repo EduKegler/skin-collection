@@ -8,3 +8,7 @@ export async function homepage() {
 export async function collection() {
   redirect(ROUTE.COLLECTION);
 }
+
+export async function logout() {
+  redirect(ROUTE.LOGOUT);
+}

@@ -1,28 +1,28 @@
 "use client";
 
 import { Champion } from "@/components/Champion";
-import { CollectedFilter } from "./filters/CollectedFilter";
-import { TierFilter } from "./filters/TierFilter";
+import { CollectedFilter } from "../filters/CollectedFilter";
+import { TierFilter } from "../filters/TierFilter";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useChampions } from "@/providers/ChampionsProvider";
-import { PrimaryButton } from "./PrimaryButton";
-import { LegacySkinFilter } from "./filters/LegacySkinFilter";
+import { PrimaryButton } from "../PrimaryButton";
+import { LegacySkinFilter } from "../filters/LegacySkinFilter";
 import { filterSkin } from "@/utils/filterSkin";
-import { NoData } from "./NoData";
+import { NoData } from "../NoData";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { Search } from "./filters/Search";
-import { OrderSkinBy } from "./filters/OrderSkinBy";
+import { Search } from "../filters/Search";
+import { OrderSkinBy } from "../filters/OrderSkinBy";
 import { useUserPreference } from "@/providers/UserPreferenceProvider";
 import { useTranslations } from "next-intl";
-import { ClearFilter } from "./filters/ClearFilter";
+import { ClearFilter } from "../filters/ClearFilter";
 import { orderBySkins } from "@/utils/sortSkin";
 
-export const ChampionList = memo(function ChampionList() {
+export const Collection = memo(function Collection() {
   const { search, tierFilter, collectFilter, legacyFilter } = useUserPreference();
   const { champions } = useChampions();
   const [visibleImages, setVisibleImages] = useState(6);
   const [hasMore, setHasMore] = useState(true);
-  const translate = useTranslations("ChampionList");
+  const translate = useTranslations("Collection");
 
   const { orderBy } = useUserPreference();
 

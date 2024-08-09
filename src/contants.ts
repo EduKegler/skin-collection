@@ -3,7 +3,9 @@ import { ICollectFilter, ILanguage, ILegacyFilter, IOrderBy, ITierFilter } from 
 export const BASE_RIOT_URL = "https://auth.riotgames.com";
 export const CLIENT_ID = process.env.NEXT_PUBLIC_RIOT_APPLICATION_CLIENT_ID ?? "";
 export const CLIENT_SECRET = process.env.RIOT_APPLICATION_CLIENT_SECRET ?? "";
-export const BASE_REDIRECT_URI = process.env.NEXT_PUBLIC_RIOT_APPLICATION_CALLBACK ?? "";
+export const BASE_REDIRECT_URI =
+  process.env.NEXT_PUBLIC_BASE_URL + "/oauth/callback" ?? "";
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 
 export const ROUTE = {
   HOME: "/",
@@ -11,6 +13,7 @@ export const ROUTE = {
   TOS: "/tos",
   PRIVACY: "/privacy",
   DONATE: "/donate",
+  LOGOUT: "/logout",
 } as const;
 
 export const OAUTH_DEFAULT_VALUES = {
@@ -26,6 +29,8 @@ export const TABLE = {
   SKINS: "skins",
   REVIEWS: "reviews",
   SIGNINS: "signins",
+  LOG_SIGNIN: "log:signin",
+  LOG_SIGNOUT: "log:signout",
 };
 
 export const COOKIE = {

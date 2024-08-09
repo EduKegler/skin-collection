@@ -1,3 +1,4 @@
+import { logSignIn } from "@/actions/log";
 import {
   BASE_REDIRECT_URI,
   BASE_RIOT_URL,
@@ -48,6 +49,8 @@ export async function GET(request: NextRequest) {
   response.cookies.set(COOKIE.REFRESH_TOKEN, token.refresh_token ?? "", {
     httpOnly: true,
   });
+
+  logSignIn(token.access_token);
 
   return response;
 }

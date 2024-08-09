@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { Text } from "./typograph/Text";
-import { Title } from "./typograph/Title";
+import { Text } from "../typograph/Text";
+import { Title } from "../typograph/Title";
 import { memo } from "react";
 import { HR } from "flowbite-react";
 

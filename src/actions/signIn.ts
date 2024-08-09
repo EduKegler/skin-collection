@@ -4,11 +4,14 @@ import { COOKIE, OAUTH_DEFAULT_VALUES } from "@/contants";
 import { OAuthContextDefaultType } from "@/providers/OAuthProvider";
 import { cookies } from "next/headers";
 
-export async function getAccountInfo(): Promise<OAuthContextDefaultType> {
-  const jwt = cookies().get(COOKIE.JWT)?.value;
-  const refToken = cookies().get(COOKIE.REFRESH_TOKEN)?.value;
+export async function getAccountInfo(
+  deafultJwt?: string,
+  defaultRefreshToken?: string,
+): Promise<OAuthContextDefaultType> {
+  const jwt = deafultJwt ?? cookies().get(COOKIE.JWT)?.value;
+  const refreshToken = defaultRefreshToken ?? cookies().get(COOKIE.REFRESH_TOKEN)?.value;
 
-  if (!jwt || !refToken) {
+  if (!jwt || !refreshToken) {
     return OAUTH_DEFAULT_VALUES;
   }
 
