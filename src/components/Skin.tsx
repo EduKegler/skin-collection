@@ -75,6 +75,8 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
     }
   }, [handleClick, isConnected, signIn]);
 
+  const sourceImageId = id === "Fiddlesticks" ? "FiddleSticks" : id;
+
   return (
     <div className={clsx("text-center w-[154px]")}>
       <div
@@ -94,7 +96,7 @@ export const Skin = memo(function Skin({ id, skin, index }: SkinProps) {
       >
         <Image
           priority={index <= 4}
-          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${id}_${skin.num}.jpg`}
+          src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${sourceImageId}_${skin.num}.jpg`}
           alt={skin.name}
           fill={true}
           loading={index > 4 ? "lazy" : "eager"}

@@ -26,7 +26,7 @@ async function main() {
     if (Object.prototype.hasOwnProperty.call(champions, champion)) {
       const currentChampion = champions[champion];
       championSkins[champion] = {
-        id: currentChampion.id === "Fiddlesticks" ? "FiddleSticks" : currentChampion.id,
+        id: currentChampion.id,
         name: currentChampion.name,
         skins: currentChampion.skins.reduce((list, skin) => {
           if (skin.num) {
@@ -49,7 +49,7 @@ async function main() {
     }
   }
 
-  await fs.writeFile("/champions.json", JSON.stringify(championSkins, null, 2));
+  await fs.writeFile("champions.json", JSON.stringify(championSkins, null, 2));
 }
 
 main().catch(console.error);
