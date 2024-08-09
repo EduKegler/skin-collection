@@ -80,5 +80,75 @@
   },
   "ClearFilter": {
     "clear": "Limpar Filtros"
+  },
+  "ConfirmDeleteModal": {
+    "title": "você tem certeza que quer remover?",
+    "confirm": "Sim, tenho certeza",
+    "cancel": "Não, cancelar"
+  },
+  "NoData": {
+    "title": "Nenhum Campeão ou Skin Encontrado",
+    "description": "Parece que nenhum campeão corresponde aos filtros que você aplicou."
+  },
+  "NotFound": {
+    "title": "Página Não Encontrada",
+    "description": "Desculpe, não conseguimos encontrar a página que você estava procurando.",
+    "button": "Voltar para coleção"
+  },
+  "Footer": {
+    "copyright": "Todos os direitos reservados. Skin Collection não é endossado pela Riot Games e não reflete as opiniões ou visões da Riot Games ou de qualquer pessoa oficialmente envolvida na produção ou gestão de League of Legends.",
+    "trademark": "League of Legends e Riot Games são marcas registradas ou marcas comerciais da Riot Games, Inc.",
+    "by": "Skin Collection.",
+    "riotGamesBy": "Riot Games, Inc."
+  },
+  "TOS": {
+    "title": "Termos de Serviço para Skin Collection",
+    "lastUpdated": "Última Atualização: 31 de Julho de 2024",
+    "intro": "Skin Collection (\"Skin Collection\", \"nós\", \"nosso\" ou \"Patrocinador\") oferece uma plataforma projetada para melhorar a experiência do usuário por meio de análises especializadas e ferramentas. Esta plataforma inclui verificar quais skins a conta coletou, revisar e avaliar skins (coletivamente, os \"Serviços\"). Por favor, leia estes Termos de Serviço (os \"Termos\") e nossa Política de Privacidade com atenção, pois eles regem o uso de nossos Serviços.",
+    "acceptance": "Aceitação dos Termos",
+    "acceptanceText": "Ao acessar ou usar nossos Serviços, você concorda em cumprir estes Termos e nossa Política de Privacidade. Se você não concorda com estes Termos, não poderá usar os Serviços. Podemos atualizar estes Termos periodicamente. O uso contínuo dos Serviços após essas atualizações constitui sua aceitação das alterações.",
+    "intellectualProperty": "Propriedade Intelectual",
+    "intellectualPropertyText": "Todo o conteúdo e materiais fornecidos através dos Serviços são de propriedade da Skin Collection e/ou de seus licenciadores e são protegidos por leis de propriedade intelectual. Você não pode reproduzir, distribuir ou criar trabalhos derivados de qualquer parte dos Serviços sem permissão expressa da Skin Collection.",
+    "useLicense": "Licença de Uso",
+    "useLicenseText": "Concedemos a você uma licença limitada, não exclusiva e intransferível para acessar e usar os Serviços para uso pessoal e não comercial. Esta licença está sujeita a estes Termos e não permite: Modificação ou cópia dos materiais; Uso para fins comerciais ou exibição pública; Engenharia reversa ou descompilação de qualquer software; Remoção de avisos de propriedade dos materiais. Esta licença pode ser encerrada pela Skin Collection a qualquer momento, por qualquer motivo.",
+    "registration": "Registro e Informações de Conta",
+    "registrationText": "Algumas partes dos Serviços podem exigir registro. Você concorda em fornecer informações precisas e atualizadas durante o registro e atualizá-las conforme necessário. Você é responsável por proteger as credenciais de sua conta e concorda em nos notificar imediatamente sobre qualquer uso não autorizado.",
+    "paidServices": "Serviços Pagos",
+    "paidServicesText": "Certos recursos dos Serviços podem exigir uma assinatura paga. Ao assinar, você concorda com os termos de pagamento e quaisquer condições de renovação automática. As taxas de assinatura não são reembolsáveis, e o cancelamento não dá direito a um reembolso, mas permitirá o acesso até o final do período de assinatura.",
+    "competitions": "Competições",
+    "competitionsText": "Se a Skin Collection oferecer competições, termos adicionais serão aplicados. Você deve concordar com esses termos adicionais para participar. A Skin Collection reserva-se o direito de modificar ou cancelar qualquer competição a seu critério.",
+    "disclaimers": "Isenções de Responsabilidade e Limitação de Responsabilidade",
+    "disclaimersText": "Os Serviços são fornecidos \"como estão\", sem garantias de qualquer tipo. A Skin Collection não garante a precisão, confiabilidade ou disponibilidade dos Serviços. Na máxima extensão permitida por lei, a Skin Collection não é responsável por quaisquer danos decorrentes do uso dos Serviços.",
+    "indemnification": "Indenização",
+    "indemnificationText": "Você concorda em indenizar e isentar a Skin Collection de quaisquer reclamações, danos ou despesas decorrentes do seu uso dos Serviços ou violação destes Termos.",
+    "arbitration": "Arbitragem Vinculativa e Renúncia a Ação Coletiva",
+    "arbitrationText": "Todas as disputas decorrentes ou relacionadas a estes Termos serão resolvidas por meio de arbitragem vinculativa, e não em tribunal. Você renuncia ao seu direito de participar de uma ação coletiva ou arbitragem coletiva.",
+    "miscellaneous": "Disposições Gerais",
+    "miscellaneousText": "Acordo Integral: Estes Termos, juntamente com quaisquer termos adicionais que possamos fornecer, constituem o acordo integral entre você e a Skin Collection. Renúncia e Separabilidade: Se qualquer disposição destes Termos for considerada inválida, as disposições restantes continuarão em vigor. Lei Aplicável: Estes Termos são regidos pelas leis do Brasil."
+  },
+  "Privacy": {
+    "title": "Política de Privacidade da Skin Collection",
+    "informationCollection": "Informações que Coletamos",
+    "informationCollectionText": "Ao usar o aplicativo SkinCollection, coletamos seu ID de conta através do sistema de autenticação Riot Sign On. Este ID é usado para associar informações sobre skins adquiridas e avaliações dos usuários. Não coletamos informações pessoais adicionais, como nome, e-mail ou dados de pagamento.",
+    "useOfInformation": "Uso das Informações",
+    "useOfInformationText": "As informações coletadas são usadas para: Catalogar skins adquiridas pelos usuários no jogo League of Legends. Permitir que os usuários avaliem e revisem skins. Personalizar a experiência do usuário dentro do aplicativo.",
+    "useOfCookies": "Uso de Cookies",
+    "useOfCookiesText": "O aplicativo Skin Collection pode usar cookies para melhorar a experiência do usuário, lembrando preferências e sessões.",
+    "protectionOfInformation": "Proteção das Informações",
+    "protectionOfInformationText": "Implementamos uma variedade de medidas de segurança para manter a segurança de suas informações pessoais.",
+    "sharingOfInformation": "Compartilhamento de Informações",
+    "sharingOfInformationText": "Não vendemos, trocamos ou transferimos informações pessoalmente identificáveis para terceiros. As informações só podem ser compartilhadas para cumprir a lei, aplicar nossas políticas ou proteger nossos direitos, propriedade ou segurança.",
+    "gdprCompliance": "Conformidade com o GDPR",
+    "gdprComplianceText": "Para usuários na Área Econômica Europeia (EEA), aderimos ao Regulamento Geral de Proteção de Dados (GDPR). Você tem o direito de acessar, corrigir ou excluir seus dados pessoais. Para exercer esses direitos, entre em contato conosco.",
+    "childrensPrivacy": "Privacidade das Crianças",
+    "childrensPrivacyText": "Não coletamos intencionalmente informações de ninguém com menos de 13 anos. Nosso aplicativo é direcionado a pessoas com pelo menos 13 anos de idade.",
+    "onlinePrivacyPolicy": "Política de Privacidade Online",
+    "onlinePrivacyPolicyText": "Esta política de privacidade online aplica-se apenas às informações coletadas através do nosso aplicativo e não às informações coletadas offline.",
+    "consent": "Consentimento",
+    "consentText": "Ao usar nosso aplicativo, você concorda com nossa política de privacidade.",
+    "changesToPrivacyPolicy": "Alterações na Nossa Política de Privacidade",
+    "changesToPrivacyPolicyText": "Se decidirmos alterar nossa política de privacidade, publicaremos essas alterações nesta página. Esta política foi modificada pela última vez em 31 de julho de 2024.",
+    "contactUs": "Contate-Nos",
+    "contactUsText": "Se você tiver alguma dúvida sobre esta política de privacidade, entre em contato conosco em [insira as informações de contato]."
   }
 }

@@ -81,5 +81,75 @@
   },
   "ClearFilter": {
     "clear": "Clear Filters"
+  },
+  "ConfirmDeleteModal": {
+    "title": "Are you sure you want to delete?",
+    "confirm": "Yes, I'm sure",
+    "cancel": "No, cancel"
+  },
+  "NoData": {
+    "title": "No Champions or Skins Found",
+    "description": "It seems that no champions match the filters you’ve applied."
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn't find the page you're looking for.",
+    "button": "Return to Collection"
+  },
+  "Footer": {
+    "copyright": "All rights reserved. Skin Collection isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.",
+    "trademark": "League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc.",
+    "by": "Skin Collection.",
+    "riotGamesBy": "Riot Games, Inc."
+  },
+  "TOS": {
+    "title": "Terms of Service for Skin Collection",
+    "lastUpdated": "Last Updated: July 31, 2024",
+    "intro": "Skin Collection (\"Skin Collection\", \"we\", \"us\", \"our\", or \"Sponsor\") offers a platform designed to enhance user experiences through expert analytics and tools. This platform includes checking which skins the account collected, reviewing and rating skins (collectively, the \"Services\"). Please read these Terms of Service (the \"Terms\") and our Privacy Policy carefully as they govern your use of our Services.",
+    "acceptance": "Acceptance of Terms",
+    "acceptanceText": "By accessing or using our Services, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not use the Services. We may update these Terms from time to time. Continued use of the Services after such updates constitutes your acceptance of the changes.",
+    "intellectualProperty": "Intellectual Property",
+    "intellectualPropertyText": "All content and materials provided through the Services are owned by Skin Collection and/or its licensors and are protected by intellectual property laws. You may not reproduce, distribute, or create derivative works from any part of the Services without express permission from Skin Collection.",
+    "useLicense": "Use License",
+    "useLicenseText": "We grant you a limited, non-exclusive, non-transferable license to access and use the Services for personal, non-commercial use. This license is subject to these Terms and does not allow: Modification or copying of the materials; Use for commercial purposes or public display; Reverse engineering or decompiling any software; Removing proprietary notices from materials. This license may be terminated by Skin Collection at any time for any reason.",
+    "registration": "Registration and Account Information",
+    "registrationText": "Some parts of the Services may require registration. You agree to provide accurate and current information during registration and to update it as necessary. You are responsible for safeguarding your account credentials and agree to notify us immediately of any unauthorized use.",
+    "paidServices": "Paid Services",
+    "paidServicesText": "Certain features of the Services may require a paid subscription. By subscribing, you agree to the payment terms and any auto-renewal conditions. Subscription fees are non-refundable, and cancellation does not entitle you to a refund but will allow access until the end of the subscription term.",
+    "competitions": "Competitions",
+    "competitionsText": "If Skin Collection offers competitions, additional terms will apply. You must agree to these additional terms to participate. Skin Collection reserves the right to modify or cancel any competition at its discretion.",
+    "disclaimers": "Disclaimers and Limitation of Liability",
+    "disclaimersText": "The Services are provided \"as is\" without warranties of any kind. Skin Collection does not guarantee the accuracy, reliability, or availability of the Services. To the maximum extent permitted by law, Skin Collection is not liable for any damages arising from your use of the Services.",
+    "indemnification": "Indemnification",
+    "indemnificationText": "You agree to indemnify and hold Skin Collection harmless from any claims, damages, or expenses arising from your use of the Services or violation of these Terms.",
+    "arbitration": "Binding Arbitration and Class Action Waiver",
+    "arbitrationText": "All disputes arising from or relating to these Terms shall be resolved through binding arbitration, not in court. You waive your right to participate in a class action lawsuit or class-wide arbitration.",
+    "miscellaneous": "Miscellaneous",
+    "miscellaneousText": "Entire Agreement: These Terms, along with any additional terms we may provide, constitute the entire agreement between you and Skin Collection. Waiver and Severability: If any provision of these Terms is found invalid, the remaining provisions will continue in effect. Governing Law: These Terms are governed by the laws of Brazil."
+  },
+  "Privacy": {
+    "title": "Privacy Policy for Skin Collection",
+    "informationCollection": "Information We Collect",
+    "informationCollectionText": "When using the SkinCollection app, we collect your account ID through the Riot Sign On authentication system. This ID is used to associate information about acquired skins and user reviews. We do not collect additional personal information such as name, email, or payment data.",
+    "useOfInformation": "Use of Information",
+    "useOfInformationText": "The information collected is used to: Catalog skins acquired by users in the game League of Legends. Allow users to rate and review skins. Personalize the user experience within the app.",
+    "useOfCookies": "Use of Cookies",
+    "useOfCookiesText": "The Skin Collection app may use cookies to enhance the user experience by remembering preferences and sessions.",
+    "protectionOfInformation": "Protection of Information",
+    "protectionOfInformationText": "We implement a variety of security measures to maintain the safety of your personal information.",
+    "sharingOfInformation": "Sharing of Information",
+    "sharingOfInformationText": "We do not sell, trade, or transfer personally identifiable information to third parties. Information may only be shared to comply with the law, enforce our policies, or protect our rights, property, or safety.",
+    "gdprCompliance": "GDPR Compliance",
+    "gdprComplianceText": "For users in the European Economic Area (EEA), we adhere to the General Data Protection Regulation (GDPR). You have the right to access, correct, or delete your personal data. To exercise these rights, please contact us.",
+    "childrensPrivacy": "Children's Privacy",
+    "childrensPrivacyText": "We do not knowingly collect information from anyone under the age of 13. Our app is directed to people who are at least 13 years old.",
+    "onlinePrivacyPolicy": "Online Privacy Policy",
+    "onlinePrivacyPolicyText": "This online privacy policy applies only to information collected through our app and not to information collected offline.",
+    "consent": "Consent",
+    "consentText": "By using our app, you consent to our privacy policy.",
+    "changesToPrivacyPolicy": "Changes to Our Privacy Policy",
+    "changesToPrivacyPolicyText": "If we decide to change our privacy policy, we will post those changes on this page. This policy was last modified on July 31, 2024.",
+    "contactUs": "Contact Us",
+    "contactUsText": "If you have any questions regarding this privacy policy, you may contact us at [insert contact information]."
   }
 }

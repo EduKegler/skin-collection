@@ -5,14 +5,18 @@ import { Button } from "flowbite-react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { useTranslations } from "next-intl";
 import { FlagImage } from "./FlagImage";
+import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 type CommentProps = {
   review: IReviewDetail;
   onDelete: (userId: string, rating: number) => Promise<void>;
 };
 export const Comment = memo(function Comment({ review, onDelete }: CommentProps) {
+  const [visible, setVisible] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const translate = useTranslations("Comment");
+
   const handleDeleteComment = useCallback(async () => {
     setLoading(true);
     await onDelete(review.userId, review.rating);
@@ -33,15 +37,22 @@ export const Comment = memo(function Comment({ review, onDelete }: CommentProps)
         <p className="text-xs text-gray-400 italic">{date}</p>
       </div>
       {review.isOwner && (
-        <Button
-          color="gray"
-          size={"xs"}
-          onClick={handleDeleteComment}
-          isProcessing={loading}
-          processingSpinner={<AiOutlineLoading className="h-3 w-3 animate-spin" />}
-        >
-          {translate("delete")}
-        </Button>
+        <>
+          <Button
+            color="gray"
+            size={"xs"}
+            onClick={() => setVisible(true)}
+            isProcessing={loading}
+            processingSpinner={<AiOutlineLoading className="h-3 w-3 animate-spin" />}
+          >
+            {translate("delete")}
+          </Button>
+          <ConfirmDeleteModal
+            visible={visible}
+            onClose={() => setVisible(false)}
+            onConfirm={handleDeleteComment}
+          />
+        </>
       )}
     </article>
   );

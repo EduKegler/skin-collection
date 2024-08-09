@@ -20,7 +20,7 @@ export const SkinOverlay = memo(function SkinOverlay({
 
   if (isLoading) {
     return (
-      <div className={clsx(className, "bg-gray-900", "group-hover:opacity-100")}>
+      <div className={clsx(className, "bg-gray-900", "opacity-100")}>
         <span className="text-sm font-bold">{translate("loading")}</span>
       </div>
     );

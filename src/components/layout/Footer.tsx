@@ -1,8 +1,10 @@
 "use client";
 import { memo } from "react";
 import { Footer as BaseFooter } from "flowbite-react";
+import { useTranslations } from "next-intl";
 
 export const Footer = memo(function Footer() {
+  const translate = useTranslations("Footer");
   return (
     <BaseFooter
       container
@@ -11,16 +13,13 @@ export const Footer = memo(function Footer() {
       <span className="text-xs">
         <BaseFooter.Copyright
           className="inline text-xs"
-          by="Skin Collection."
+          by={translate("by")}
           year={2024}
         />{" "}
-        All rights reserved. Skin Collection {"isn't "}
-        endorsed by Riot Games and {"doesn't "} reflect the views or opinions of Riot
-        Games or anyone officially involved in producing or managing League of Legends.
+        {translate("copyright")}
         <br />
-        League of Legends and Riot Games are trademarks or registered trademarks of Riot
-        Games, Inc. League of Legends{" "}
-        <BaseFooter.Copyright className="inline text-xs" by="Riot Games, Inc." />
+        {translate("trademark")}{" "}
+        <BaseFooter.Copyright className="inline text-xs" by={translate("riotGamesBy")} />
       </span>
     </BaseFooter>
   );
