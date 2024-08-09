@@ -52,7 +52,7 @@ export const Search = memo(function Search() {
       <SecondaryButton
         onClick={() => setSearch("")}
         size={"xs"}
-        className="rounded-l-none flex justify-center items-center"
+        className="rounded-l-none flex justify-center items-center border-l-0"
       >
         <MdClear className="h-4 w-4" />
       </SecondaryButton>
